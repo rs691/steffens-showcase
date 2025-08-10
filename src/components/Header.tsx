@@ -1,12 +1,12 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import { Menu, Sprout } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Sprout } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -16,11 +16,14 @@ const navLinks = [
   { href: "/calendar", label: "Calendar" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
+  { href: "/custom-sign", label: "Custom Sign" },
 ];
 
 const externalLinks = [
+  // connects to the shopify headless store and cart. Needs to be configured before use. By default, shopify landing page
   { href: "https://shopify.com", label: "Shop" },
-  { href: "https://shopify.com/cart", label: "Cart" },
+  // { href: "https://shopify.com/cart", label: "Cart" },
+   { href: "/cart", label: "Cart" },
 ];
 
 export function Header() {
