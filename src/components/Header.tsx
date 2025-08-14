@@ -17,6 +17,7 @@ const navLinks = [
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
   { href: "/custom-sign", label: "Custom Sign" },
+  { href: "/login", label: "Login" },
 ];
 
 const externalLinks = [
@@ -24,6 +25,7 @@ const externalLinks = [
   { href: "https://shopify.com", label: "Shop" },
   // { href: "https://shopify.com/cart", label: "Cart" },
    { href: "/cart", label: "Cart" },
+   { href: "/register", label: "Register" }
 ];
 
 export function Header() {

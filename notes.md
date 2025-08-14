@@ -1,3 +1,4 @@
+# Copy of the OG JSON file 
 {
   "name": "nextn",
   "version": "0.1.0",
@@ -37,6 +38,8 @@
     "date-fns": "^3.6.0",
     "dotenv": "^16.5.0",
     "embla-carousel-react": "^8.6.0",
+    "firebase": "^11.9.1",
+    "genkit": "^1.13.0",
     "lucide-react": "^0.475.0",
     "next": "15.3.3",
     "patch-package": "^8.0.0",
@@ -53,8 +56,10 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "genkit-cli": "^1.13.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
 }
+Gemeni API KEY = AIzaSyCoQ92FYKXxM6c7yaUmNCgi0C5I1XzCdbA

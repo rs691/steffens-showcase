@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 
+
 export default function AboutPage() {
   return (
     <div className="container mx-auto max-w-5xl py-12 px-4 sm:px-6 lg:px-8">
@@ -12,7 +13,7 @@ export default function AboutPage() {
       <Card className="overflow-hidden shadow-lg">
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="p-8 md:p-12 flex flex-col justify-center">
-            <h2 className="text-3xl font-headline font-semibold mb-4">Steffen, The Artisan</h2>
+            <h2 className="text-3xl font-headline font-semibold mb-4">The Artisan</h2>
             <div className="space-y-4 text-muted-foreground text-base leading-relaxed">
               <p>
                 From a young age, I was fascinated by the transformative power of woodworking. What begins as a rough-hewn log can, with patience and skill, become a thing of beauty and function. My workshop is my sanctuary, a place where traditional techniques meet contemporary design.
@@ -27,12 +28,15 @@ export default function AboutPage() {
           </div>
           <div className="relative h-64 md:h-full min-h-[300px]">
             <Image
-              src="https://placehold.co/600x800.png"
-              alt="Portrait of Steffen"
-              layout="fill"
-              objectFit="cover"
-              className="w-full h-full"
-              data-ai-hint="artisan portrait"
+              src="/chair.svg"
+              alt="Custom Chair"
+              fill
+              className="w-full h-full object-cover"
+            />
+            <img
+              src="/customChair.svg"
+              alt="Custom Chair"
+              className="w-full h-full object-cover"
             />
           </div>
         </div>
