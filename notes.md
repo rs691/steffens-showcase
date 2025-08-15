@@ -63,3 +63,6 @@
   }
 }
 Gemeni API KEY = AIzaSyCoQ92FYKXxM6c7yaUmNCgi0C5I1XzCdbA
+
+### run on specified port command
+## npm run dev -- --port 9003
