@@ -1,5 +1,4 @@
 import { Card } from "@/components/ui/card";
-import Image from "next/image";
 
 
 export default function AboutPage() {
@@ -16,7 +15,9 @@ export default function AboutPage() {
             <h2 className="text-3xl font-headline font-semibold mb-4">The Artisan</h2>
             <div className="space-y-4 text-muted-foreground text-base leading-relaxed">
               <p>
-                From a young age, I was fascinated by the transformative power of woodworking. What begins as a rough-hewn log can, with patience and skill, become a thing of beauty and function. My workshop is my sanctuary, a place where traditional techniques meet contemporary design.
+                From a young age, I was fascinated by the transformative power of woodworking and the possibilities that are possible through technology advancements. 
+                By combining traditional craftsmanship with modern techniques, I strive to create pieces that are not only functional but also works of art.
+                What begins as a rough-hewn log can, with patience and skill, become a thing of beauty and function. My workshop is my sanctuary, a place where traditional techniques meet contemporary design.
               </p>
               <p>
                 Every piece I create is imbued with a story. It's a dialogue between me, the wood, and the future owner. I source my materials sustainably, believing that the respect we show our environment is reflected in the quality of our work.
@@ -27,15 +28,15 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="relative h-64 md:h-full min-h-[300px]">
-            <Image
-              src="/chair.svg"
-              alt="Custom Chair"
+            {/* <Image
+              src="/steffens-showcase/mahagDesk.svg"
+              alt="Custom Desk"
               fill
               className="w-full h-full object-cover"
-            />
+            /> */}
             <img
-              src="/customChair.svg"
-              alt="Custom Chair"
+              src="/steffens-showcase/cncWoodcut2.png"
+              alt="Custom Desk"
               className="w-full h-full object-cover"
             />
           </div>

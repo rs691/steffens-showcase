@@ -4,7 +4,7 @@ const nextConfig = {
   basePath: '/steffens-showcase', // Repo name
   assetPrefix: '/steffens-showcase/',
   images: {
-    unoptimized: true
+    unoptimized: true // Disable image optimization
   }
 };
 

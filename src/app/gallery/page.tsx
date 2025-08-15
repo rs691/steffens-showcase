@@ -2,9 +2,9 @@ import Image from "next/image";
 
 const galleryImages = [
   // use images from local file public
-  { src: "/bespokeChair.svg", alt: "Close-up of wood grain" },
-  { src: "/signs.svg", alt: "Finished bookshelf in a room" },
-  { src: "/mahagDesk.svg", alt: "Mahaogany Desk" },
+  { src: "/steffens-showcase/bespokeChair.svg", alt: "Close-up of wood grain" },
+  { src: "/steffens-showcase/signs.svg", alt: "Finished bookshelf in a room" },
+  { src: "/steffens-showcase/mahagDesk.svg", alt: "Mahaogany Desk" },
   // { src: "/images/sustainable-lumber.jpg", alt: "A stack of sustainable lumber" },
   // { src: "/images/restored-antique-chair.jpg", alt: "Restored antique chair" },
   // { src: "/images/custom-table-leg-carving.jpg", alt: "Custom table leg carving" },
