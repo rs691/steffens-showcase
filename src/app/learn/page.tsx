@@ -4,7 +4,6 @@ import { EventCard } from '@/components/events/EventCard';
 import { ProductCard } from '@/components/products/ProductCard';
 import { Button } from '@/components/ui/button';
 import { CalendarDays, ShoppingBag, Wand2 } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 const featuredProducts: Product[] = [
@@ -24,14 +23,7 @@ export default function Home() {
     <PageContainer className="space-y-16 md:space-y-24">
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[70vh] rounded-lg overflow-hidden shadow-xl">
-        <Image
-          src="/steffens-showcase/machineWoodcut.svg"
-          alt="Hero image showcasing handcrafted woodworks"
-          layout="fill"
-          objectFit="cover"
-          priority
-          data-ai-hint="woodworking workshop"
-        />
+   
         <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center p-4">
           <h1 className="font-headline text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
             Crafted Woodworks, Uniquely Yours
@@ -40,7 +32,7 @@ export default function Home() {
             Discover bespoke signs, decor, and furniture, handcrafted with passion and precision at Steffens Sign & Design.
           </p>
           <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-            <Link href="/products">Explore Our Collections</Link>
+            <Link href="/steffens-showcase/products">Explore Our Collections</Link>
           </Button>
         </div>
       </section>
@@ -55,7 +47,7 @@ export default function Home() {
         </div>
         <div className="text-center mt-10">
           <Button variant="outline" asChild>
-            <Link href="/products" className="flex items-center gap-2">
+            <Link href="/steffens-showcase/products" className="flex items-center gap-2">
               <ShoppingBag className="w-4 h-4" /> View All Products
             </Link>
           </Button>
@@ -71,7 +63,7 @@ export default function Home() {
             Have a unique idea? Use our custom design tool to bring your vision to life, or contact us for a consultation.
           </p>
           <Button size="lg" asChild>
-            <Link href="/custom-design">Start Designing</Link>
+            <Link href="/steffens-showcase/custom-design">Start Designing</Link>
           </Button>
         </div>
       </section>
@@ -86,7 +78,7 @@ export default function Home() {
         </div>
         <div className="text-center mt-10">
           <Button variant="outline" asChild>
-            <Link href="/events" className="flex items-center gap-2">
+            <Link href="/steffens-showcase/events" className="flex items-center gap-2">
              <CalendarDays className="w-4 h-4" /> View All Events
             </Link>
           </Button>

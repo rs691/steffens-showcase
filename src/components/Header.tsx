@@ -11,13 +11,14 @@ import { useState } from "react";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/projects", label: "Past Projects" },
+  { href: "/projects", label: "Projects" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/calendar", label: "Calendar" },
+  // { href: "/calendar", label: "Calendar" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" },
   { href: "/custom-sign", label: "Custom Sign" },
   { href: "/learn", label: "Everything Wood" },
+  { href: "/events", label: "Events" },
 ];
 
 const externalLinks = [
