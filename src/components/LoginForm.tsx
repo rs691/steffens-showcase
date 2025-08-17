@@ -15,7 +15,7 @@ const LoginForm: React.FC = () => {
     setError('');
 
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('/steffens-showcase/app/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -59,7 +59,7 @@ const LoginForm: React.FC = () => {
         </button>
       </form>
       <div className="text-center mt-4 text-sm text-muted-foreground">
-        Don't have an account? <Link href="/register" className="text-primary hover:underline">Register</Link>
+        Don't have an account? <Link href="/steffens-showcase/register" className="text-primary hover:underline">Register</Link>
       </div>
     </div>
   );
