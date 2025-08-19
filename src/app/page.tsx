@@ -100,7 +100,7 @@ export default function Home() {
                  shadow-md hover:shadow-[0_0_25px_rgba(59,130,246,0.4)] hover:-translate-y-1"
     >
       {service.icon}
-      <h3 className="mt-4 text-2xl font-headline font-semibold">{service.title}</h3>
+      <h3 className="mt-4 text-2xl font-headline font-semibold text-primary">{service.title}</h3>
       <p className="mt-2 text-muted-foreground">{service.description}</p>
     </div>
   ))}

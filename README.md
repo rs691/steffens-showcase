@@ -1,1 +1,2 @@
 # Steffen's Showcase
+This is a comprehensive full-stack demo application built with Next.js that combines a showcase of custom woodworking projects. The app features a responsive and aesthetically pleasing homepage that highlights key services and featured projects. For demonstrating backend functionality, a user authentication flow is implemented, including separate pages for user registration and login.
