@@ -65,6 +65,7 @@ export default function CustomSignDesignerPage() {
     };
 
   return (
+    
     <div className="container mx-auto max-w-6xl py-12 px-4">
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 items-start">
             <div className="sticky top-24">

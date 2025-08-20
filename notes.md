@@ -69,3 +69,19 @@ Gemeni API KEY = AIzaSyCoQ92FYKXxM6c7yaUmNCgi0C5I1XzCdbA
 
 
 
+// Replace these classes:
+//   "hidden lg:flex"
+//   "lg:flex"
+//   "xlg:hidden"
+
+// With these:
+<nav className="hidden max-[1292px]:flex items-center space-x-6 text-sm font-medium">
+  {navLinks.map((link) => <NavLink key={link.href} {...link} />)}
+</nav>
+<nav className="hidden max-[1292px]:flex items-center space-x-6">
+  {externalLinks.map((link) => <NavLink key={link.href} {...link} isExternal />)}
+</nav>
+<Button variant="ghost" className="min-[1293px]:hidden">
+  <Menu className="h-5 w-5" />
+  <span className="sr-only">Toggle Menu</span>
+</Button>
