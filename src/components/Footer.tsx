@@ -29,7 +29,7 @@ export function Footer() {
             <h4 className="font-headline text-lg font-semibold text-foreground mb-3">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/products" className="hover:text-primary">Products</Link></li>
-              <li><Link href="/custom-design" className="hover:text-primary">Custom Design</Link></li>
+              <li><Link href="/custom-sign" className="hover:text-primary">Custom Design</Link></li>
               <li><Link href="/events" className="hover:text-primary">Events</Link></li>
               <li><Link href="/contact" className="hover:text-primary">Contact Us</Link></li>
             </ul>

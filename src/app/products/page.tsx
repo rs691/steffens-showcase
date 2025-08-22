@@ -27,7 +27,7 @@ const products = [
     {
         title: "Restaurant Bar Installation",
         description: "Complete design and build of a commercial bar, including countertops, shelving, and paneling.",
-        image: "/steffens-showcase/barSet.svg",
+        image: "/steffens-showcase/barSet.png",
         
     },
     {

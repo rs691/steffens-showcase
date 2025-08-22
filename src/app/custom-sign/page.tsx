@@ -17,31 +17,29 @@ import { useState } from 'react';
 
 const stainColors: { [key: string]: string } = {
     // add an image as a background possibility
-    // 'woodBackground': 'bg-[url("/steffens-showcase/woodBack.svg")]',
-    'natural-pine': 'bg-[#f3d4a3]',
-    'dark-walnut': 'bg-[#5a3825]',
-    'classic-gray': 'bg-[#a3a3a3]',
-    'woodTexture2': 'bg-[url("/steffens-showcase/woodTexture2.svg")]',
-    // 'woodTexture': 'bg-[url("/steffens-showcase/woodTexture4.svg")]',
-    // 'woodTextureLighter': 'bg-[url("/steffens-showcase/woodTextureLighter.svg")]',
-    
-    
+    'woodBackground': 'bg-[url("/steffens-showcase/woodBack.svg")]',
+    'amerBlackWalnut': 'bg-[url("/steffens-showcase/amerBlackWalnut.svg")]',
+    'amerWhiteAsh': 'bg-[url("/steffens-showcase/amerWhiteAsh.svg")]',
+    'zebrano': 'bg-[url("/steffens-showcase/zebrano.svg")]',
+    'redOak': 'bg-[url("/steffens-showcase/redOak.svg")]',
+    'americanCherry': 'bg-[url("/steffens-showcase/americanCherry.svg")]'
 };
 
 const sizeClasses: { [key: string]: string } = {
     small: 'text-2xl',
     medium: 'text-4xl',
     large: 'text-6xl',
-    // extraLarge: 'text-8xl',
+   
 };
 
 
 export default function CustomSignDesignerPage() {
     const { toast } = useToast();
-    const [text, setText] = useState("Enter text");
+    const [text, setText] = useState<string>('');
     const [graphic, setGraphic] = useState<string | null>(null);
-    const [stain, setStain] = useState('dark-walnut');
+    const [stain, setStain] = useState('woodBackground');
     const [size, setSize] = useState('medium');
+   
 
     function handleAddToCart(event: React.FormEvent) {
         event.preventDefault();
@@ -107,7 +105,7 @@ export default function CustomSignDesignerPage() {
                         </Label>
                         <Textarea 
                             id="custom-text" 
-                            placeholder="e.g., The Millers Est. 2023" 
+                            placeholder="e.g., The Stewart's Est. 2010" 
                             rows={3} 
                             value={text}
                             onChange={(e) => setText(e.target.value)}
@@ -127,48 +125,42 @@ export default function CustomSignDesignerPage() {
 
                      <div className="space-y-4">
                         <Label className="text-lg font-semibold font-headline flex items-center gap-2">
-                            <Palette className="h-5 w-5" /> Wood Stain
+                            <Palette className="h-5 w-5" /> Choose a color type of wood
                         </Label>
-                        <RadioGroup defaultValue="dark-walnut" className="flex flex-wrap gap-4" value={stain} onValueChange={setStain}>
-                            <Label htmlFor="natural-pine" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
-                                <RadioGroupItem value="natural-pine" id="natural-pine" className="sr-only"/>
-                                <div className="w-16 h-16 rounded-full bg-[#f3d4a3] border-2 border-muted/50 shadow-inner"></div>
-                                <span className="text-sm font-medium">Natural Pine</span>
-                            </Label>
-                             <Label htmlFor="dark-walnut" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
-                                <RadioGroupItem value="dark-walnut" id="dark-walnut" className="sr-only" />
-                                <div className="w-16 h-16 rounded-full bg-[#5a3825] border-2 border-muted/50 shadow-inner"></div>
-                                <span className="text-sm font-medium">Dark Walnut</span>
-                            </Label>
-                             <Label htmlFor="classic-gray" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
-                                <RadioGroupItem value="classic-gray" id="classic-gray" className="sr-only"/>
-                                <div className="w-16 h-16 rounded-full bg-[#a3a3a3] border-2 border-muted/50 shadow-inner"></div>
-                                <span className="text-sm font-medium">Classic Gray</span>
-                            </Label>
-                                    <Label htmlFor="woodTexture2" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
-                                <RadioGroupItem value="woodTexture2" id="woodTexture2" className="sr-only"/>
-                                <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/woodTexture2.svg')] border-2 border-muted/50 shadow-inner"></div>
-                                <span className="text-sm font-medium">Wood Texture</span>
-                            </Label>
-                          {/*  <Label htmlFor="woodBackground" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
-                                <RadioGroupItem value="woodBackground" id="woodBackground" className="sr-only"/>
-                                <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/woodBack.svg')] border-2 border-muted/50 shadow-inner"></div>
-                                <span className="text-sm font-medium">Fine Wood Texture</span>
-                             </Label>
-                                   <Label htmlFor="woodTexture" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
-                                <RadioGroupItem value="woodTexture" id="woodTexture" className="sr-only"/>
-                                <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/woodTexture4.svg')] border-2 border-muted/50 shadow-inner"></div>
-                                <span className="text-sm font-medium">Wood Texture</span>
-                            </Label> */}
-                     
-                                {/* <Label htmlFor="straightTexture" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
-                                <RadioGroupItem value="straightTexture" id="straightTexture" className="sr-only"/>
-                                <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/straightTexture.svg')] border-2 border-muted/50 shadow-inner"></div>
-                                <span className="text-sm font-medium">Straight Wood Texture</span>
-                            </Label> */}
-                        </RadioGroup>
-                    </div>
+            <RadioGroup
+    defaultValue="amerBlackWalnut"
+    className="grid grid-cols-2 sm:grid-cols-3 gap-4"
+    value={stain}
+    onValueChange={setStain}
+>
+    <Label htmlFor="amerBlackWalnut" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
+        <RadioGroupItem value="amerBlackWalnut" id="amerBlackWalnut" className="sr-only"/>
+        <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/amerBlackWalnut.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <span className="text-sm font-medium text-center">American Black Walnut</span>
+    </Label>
+    <Label htmlFor="amerWhiteAsh" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
+        <RadioGroupItem value="amerWhiteAsh" id="amerWhiteAsh" className="sr-only" />
+        <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/amerWhiteAsh.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <span className="text-sm font-medium text-center">American White Ash</span>
+    </Label>
+    <Label htmlFor="zebrano" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
+        <RadioGroupItem value="zebrano" id="zebrano" className="sr-only"/>
+        <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/zebrano.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <span className="text-sm font-medium text-center">Zebrano</span>
+    </Label>
+    <Label htmlFor="redOak" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
+        <RadioGroupItem value="redOak" id="redOak" className="sr-only"/>
+        <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/redOak.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <span className="text-sm font-medium text-center">Red Oak</span>
+    </Label>
+    <Label htmlFor="americanCherry" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
+        <RadioGroupItem value="americanCherry" id="americanCherry" className="sr-only"/>
+        <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/americanCherry.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <span className="text-sm font-medium text-center">American Cherry</span>
+    </Label>
+</RadioGroup>
 
+                    </div>
                     <div className="space-y-4">
                         <Label htmlFor="size-select" className="text-lg font-semibold font-headline flex items-center gap-2">
                             <Ruler className="h-5 w-5" /> Sign Size
@@ -181,7 +173,6 @@ export default function CustomSignDesignerPage() {
                                 <SelectItem value="small">Small (12" x 8")</SelectItem>
                                 <SelectItem value="medium">Medium (18" x 12")</SelectItem>
                                 <SelectItem value="large">Large (24" x 16")</SelectItem>
-                                {/* <SelectItem value="extra-large">Extra Large (36" x 24")</SelectItem> */}
                             </SelectContent>
                         </Select>
                     </div>
