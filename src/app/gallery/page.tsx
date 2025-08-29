@@ -3,12 +3,12 @@ import Image from "next/image";
 
 const galleryImages = [
   // use images from local file public
-  { src: "/steffens-showcase/bespokeChair.svg", alt: "Close-up of wood grain" },
-  { src: "/steffens-showcase/signs.svg", alt: "Finished bookshelf in a room" },
-  { src: "/steffens-showcase/mahagDesk.svg", alt: "Mahaogany Desk" },
-  { src: "/steffens-showcase/cherrywoodDineTable.jpg", alt: "Cherry Wood Dining Table" },
-  { src: "/steffens-showcase/handCraftedChair.jpg", alt: "Restored antique chair" },
-  { src: "/steffens-showcase/customTable.jpg", alt: "Custom table leg carving" },
+  { src: "/bespokeChair.svg", alt: "Close-up of wood grain" },
+  { src: "/signs.svg", alt: "Finished bookshelf in a room" },
+  { src: "/mahagDesk.svg", alt: "Mahaogany Desk" },
+  { src: "/cherrywoodDineTable.jpg", alt: "Cherry Wood Dining Table" },
+  { src: "/handCraftedChair.jpg", alt: "Restored antique chair" },
+  { src: "/customTable.jpg", alt: "Custom table leg carving" },
 ];
 
 export default function GalleryPage() {

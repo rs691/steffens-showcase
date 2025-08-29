@@ -5,35 +5,35 @@ const products = [
     {
         title: "Mahogany Executive Desk",
         description: "A large, imposing desk with hidden compartments and brass fittings. Built for a client's home office.",
-        image: "/steffens-showcase/mahagDesk.svg",
+        image: "/mahagDesk.svg",
        
     },
     {
         title: "Cedar Hope Chest",
         description: "Aromatic cedar chest with dovetail joinery and a custom-engraved lid. A wedding gift.",
-        image: "/steffens-showcase/cedarChest.png",
+        image: "/cedarChest.png",
       
     },
     {
         title: "Oak Bookshelf",
         description: "An intricate, handcrafted bookshelf with individually carved pieces. A true test of patience.",
-        image: "/steffens-showcase/bookshelf.png",
+        image: "/bookshelf.png",
     },
     {
         title: "Cherry Wood Dining Table",
         description: "A classic design, updated for modern comfort. Hand-sanded to a smooth, warm finish.",
-        image: "/steffens-showcase/cherrywood.svg",
+        image: "/cherrywood.svg",
     },
     {
         title: "Restaurant Bar Installation",
         description: "Complete design and build of a commercial bar, including countertops, shelving, and paneling.",
-        image: "/steffens-showcase/barSet.png",
+        image: "/barSet.png",
         
     },
     {
         title: "Japanese-style Garden Bench",
         description: "A minimalist outdoor bench made from weather-resistant teak, featuring elegant, simple lines.",
-        image: "/steffens-showcase/gb.svg",
+        image: "/gb.svg",
     }
 ];
 

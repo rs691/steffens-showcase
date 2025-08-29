@@ -11,19 +11,19 @@ export default function Home() {
       title: "Handcrafted Oak Table",
       description:
         "A centerpiece for any dining room, built with traditional joinery.",
-      image: "/steffens-showcase/table.png",
+      image: "/table.png",
     },
     {
       title: "Custom Bookshelf",
       description:
         "Floor-to-ceiling bookshelf tailored to fit the client's library.",
-      image: "/steffens-showcase/bookshelf.png",
+      image: "/bookshelf.png",
     },
     {
       title: "Vintage-Inspired Armchair",
       description:
         "A comfortable and stylish armchair with hand-carved details.",
-      image: "/steffens-showcase/chair.svg",
+      image: "/chair.svg",
     },
   ];
 
@@ -56,7 +56,7 @@ export default function Home() {
   <section className="relative h-[55vh] md:h-[65vh] rounded-xl overflow-hidden shadow-2xl">
   {/* Background image */}
   <Image
-    src="/steffens-showcase/machineWoodcut.svg"
+    src="/machineWoodcut.svg"
     alt="Hero image showcasing handcrafted woodworks"
     fill
     priority

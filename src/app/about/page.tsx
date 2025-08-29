@@ -29,13 +29,13 @@ export default function AboutPage() {
           </div>
           <div className="relative h-64 md:h-full min-h-[300px]">
             {/* <Image
-              src="/steffens-showcase/mahagDesk.svg"
+              src="/mahagDesk.svg"
               alt="Custom Desk"
               fill
               className="w-full h-full object-cover"
             /> */}
             <img
-              src="/steffens-showcase/cncWoodcut2.png"
+              src="/cncWoodcut2.png"
               alt="Custom Desk"
               className="w-full h-full object-cover"
             />

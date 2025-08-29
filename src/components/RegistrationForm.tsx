@@ -23,7 +23,7 @@ const RegistrationForm: React.FC = () => {
       const data = await response.json();
       if (response.ok) {
         setMessage('Registration successful! Redirecting to login...');
-        setTimeout(() => router.push('/steffens-showcase/login'), 2000);
+        setTimeout(() => router.push('/login'), 2000);
       } else {
         setMessage(data.error || 'Registration failed');
       }

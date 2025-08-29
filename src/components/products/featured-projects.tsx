@@ -3,11 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
 } from "@/components/ui/dialog";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
@@ -20,19 +20,19 @@ export default function FeaturedProjects() {
       title: "Handcrafted Oak Table",
       description:
         "A centerpiece for any dining room, built with traditional joinery.",
-      image: "/steffens-showcase/table.png",
+      image: "/table.png",
     },
     {
       title: "Custom Bookshelf",
       description:
         "Floor-to-ceiling bookshelf tailored to fit the client's library.",
-      image: "/steffens-showcase/bookshelf.png",
+      image: "/bookshelf.png",
     },
     {
       title: "Vintage-Inspired Armchair",
       description:
         "A comfortable and stylish armchair with hand-carved details.",
-      image: "/steffens-showcase/chair.svg",
+      image: "/chair.svg",
     },
   ];
 

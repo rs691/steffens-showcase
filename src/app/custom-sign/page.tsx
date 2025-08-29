@@ -17,12 +17,12 @@ import { useState } from 'react';
 
 const stainColors: { [key: string]: string } = {
     // add an image as a background possibility
-    'woodBackground': 'bg-[url("/steffens-showcase/woodBack.svg")]',
-    'amerBlackWalnut': 'bg-[url("/steffens-showcase/amerBlackWalnut.svg")]',
-    'amerWhiteAsh': 'bg-[url("/steffens-showcase/amerWhiteAsh.svg")]',
-    'zebrano': 'bg-[url("/steffens-showcase/zebrano.svg")]',
-    'redOak': 'bg-[url("/steffens-showcase/redOak.svg")]',
-    'americanCherry': 'bg-[url("/steffens-showcase/americanCherry.svg")]'
+    'woodBackground': 'bg-[url("/woodBack.svg")]',
+    'amerBlackWalnut': 'bg-[url("/amerBlackWalnut.svg")]',
+    'amerWhiteAsh': 'bg-[url("/amerWhiteAsh.svg")]',
+    'zebrano': 'bg-[url("/zebrano.svg")]',
+    'redOak': 'bg-[url("/redOak.svg")]',
+    'americanCherry': 'bg-[url("/americanCherry.svg")]'
 };
 
 const sizeClasses: { [key: string]: string } = {
@@ -135,27 +135,27 @@ export default function CustomSignDesignerPage() {
 >
     <Label htmlFor="amerBlackWalnut" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="amerBlackWalnut" id="amerBlackWalnut" className="sr-only"/>
-        <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/amerBlackWalnut.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <div className="w-16 h-16 rounded-full bg-[url('/amerBlackWalnut.svg')] border-2 border-muted/50 shadow-inner"></div>
         <span className="text-sm font-medium text-center">American Black Walnut</span>
     </Label>
     <Label htmlFor="amerWhiteAsh" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="amerWhiteAsh" id="amerWhiteAsh" className="sr-only" />
-        <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/amerWhiteAsh.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <div className="w-16 h-16 rounded-full bg-[url('/amerWhiteAsh.svg')] border-2 border-muted/50 shadow-inner"></div>
         <span className="text-sm font-medium text-center">American White Ash</span>
     </Label>
     <Label htmlFor="zebrano" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="zebrano" id="zebrano" className="sr-only"/>
-        <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/zebrano.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <div className="w-16 h-16 rounded-full bg-[url('/zebrano.svg')] border-2 border-muted/50 shadow-inner"></div>
         <span className="text-sm font-medium text-center">Zebrano</span>
     </Label>
     <Label htmlFor="redOak" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="redOak" id="redOak" className="sr-only"/>
-        <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/redOak.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <div className="w-16 h-16 rounded-full bg-[url('/redOak.svg')] border-2 border-muted/50 shadow-inner"></div>
         <span className="text-sm font-medium text-center">Red Oak</span>
     </Label>
     <Label htmlFor="americanCherry" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="americanCherry" id="americanCherry" className="sr-only"/>
-        <div className="w-16 h-16 rounded-full bg-[url('/steffens-showcase/americanCherry.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <div className="w-16 h-16 rounded-full bg-[url('/americanCherry.svg')] border-2 border-muted/50 shadow-inner"></div>
         <span className="text-sm font-medium text-center">American Cherry</span>
     </Label>
 </RadioGroup>

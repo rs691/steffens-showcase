@@ -40,7 +40,7 @@ export async function POST(req: Request) {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
         maxAge: 60 * 60 * 24, // 1 day
-        path: '/steffens-showcase',
+        path: '',
       });
 
       // Return a success response with the username
