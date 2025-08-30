@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { Palette, Pencil, Ruler, Upload } from "lucide-react";
 import Image from "next/image";
 import { useState } from 'react';
+import { useCart } from "../context/CartContext";
 
 const stainColors: { [key: string]: string } = {
     // add an image as a background possibility
@@ -23,6 +24,15 @@ const stainColors: { [key: string]: string } = {
     'zebrano': 'bg-[url("/zebrano.svg")]',
     'redOak': 'bg-[url("/redOak.svg")]',
     'americanCherry': 'bg-[url("/americanCherry.svg")]'
+};
+
+const stainNames: { [key: string]: string } = {
+    'woodBackground': 'Natural Wood Background',
+    'amerBlackWalnut': 'American Black Walnut',
+    'amerWhiteAsh': 'American White Ash',
+    'zebrano': 'Zebrano',
+    'redOak': 'Red Oak',
+    'americanCherry': 'American Cherry'
 };
 
 const sizeClasses: { [key: string]: string } = {
@@ -35,14 +45,25 @@ const sizeClasses: { [key: string]: string } = {
 
 export default function CustomSignDesignerPage() {
     const { toast } = useToast();
+    const {addToCart} = useCart();
     const [text, setText] = useState<string>('');
     const [graphic, setGraphic] = useState<string | null>(null);
     const [stain, setStain] = useState('woodBackground');
     const [size, setSize] = useState('medium');
-   
+    const [stainName, setStainName] = useState('Natural Wood Background');
 
     function handleAddToCart(event: React.FormEvent) {
         event.preventDefault();
+
+ addToCart({
+      text,
+      graphic,
+      stain,
+      size,
+      price: 120,
+    });
+
+
         toast({
             title: "Added to Cart!",
             description: "Your custom sign has been added to your cart.",
@@ -178,7 +199,7 @@ export default function CustomSignDesignerPage() {
                     </div>
 
                     <Separator />
-                    
+                 {/* when "add to cart" is clicked , show it in the cart page. Right now the Cart page is empty */}
                     <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold">
                         Add to Cart
                     </Button>
