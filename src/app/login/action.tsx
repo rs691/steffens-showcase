@@ -29,9 +29,8 @@ export async function loginUser(
     };
   }
 
-  // In a real application, you would authenticate the user against your database.
-  // For example: const user = await authenticateUser(validatedFields.data.email, validatedFields.data.password);
-  // if (!user) return { message: "Invalid email or password.", success: false };
+  // In a real app, you would authenticate the user against your database.
+ 
   console.log('User login attempt:', validatedFields.data.email);
 
   // Simulate successful login

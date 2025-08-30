@@ -26,8 +26,8 @@ const externalLinks = [
   { href: "https://shopify.com", label: "Shop" },
   // { href: "https://shopify.com/cart", label: "Cart" },
    { href: "/cart", label: "Cart" },
-   { href: "/register", label: "Register" },
-   { href: "/login", label: "Login" },
+  //  { href: "/register", label: "Register" },
+  //  { href: "/login", label: "Login" },
 ];
 
 export function Header() {

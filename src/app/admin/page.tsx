@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/hooks/use-toast";
-import { LayoutDashboard, LogIn, LogOut, FileText, GalleryHorizontal } from "lucide-react";
-import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/hooks/use-toast";
+import { FileText, GalleryHorizontal, LayoutDashboard, LogIn, LogOut } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 // This is a mock authentication state.
-// In a real app, this would be handled by Firebase Auth and React Context.
+// In a real app, this would be handled by another authentication provider.
 let mockIsAuthenticated = false;
 
 export default function AdminPage() {
@@ -112,19 +112,7 @@ export default function AdminPage() {
             <Button asChild><Link href="/gallery">Edit Gallery</Link></Button>
           </CardContent>
         </Card>
-        <Card className="shadow-lg hover:shadow-xl transition-shadow">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 font-headline">Firebase Status</CardTitle>
-            <CardDescription>Demonstration of Firebase integration.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-2 text-green-600">
-                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
-                <p>Firebase SDK Initialized (Mock)</p>
-            </div>
-            <p className="text-sm text-muted-foreground mt-2">See `src/lib/firebase.ts` for configuration.</p>
-          </CardContent>
-        </Card>
+   
       </div>
     </div>
   );

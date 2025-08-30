@@ -7,7 +7,10 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: "Steffen's Showcase",
-  description: 'A showcase of craftsmanship and projects by Steffen.',
+  description: 'A showcase of craftsmanship.',
+  icons: {
+    icon: "sd1.png"
+  },
 };
 
 export default function RootLayout({

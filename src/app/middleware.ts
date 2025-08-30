@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   const session = request.cookies.get('session');
   
   // Define protected routes
-  const protectedRoutes = ['/dashboard'];
+  const protectedRoutes = ['/'];
 
   // Check if the current path is a protected route and if a session exists
   if (protectedRoutes.includes(request.nextUrl.pathname) && !session) {
@@ -19,5 +19,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard'], // Apply middleware to the dashboard page
+  matcher: ['/'], // Apply middleware to the dashboard page
 };
