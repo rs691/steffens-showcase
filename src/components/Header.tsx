@@ -23,7 +23,8 @@ const navLinks = [
 
 const externalLinks = [
   // connects to the shopify headless store and cart. Needs to be configured before use. By default, shopify landing page
-  { href: "https://shopify.com", label: "Shop" },
+  { href: "https://shopify.com", label: "Shopify" },
+  { href: "/products", label: "Products" },
   // { href: "https://shopify.com/cart", label: "Cart" },
    { href: "/cart", label: "Cart" },
   //  { href: "/register", label: "Register" },
