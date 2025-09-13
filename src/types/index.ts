@@ -3,9 +3,8 @@ export interface Product {
   name: string;
   description: string;
   price: string;
-  imageUrl: string;
+  image?: string;
   category: string;
-  dataAiHint?: string;
 }
 
 export interface EventInfo {
@@ -14,6 +13,12 @@ export interface EventInfo {
   date: string;
   location: string;
   description?: string;
-  imageUrl?: string;
-  dataAiHint?: string;
+  image: string;
+ 
 }
+
+
+export type CartItem = {
+  product: Product;
+  quantity: number;
+};

@@ -23,9 +23,9 @@ const navLinks = [
 
 const externalLinks = [
   // connects to the shopify headless store and cart. Needs to be configured before use. By default, shopify landing page
-  { href: "https://shopify.com", label: "Shopify" },
+  // { href: "https://shopify.com", label: "Shopify" },
   { href: "/products", label: "Products" },
-  // { href: "https://shopify.com/cart", label: "Cart" },
+  { href: "/checkout", label: "Checkout" },
    { href: "/cart", label: "Cart" },
   //  { href: "/register", label: "Register" },
   //  { href: "/login", label: "Login" },
@@ -67,6 +67,7 @@ export function Header() {
           <nav className="hidden md:flex items-center space-x-6">
             {externalLinks.map((link) => <NavLink key={link.href} {...link} isExternal />)}
           </nav>
+          
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" className="md:hidden">
