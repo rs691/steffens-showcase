@@ -17,7 +17,6 @@ import { useState } from 'react';
 import { useCart } from "../context/CartContext";
 
 const stainColors: { [key: string]: string } = {
-    // add an image as a background possibility
     'woodBackground': 'bg-[url("/woodBack.svg")]',
     'amerBlackWalnut': 'bg-[url("/amerBlackWalnut.svg")]',
     'amerWhiteAsh': 'bg-[url("/amerWhiteAsh.svg")]',
@@ -71,7 +70,6 @@ export default function CustomSignDesignerPage() {
         });
     }
 
-    // function to handle graphic changes. This works by reading the uploaded file and setting it as the graphic.
     const handleGraphicChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -199,7 +197,7 @@ export default function CustomSignDesignerPage() {
                     </div>
 
                     <Separator />
-                 {/* when "add to cart" is clicked , show it in the cart page. Right now the Cart page is empty */}
+
                     <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold">
                         Add to Cart
                     </Button>

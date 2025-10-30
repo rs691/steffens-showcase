@@ -28,12 +28,6 @@ export default function AboutPage() {
             </div>
           </div>
           <div className="relative h-64 md:h-full min-h-[300px]">
-            {/* <Image
-              src="/mahagDesk.svg"
-              alt="Custom Desk"
-              fill
-              className="w-full h-full object-cover"
-            /> */}
             <img
               src="/cncWoodcut2.png"
               alt="Custom Desk"

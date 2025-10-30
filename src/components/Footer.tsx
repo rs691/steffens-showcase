@@ -1,7 +1,6 @@
 import { Facebook, Instagram, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
 
-// Simple Etsy SVG Icon
 const EtsyIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={`w-5 h-5 ${props.className ?? ''}`} {...props}>
     <path d="M10.39 7.66h3.22c1.74 0 2.76.97 2.76 2.36 0 .9-.5 1.55-1.21 1.88L17.5 17H15.2l-2.03-4.35h-1.15v4.35H9.89V7.66h.5zm0 1.13v2.75h2.1c1.03 0 1.63-.58 1.63-1.38 0-.74-.55-1.37-1.58-1.37h-2.15z"></path>
@@ -45,7 +44,6 @@ export function Footer() {
                     rel={link.target === '_blank' ? 'noopener noreferrer' : undefined}
                     className="flex items-center gap-2 hover:text-primary transition-colors"
                   >
-                    {/* Pass className to icons for consistent sizing */}
                     <link.icon className="w-5 h-5" />
                     {link.label}
                   </a>

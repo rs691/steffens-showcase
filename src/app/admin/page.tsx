@@ -10,8 +10,6 @@ import { FileText, GalleryHorizontal, LayoutDashboard, LogIn, LogOut } from "luc
 import Link from "next/link";
 import { useState } from "react";
 
-// This is a mock authentication state.
-// In a real app, this would be handled by another authentication provider.
 let mockIsAuthenticated = false;
 
 export default function AdminPage() {

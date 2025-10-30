@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 export const LoginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
-  password: z.string().min(1, { message: "Password is required." }), // Min 1 for login, actual length check would be during registration
+  password: z.string().min(1, { message: "Password is required." }),
 });
 
 
@@ -29,11 +29,8 @@ export async function loginUser(
     };
   }
 
-  // In a real app, you would authenticate the user against your database.
- 
   console.log('User login attempt:', validatedFields.data.email);
 
-  // Simulate successful login
   if (validatedFields.data.email === "admin@example.com" && validatedFields.data.password === "password") {
      return {
         message: 'Login successful! Redirecting...',
@@ -42,7 +39,6 @@ export async function loginUser(
   }
 
 
-  // Simulate failed login for other credentials
   if (validatedFields.data.email !== "test@example.com" || validatedFields.data.password !== "password123") {
      return {
         message: 'Invalid email or password.',

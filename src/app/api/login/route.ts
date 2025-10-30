@@ -3,10 +3,8 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import path from 'path';
 
-// Define the path to the users file
 const filePath = path.join(process.cwd(), 'data', 'users.json');
 
-// Helper function to read the users file
 async function readUsersFile() {
   try {
     const fileContents = await fs.readFile(filePath, 'utf-8');
@@ -32,8 +30,6 @@ export async function POST(req: Request) {
     const user = users.find((u: any) => u.username === username && u.password === password);
 
     if (user) {
-      // Set a secure cookie to act as a session
-      // NOTE: The 'cookies()' function is asynchronous and returns a Promise, so 'await' is needed.
       const cookieStore = await cookies();
       cookieStore.set('session', user.username, {
         httpOnly: true,
@@ -43,7 +39,6 @@ export async function POST(req: Request) {
         path: '',
       });
 
-      // Return a success response with the username
       return NextResponse.json({ success: true, username: user.username });
     } else {
       return NextResponse.json({ error: 'Invalid username or password.' }, { status: 401 });

@@ -2,7 +2,6 @@ import { Card } from "@/components/ui/card";
 import Image from "next/image";
 
 const galleryImages = [
-  // use images from local file public
   { src: "/bespokeChair.svg", alt: "Close-up of wood grain" },
   { src: "/signs.svg", alt: "Finished bookshelf in a room" },
   { src: "/mahagDesk.svg", alt: "Mahaogany Desk" },

@@ -2,21 +2,17 @@ import fs from 'fs/promises';
 import { NextResponse } from 'next/server';
 import path from 'path';
 
-// Define the path to the file where user data will be stored.
 const filePath = path.join(process.cwd(), 'data', 'users.json');
 
-// Helper function to read the users file.
 async function readUsersFile() {
   try {
     const fileContents = await fs.readFile(filePath, 'utf-8');
     return JSON.parse(fileContents);
   } catch (error) {
-    // If the file doesn't exist or is empty, return an empty array.
     return [];
   }
 }
 
-// Helper function to write the user data to the file.
 async function writeUsersFile(users: any[]) {
   try {
     await fs.mkdir(path.dirname(filePath), { recursive: true });
@@ -41,12 +37,10 @@ export async function POST(req: Request) {
   try {
     const users = await readUsersFile();
     
-    // Check if a user with the same username or email already exists.
     if (users.some((user: any) => user.username === username || user.email === email)) {
       return NextResponse.json({ error: 'Username or email already exists.' }, { status: 409 });
     }
 
-    // Add the new user and write the updated array back to the file.
     users.push({ username, email, password });
     await writeUsersFile(users);
     
