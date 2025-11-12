@@ -44,7 +44,7 @@ export default function ProjectsPage() {
   return (
     <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary">Past Projects</h1>
+        <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary">See what we've done in the past</h1>
         <p className="mt-4 text-lg text-muted-foreground">A visual journey through the details and artistry of some of my projects.</p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

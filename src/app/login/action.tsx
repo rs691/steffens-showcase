@@ -2,13 +2,15 @@
 
 import { z } from 'zod';
 
-export const LoginSchema = z.object({
+// Move schema and type to a separate file, e.g., 'loginSchema.ts'
+import { LoginSchema, LoginFormState } from './loginSchema';
+
+const LoginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
   password: z.string().min(1, { message: "Password is required." }), // Min 1 for login, actual length check would be during registration
 });
 
-
-export type LoginFormState = {
+type LoginFormState = {
   message: string;
   errors?: z.ZodIssue[];
   success: boolean;
