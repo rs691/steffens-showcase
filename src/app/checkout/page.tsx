@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useCart } from "@/context/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import {
   Elements,
@@ -14,7 +15,6 @@ import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useCart } from "./../context/CartContext";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
