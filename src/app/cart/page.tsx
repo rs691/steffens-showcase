@@ -2,6 +2,8 @@
 
 import { useCart } from "../context/CartContext";
 
+export const dynamic = 'force-dynamic';
+
 export default function CartPage() {
   const { cart, clearCart } = useCart();
 
