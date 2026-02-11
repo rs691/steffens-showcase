@@ -147,7 +147,7 @@ export default function CheckoutPage() {
                       <div className="flex items-start gap-4">
                         <div className="relative h-16 w-16 overflow-hidden rounded-md border">
                           <Image
-                            src={item.product.image}
+                            src={item.product.imageUrl}
                             alt={item.product.name}
                             fill
                             className="object-cover"

@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 import { Palette, Pencil, Ruler, Upload } from "lucide-react";
 import Image from "next/image";
 import { useState } from 'react';
-import { useCart } from "../context/CartContext";
+import { useCart } from "@/context/CartContext";
 
 const stainColors: { [key: string]: string } = {
     // add an image as a background possibility
@@ -55,13 +55,14 @@ export default function CustomSignDesignerPage() {
     function handleAddToCart(event: React.FormEvent) {
         event.preventDefault();
 
- addToCart({
-      text,
-      graphic,
-      stain,
-      size,
-      price: 120,
-    });
+        addToCart({
+            id: `custom-${Date.now()}`,
+            name: `Custom Sign - ${stainNames[stain]}`,
+            description: `Size: ${size}, Text: ${text}`,
+            price: 120,
+            imageUrl: graphic || "/woodBack.svg",
+            category: "Custom"
+        });
 
 
         toast({

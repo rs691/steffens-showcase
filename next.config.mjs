@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  allowedDevOrigins: ["http://localhost:3000", "http://192.168.0.11:3000"],
 
   images: {
     // Vercel supports Next.js image optimization out of the box.
@@ -9,7 +10,7 @@ const nextConfig = {
   },
 
   typescript: {
-    ignoreBuildErrors: true, // keep only if you want builds to pass with TS errors
+    // ignoreBuildErrors: true,
   },
 
   eslint: {

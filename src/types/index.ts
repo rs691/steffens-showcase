@@ -2,9 +2,10 @@ export interface Product {
   id: string;
   name: string;
   description: string;
-  price: string;
-  image?: string;
+  price: number;
+  imageUrl: string;
   category: string;
+  dataAiHint?: string;
 }
 
 export interface EventInfo {
@@ -13,8 +14,8 @@ export interface EventInfo {
   date: string;
   location: string;
   description?: string;
-  image: string;
- 
+  imageUrl: string;
+  dataAiHint?: string;
 }
 
 

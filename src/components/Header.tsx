@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Menu, Sprout } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -22,7 +22,7 @@ const navLinks = [
   { href: "/events", label: "Events" },
 ];
 
-const externalLinks = [
+const accountLinks = [
   // connects to the shopify headless store and cart. Needs to be configured before use. By default, shopify landing page
   // { href: "https://shopify.com", label: "Shopify" },
   // { href: "/checkout", label: "Checkout" },
@@ -34,6 +34,22 @@ const externalLinks = [
 export function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<{ username: string } | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch('/api/auth/me');
+        const data = await res.json();
+        if (data.user) {
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user", error);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const NavLink = ({ href, label, isExternal = false }: { href: string; label: string, isExternal?: boolean }) => {
     const isActive = !isExternal && pathname === href;
@@ -65,7 +81,15 @@ export function Header() {
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="hidden md:flex items-center space-x-6">
-            {externalLinks.map((link) => <NavLink key={link.href} {...link} isExternal />)}
+             <NavLink href="/cart" label="Cart" />
+             {user ? (
+               <span className="text-sm font-medium text-muted-foreground">Welcome, {user.username}</span>
+             ) : (
+               <>
+                 <NavLink href="/register" label="Register" />
+                 <NavLink href="/login" label="Login" />
+               </>
+             )}
           </nav>
           
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -83,7 +107,15 @@ export function Header() {
                 </Link>
                 {navLinks.map((link) => <NavLink key={link.href} {...link} />)}
                 <hr/>
-                {externalLinks.map((link) => <NavLink key={link.href} {...link} isExternal />)}
+                <NavLink href="/cart" label="Cart" />
+                 {user ? (
+                   <span className="text-muted-foreground">Welcome, {user.username}</span>
+                 ) : (
+                   <>
+                     <NavLink href="/register" label="Register" />
+                     <NavLink href="/login" label="Login" />
+                   </>
+                 )}
               </nav>
             </SheetContent>
           </Sheet>

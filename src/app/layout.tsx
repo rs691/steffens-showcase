@@ -3,7 +3,7 @@ import { Header } from '@/components/Header';
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import type { Metadata } from 'next';
-import { CartProvider } from './context/CartContext';
+import { CartProvider } from '@/context/CartContext';
 import './globals.css';
 
 export const metadata: Metadata = {

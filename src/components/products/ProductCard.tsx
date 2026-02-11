@@ -27,7 +27,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <CardContent className="p-6 flex-grow">
         <CardTitle className="font-headline text-xl mb-2">{product.name}</CardTitle>
         <p className="text-muted-foreground text-sm mb-4 h-20 overflow-hidden">{product.description}</p>
-        <p className="font-semibold text-lg text-primary">{product.price}</p>
+        <p className="font-semibold text-lg text-primary">${product.price}</p>
       </CardContent>
       <CardFooter className="p-6 pt-0">
         <Button asChild className="w-full">

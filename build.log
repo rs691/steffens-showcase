@@ -1,0 +1,51 @@
+
+> steffens-showcase@0.1.0 build
+> next build
+
+   Γû▓ Next.js 15.3.3
+   - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully in 19.0s
+   Skipping validation of types
+   Skipping linting
+   Collecting page data ...
+   Generating static pages (0/24) ...
+   Generating static pages (6/24) 
+   Generating static pages (12/24) 
+   Generating static pages (18/24) 
+ Γ£ô Generating static pages (24/24)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+Γöî Γùï /                                    6.02 kB         133 kB
+Γö£ Γùï /_not-found                            977 B         102 kB
+Γö£ Γùï /about                                 147 B         101 kB
+Γö£ Γùï /admin                               6.01 kB         118 kB
+Γö£ ╞Æ /api/auth/me                           147 B         101 kB
+Γö£ ╞Æ /api/create-payment-intent             147 B         101 kB
+Γö£ ╞Æ /api/login                             147 B         101 kB
+Γö£ ╞Æ /api/register                          147 B         101 kB
+Γö£ Γùï /calendar                            17.9 kB         126 kB
+Γö£ Γùï /cart                                1.69 kB         103 kB
+Γö£ Γùï /checkout                            10.1 kB         124 kB
+Γö£ Γùï /contact                             26.7 kB         135 kB
+Γö£ Γùï /custom-sign                         26.2 kB         150 kB
+Γö£ Γùï /events                                172 B         107 kB
+Γö£ Γùï /faq                                 3.59 kB         115 kB
+Γö£ Γùï /gallery                             3.54 kB         128 kB
+Γö£ Γùï /learn                               1.75 kB         113 kB
+Γö£ Γùï /login                               1.28 kB         106 kB
+Γö£ Γùï /products                            7.68 kB         132 kB
+Γö£ Γùï /projects                            1.94 kB         116 kB
+Γöö Γùï /register                            1.38 kB         106 kB
++ First Load JS shared by all             101 kB
+  Γö£ chunks/4bd1b696-4419cc93057fcf32.js  53.2 kB
+  Γö£ chunks/684-7002d2f60d48787d.js       45.9 kB
+  Γöö other shared chunks (total)          1.99 kB
+
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

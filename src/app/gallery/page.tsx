@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
 
 const galleryImages = [
@@ -20,20 +21,33 @@ export default function GalleryPage() {
       </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {galleryImages.map((image, index) => (
-            <Card
-              key={index}
-              className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className="w-full aspect-[3/2] relative">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 600px"
-                  className="object-cover"
-                />
-              </div>
-            </Card>
+            <Dialog key={index}>
+              <DialogTrigger asChild>
+                <Card
+                  className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                >
+                  <div className="w-full aspect-[3/2] relative">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 600px"
+                      className="object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </div>
+                </Card>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-3xl p-0 overflow-hidden bg-transparent border-none shadow-none">
+                 <div className="relative w-full h-[80vh]">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-contain"
+                    />
+                 </div>
+              </DialogContent>
+            </Dialog>
           ))}
         </div>
     
