@@ -55,14 +55,16 @@ export default function CustomSignDesignerPage() {
     function handleAddToCart(event: React.FormEvent) {
         event.preventDefault();
 
- addToCart({
-      text,
-      graphic,
-      stain,
-      size,
-      price: 120,
-    });
+        const customProduct = {
+            id: `custom-${Date.now()}`,
+            name: 'Custom Sign',
+            description: text || 'Custom wooden sign',
+            price: '120',
+            category: 'custom',
+            imageUrl: graphic || undefined,
+        };
 
+        addToCart(customProduct);
 
         toast({
             title: "Added to Cart!",
