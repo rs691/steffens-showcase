@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 
 const LoginForm: React.FC = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
@@ -15,18 +16,16 @@ const LoginForm: React.FC = () => {
     setError('');
 
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        router.push('/'); // Redirect to the home page after successful login
+      if (error) {
+        setError(error.message);
       } else {
-        setError(data.error || 'Login failed');
+        router.push('/');
+        router.refresh();
       }
     } catch (err) {
       setError('An error occurred during login');
@@ -39,10 +38,10 @@ const LoginForm: React.FC = () => {
         <h2 className="text-2xl font-bold text-center text-foreground">Login</h2>
         {error && <p className="text-destructive text-center">{error}</p>}
         <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
           className="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background dark:bg-muted dark:text-foreground"
           required
         />

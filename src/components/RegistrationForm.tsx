@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 
 const RegistrationForm: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -15,17 +16,21 @@ const RegistrationForm: React.FC = () => {
     e.preventDefault();
     setMessage('');
     try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password }),
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            username,
+          },
+        },
       });
-      const data = await response.json();
-      if (response.ok) {
+
+      if (error) {
+        setMessage(error.message);
+      } else {
         setMessage('Registration successful! Redirecting to login...');
         setTimeout(() => router.push('/login'), 2000);
-      } else {
-        setMessage(data.error || 'Registration failed');
       }
     } catch (err) {
       setMessage('An error occurred during registration.');

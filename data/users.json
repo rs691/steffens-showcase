@@ -1,12 +1,12 @@
-[
-  {
+[  {
     "username": "bobby",
     "email": "rstewart691@yahoo.com",
     "password": "Hankbob2017!"
-  },
+   },
   {
     "username": "Mike",
     "email": "robert691stewart@gmail.com",
     "password": "Hankbob2017!"
-  }
+ }
+
 ]

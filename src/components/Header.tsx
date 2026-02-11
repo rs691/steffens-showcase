@@ -7,6 +7,7 @@ import { Menu, Sprout } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -34,22 +35,34 @@ const accountLinks = [
 export function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<{ username: string } | null>(null);
+  const [user, setUser] = useState<{ email?: string } | null>(null);
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const res = await fetch('/api/auth/me');
-        const data = await res.json();
-        if (data.user) {
-          setUser(data.user);
-        }
-      } catch (error) {
-        console.error("Failed to fetch user", error);
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setUser({ email: user.email });
       }
     };
     fetchUser();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setUser({ email: session.user.email });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    window.location.href = "/";
+  };
 
   const NavLink = ({ href, label, isExternal = false }: { href: string; label: string, isExternal?: boolean }) => {
     const isActive = !isExternal && pathname === href;
@@ -83,7 +96,10 @@ export function Header() {
           <nav className="hidden md:flex items-center space-x-6">
              <NavLink href="/cart" label="Cart" />
              {user ? (
-               <span className="text-sm font-medium text-muted-foreground">Welcome, {user.username}</span>
+               <div className="flex items-center gap-4">
+                 <span className="text-sm font-medium text-muted-foreground">Welcome, {user.email?.split('@')[0]}</span>
+                 <Button variant="ghost" size="sm" onClick={handleLogout}>Logout</Button>
+               </div>
              ) : (
                <>
                  <NavLink href="/register" label="Register" />
@@ -109,7 +125,10 @@ export function Header() {
                 <hr/>
                 <NavLink href="/cart" label="Cart" />
                  {user ? (
-                   <span className="text-muted-foreground">Welcome, {user.username}</span>
+                   <div className="flex flex-col gap-2">
+                     <span className="text-muted-foreground">Welcome, {user.email?.split('@')[0]}</span>
+                     <Button variant="ghost" className="justify-start px-0" onClick={handleLogout}>Logout</Button>
+                   </div>
                  ) : (
                    <>
                      <NavLink href="/register" label="Register" />
