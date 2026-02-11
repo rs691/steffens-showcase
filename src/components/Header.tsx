@@ -58,7 +58,7 @@ export function Header() {
       <div className="container flex h-16 items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
           <Sprout className="h-6 w-6 text-primary" />
-          <span className="font-bold font-headline">Steffen's Showcase</span>
+          <span className="font-bold font-headline">Steffen&apos;s Showcase</span>
         </Link>
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
           {navLinks.map((link) => <NavLink key={link.href} {...link} />)}
@@ -79,7 +79,7 @@ export function Header() {
               <nav className="grid gap-6 text-lg font-medium mt-10">
                 <Link href="/" className="flex items-center space-x-2 mb-4">
                   <Sprout className="h-6 w-6 text-primary" />
-                  <span className="font-bold font-headline">Steffen's Showcase</span>
+                  <span className="font-bold font-headline">Steffen&apos;s Showcase</span>
                 </Link>
                 {navLinks.map((link) => <NavLink key={link.href} {...link} />)}
                 <hr/>

@@ -26,15 +26,6 @@ const stainColors: { [key: string]: string } = {
     'americanCherry': 'bg-[url("/americanCherry.svg")]'
 };
 
-const stainNames: { [key: string]: string } = {
-    'woodBackground': 'Natural Wood Background',
-    'amerBlackWalnut': 'American Black Walnut',
-    'amerWhiteAsh': 'American White Ash',
-    'zebrano': 'Zebrano',
-    'redOak': 'Red Oak',
-    'americanCherry': 'American Cherry'
-};
-
 const sizeClasses: { [key: string]: string } = {
     small: 'text-2xl',
     medium: 'text-4xl',
@@ -50,19 +41,20 @@ export default function CustomSignDesignerPage() {
     const [graphic, setGraphic] = useState<string | null>(null);
     const [stain, setStain] = useState('woodBackground');
     const [size, setSize] = useState('medium');
-    const [stainName, setStainName] = useState('Natural Wood Background');
 
     function handleAddToCart(event: React.FormEvent) {
         event.preventDefault();
 
- addToCart({
-      text,
-      graphic,
-      stain,
-      size,
-      price: 120,
-    });
+        const customProduct = {
+            id: `custom-${Date.now()}`,
+            name: 'Custom Sign',
+            description: text || 'Custom wooden sign',
+            price: '120',
+            category: 'custom',
+            imageUrl: graphic || undefined,
+        };
 
+        addToCart(customProduct);
 
         toast({
             title: "Added to Cart!",
@@ -191,9 +183,9 @@ export default function CustomSignDesignerPage() {
                                 <SelectValue placeholder="Select a size" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="small">Small (12" x 8")</SelectItem>
-                                <SelectItem value="medium">Medium (18" x 12")</SelectItem>
-                                <SelectItem value="large">Large (24" x 16")</SelectItem>
+                                <SelectItem value="small">Small (12&quot; x 8&quot;)</SelectItem>
+                                <SelectItem value="medium">Medium (18&quot; x 12&quot;)</SelectItem>
+                                <SelectItem value="large">Large (24&quot; x 16&quot;)</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

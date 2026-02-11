@@ -6,27 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-  const featuredProjects = [
-    {
-      title: "Handcrafted Oak Table",
-      description:
-        "A centerpiece for any dining room, built with traditional joinery.",
-      image: "/table.png",
-    },
-    {
-      title: "Custom Bookshelf",
-      description:
-        "Floor-to-ceiling bookshelf tailored to fit the client's library.",
-      image: "/bookshelf.png",
-    },
-    {
-      title: "Vintage-Inspired Armchair",
-      description:
-        "A comfortable and stylish armchair with hand-carved details.",
-      image: "/chair.svg",
-    },
-  ];
-
   const services = [
     {
       icon: <Hammer className="h-10 w-10 text-primary" />,

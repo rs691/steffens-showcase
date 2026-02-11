@@ -16,6 +16,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+export const dynamic = 'force-dynamic';
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
@@ -24,7 +26,6 @@ function CheckoutForm() {
   const { totalPrice } = useCart();
   const stripe = useStripe();
   const elements = useElements();
-  const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -93,8 +94,15 @@ export default function CheckoutPage() {
   const { cart, totalPrice, totalItems } = useCart();
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    
     if (totalItems === 0) {
       router.replace("/");
     } else {
@@ -107,7 +115,7 @@ export default function CheckoutPage() {
         .then((res) => res.json())
         .then((data) => setClientSecret(data.clientSecret));
     }
-  }, [totalItems, router, totalPrice]);
+  }, [isMounted, totalItems, router, totalPrice]);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-US", {
@@ -115,6 +123,10 @@ export default function CheckoutPage() {
       currency: "USD",
     }).format(price);
   };
+
+  if (!isMounted) {
+    return <div className="p-6">Loading...</div>;
+  }
 
   if (totalItems === 0) {
     return null; // Redirects in useEffect
