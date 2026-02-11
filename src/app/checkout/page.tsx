@@ -24,7 +24,6 @@ function CheckoutForm() {
   const { totalPrice } = useCart();
   const stripe = useStripe();
   const elements = useElements();
-  const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 

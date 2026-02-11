@@ -6,7 +6,7 @@ export default function AboutPage() {
     <div className="container mx-auto max-w-5xl py-12 px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary">About Me</h1>
-        <p className="mt-4 text-lg text-muted-foreground">A craftsman's journey, from a single piece of wood to a work of art.</p>
+        <p className="mt-4 text-lg text-muted-foreground">A craftsman&apos;s journey, from a single piece of wood to a work of art.</p>
       </div>
 
       <Card className="overflow-hidden shadow-lg">
@@ -20,10 +20,10 @@ export default function AboutPage() {
                 What begins as a rough-hewn log can, with patience and skill, become a thing of beauty and function. My workshop is my sanctuary, a place where traditional techniques meet contemporary design.
               </p>
               <p>
-                Every piece I create is imbued with a story. It's a dialogue between me, the wood, and the future owner. I source my materials sustainably, believing that the respect we show our environment is reflected in the quality of our work.
+                Every piece I create is imbued with a story. It&apos;s a dialogue between me, the wood, and the future owner. I source my materials sustainably, believing that the respect we show our environment is reflected in the quality of our work.
               </p>
               <p>
-                Whether it's a custom dining table that will host family gatherings for generations, or the careful restoration of a beloved heirloom, my commitment is to craftsmanship, durability, and timeless elegance.
+                Whether it&apos;s a custom dining table that will host family gatherings for generations, or the careful restoration of a beloved heirloom, my commitment is to craftsmanship, durability, and timeless elegance.
               </p>
             </div>
           </div>

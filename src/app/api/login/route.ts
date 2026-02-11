@@ -3,15 +3,21 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import path from 'path';
 
+interface User {
+  username: string;
+  password: string;
+  email?: string;
+}
+
 // Define the path to the users file
 const filePath = path.join(process.cwd(), 'data', 'users.json');
 
 // Helper function to read the users file
-async function readUsersFile() {
+async function readUsersFile(): Promise<User[]> {
   try {
     const fileContents = await fs.readFile(filePath, 'utf-8');
     return JSON.parse(fileContents);
-  } catch (error) {
+  } catch {
     return [];
   }
 }
@@ -29,7 +35,7 @@ export async function POST(req: Request) {
   
   try {
     const users = await readUsersFile();
-    const user = users.find((u: any) => u.username === username && u.password === password);
+    const user = users.find((u) => u.username === username && u.password === password);
 
     if (user) {
       // Set a secure cookie to act as a session

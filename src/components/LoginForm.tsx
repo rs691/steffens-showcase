@@ -28,7 +28,7 @@ const LoginForm: React.FC = () => {
       } else {
         setError(data.error || 'Login failed');
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred during login');
     }
   };
@@ -59,7 +59,7 @@ const LoginForm: React.FC = () => {
         </button>
       </form>
       <div className="text-center mt-4 text-sm text-muted-foreground">
-        Don't have an account? <Link href="/register" className="text-primary hover:underline">Register</Link>
+        Don&apos;t have an account? <Link href="/register" className="text-primary hover:underline">Register</Link>
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ const RegistrationForm: React.FC = () => {
       } else {
         setMessage(data.error || 'Registration failed');
       }
-    } catch (err) {
+    } catch {
       setMessage('An error occurred during registration.');
     }
   };

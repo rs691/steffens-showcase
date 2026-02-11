@@ -2,22 +2,28 @@ import fs from 'fs/promises';
 import { NextResponse } from 'next/server';
 import path from 'path';
 
+interface User {
+  username: string;
+  email: string;
+  password: string;
+}
+
 // Define the path to the file where user data will be stored.
 const filePath = path.join(process.cwd(), 'data', 'users.json');
 
 // Helper function to read the users file.
-async function readUsersFile() {
+async function readUsersFile(): Promise<User[]> {
   try {
     const fileContents = await fs.readFile(filePath, 'utf-8');
     return JSON.parse(fileContents);
-  } catch (error) {
+  } catch {
     // If the file doesn't exist or is empty, return an empty array.
     return [];
   }
 }
 
 // Helper function to write the user data to the file.
-async function writeUsersFile(users: any[]) {
+async function writeUsersFile(users: User[]) {
   try {
     await fs.mkdir(path.dirname(filePath), { recursive: true });
     await fs.writeFile(filePath, JSON.stringify(users, null, 2), 'utf-8');
@@ -42,7 +48,7 @@ export async function POST(req: Request) {
     const users = await readUsersFile();
     
     // Check if a user with the same username or email already exists.
-    if (users.some((user: any) => user.username === username || user.email === email)) {
+    if (users.some((user) => user.username === username || user.email === email)) {
       return NextResponse.json({ error: 'Username or email already exists.' }, { status: 409 });
     }
 
