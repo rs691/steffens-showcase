@@ -4,16 +4,22 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -29,38 +35,60 @@ const LoginForm: React.FC = () => {
       }
     } catch (err) {
       setError('An error occurred during login');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md w-full mx-auto p-8 rounded-lg shadow-lg bg-card dark:bg-card-dark">
-      <form onSubmit={handleLogin} className="flex flex-col gap-4">
-        <h2 className="text-2xl font-bold text-center text-foreground">Login</h2>
-        {error && <p className="text-destructive text-center">{error}</p>}
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          className="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background dark:bg-muted dark:text-foreground"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          className="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background dark:bg-muted dark:text-foreground"
-          required
-        />
-        <button type="submit" className="bg-primary text-primary-foreground p-3 rounded-md font-semibold hover:bg-primary/90 transition-colors">
-          Log In
-        </button>
-      </form>
-      <div className="text-center mt-4 text-sm text-muted-foreground">
-        Don't have an account? <Link href="/register" className="text-primary hover:underline">Register</Link>
-      </div>
-    </div>
+    <Card className="max-w-md w-full mx-auto">
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
+        <CardDescription className="text-center">
+          Enter your credentials to access your account.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form id="login-form" onSubmit={handleLogin} className="flex flex-col gap-4">
+          {error && <p className="text-destructive text-center text-sm">{error}</p>}
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              required
+            />
+          </div>
+          <div className="grid w-full items-center gap-1.5">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+            />
+          </div>
+        </form>
+      </CardContent>
+      <CardFooter className="flex flex-col gap-4">
+        <Button 
+          type="submit" 
+          form="login-form" 
+          className="w-full"
+          disabled={loading}
+        >
+          {loading ? 'Logging in...' : 'Log In'}
+        </Button>
+        <div className="text-center text-sm text-muted-foreground">
+          Don't have an account? <Link href="/register" className="text-primary hover:underline">Register</Link>
+        </div>
+      </CardFooter>
+    </Card>
   );
 };
 
