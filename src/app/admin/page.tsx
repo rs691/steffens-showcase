@@ -1,12 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { ChatWidget } from "@/components/ChatWidget";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import { FileText, GalleryHorizontal, LayoutDashboard, LogIn, LogOut } from "lucide-react";
+import { FileText, GalleryHorizontal, LayoutDashboard, LogIn, LogOut, TrendingUp, Package, Users } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -91,6 +92,58 @@ export default function AdminPage() {
 
       <Separator className="my-8" />
       
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <Card className="bg-slate-900 border-slate-800 text-white p-6 shadow-xl relative overflow-hidden group">
+          <div className="flex justify-between items-start relative z-10">
+            <div>
+              <p className="text-slate-400 text-sm font-medium">Total Revenue</p>
+              <h3 className="text-3xl font-bold mt-1">$12,450.00</h3>
+              <p className="text-emerald-400 text-xs mt-2 flex items-center gap-1">
+                <TrendingUp size={12} /> +12% from last month
+              </p>
+            </div>
+            <div className="p-3 bg-slate-800 rounded-xl group-hover:scale-110 transition-transform">
+              <TrendingUp className="text-primary h-6 w-6" />
+            </div>
+          </div>
+          <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+            <TrendingUp size={120} />
+          </div>
+        </Card>
+
+        <Card className="bg-slate-900 border-slate-800 text-white p-6 shadow-xl relative overflow-hidden group">
+          <div className="flex justify-between items-start relative z-10">
+            <div>
+              <p className="text-slate-400 text-sm font-medium">Active Inventory</p>
+              <h3 className="text-3xl font-bold mt-1">42 Pieces</h3>
+              <p className="text-amber-400 text-xs mt-2">5 items low on stock</p>
+            </div>
+            <div className="p-3 bg-slate-800 rounded-xl group-hover:scale-110 transition-transform">
+              <Package className="text-primary h-6 w-6" />
+            </div>
+          </div>
+          <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+            <Package size={120} />
+          </div>
+        </Card>
+
+        <Card className="bg-slate-900 border-slate-800 text-white p-6 shadow-xl relative overflow-hidden group">
+          <div className="flex justify-between items-start relative z-10">
+            <div>
+              <p className="text-slate-400 text-sm font-medium">Registered Users</p>
+              <h3 className="text-3xl font-bold mt-1">156</h3>
+              <p className="text-slate-400 text-xs mt-2">8 new this week</p>
+            </div>
+            <div className="p-3 bg-slate-800 rounded-xl group-hover:scale-110 transition-transform">
+              <Users className="text-primary h-6 w-6" />
+            </div>
+          </div>
+          <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+            <Users size={120} />
+          </div>
+        </Card>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <Card className="shadow-lg hover:shadow-xl transition-shadow">
           <CardHeader>
@@ -99,9 +152,14 @@ export default function AdminPage() {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground mb-4">You have 6 projects currently listed.</p>
-            <Button asChild><Link href="/projects">View Projects</Link></Button>
           </CardContent>
+          <CardFooter>
+            <Button asChild className="w-full">
+              <Link href="/projects">View Projects</Link>
+            </Button>
+          </CardFooter>
         </Card>
+
         <Card className="shadow-lg hover:shadow-xl transition-shadow">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline"><GalleryHorizontal/> Update Gallery</CardTitle>
@@ -109,11 +167,16 @@ export default function AdminPage() {
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground mb-4">Your gallery contains 9 images.</p>
-            <Button asChild><Link href="/gallery">Edit Gallery</Link></Button>
           </CardContent>
+          <CardFooter>
+            <Button asChild className="w-full" variant="outline">
+              <Link href="/gallery">Edit Gallery</Link>
+            </Button>
+          </CardFooter>
         </Card>
-   
       </div>
+
+      <ChatWidget isAdmin={true} />
     </div>
   );
 }

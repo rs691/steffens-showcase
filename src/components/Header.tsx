@@ -1,140 +1,124 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils";
-import { Menu, Sprout } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { ShoppingCart, Menu, ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { useContext } from "react";
+import { CartContext } from "@/context/CartContext";
+import { Badge } from "@/components/ui/badge";
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  // { href: "/projects", label: "Projects" },
-    { href: "/products", label: "Products" },
-  { href: "/gallery", label: "Gallery" },
-  // { href: "/calendar", label: "Calendar" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
-  { href: "/custom-sign", label: "Custom Sign" },
-  { href: "/learn", label: "Everything Wood" },
-  { href: "/events", label: "Events" },
+const navItems = [
+  { name: "Home", href: "/" },
+  { name: "Products", href: "/products" },
+  { name: "Projects", href: "/projects" },
+  { name: "Gallery", href: "/gallery" },
+  { name: "Events", href: "/events" },
+  { name: "Contact", href: "/contact" },
 ];
 
-const accountLinks = [
-  // connects to the shopify headless store and cart. Needs to be configured before use. By default, shopify landing page
-  // { href: "https://shopify.com", label: "Shopify" },
-  // { href: "/checkout", label: "Checkout" },
-   { href: "/cart", label: "Cart" },
-  { href: "/register", label: "Register" },
-   { href: "/login", label: "Login" },
-];
-
-export function Header() {
+export default function Header() {
   const pathname = usePathname();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<{ email?: string } | null>(null);
+  const { cartItems } = useContext(CartContext);
+  const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        setUser({ email: user.email });
-      }
-    };
-    fetchUser();
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) {
-        setUser({ email: session.user.email });
-      } else {
-        setUser(null);
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-    window.location.href = "/";
-  };
-
-  const NavLink = ({ href, label, isExternal = false }: { href: string; label: string, isExternal?: boolean }) => {
-    const isActive = !isExternal && pathname === href;
-    return (
-      <Link
-        href={href}
-        target={isExternal ? "_blank" : "_self"}
-        rel={isExternal ? "noopener noreferrer" : ""}
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          isActive ? "text-primary" : "text-muted-foreground"
-        )}
-        onClick={() => isMobileMenuOpen && setIsMobileMenuOpen(false)}
-      >
-        {label}
-      </Link>
-    );
-  };
-  
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center">
-        <Link href="/" className="mr-6 flex items-center space-x-2">
-          <Sprout className="h-6 w-6 text-primary" />
-          <span className="font-bold font-headline">Steffen's Showcase</span>
-        </Link>
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
-          {navLinks.map((link) => <NavLink key={link.href} {...link} />)}
-        </nav>
-        <div className="flex flex-1 items-center justify-end space-x-4">
-          <nav className="hidden md:flex items-center space-x-6">
-             <NavLink href="/cart" label="Cart" />
-             {user ? (
-               <div className="flex items-center gap-4">
-                 <span className="text-sm font-medium text-muted-foreground">Welcome, {user.email?.split('@')[0]}</span>
-                 <Button variant="ghost" size="sm" onClick={handleLogout}>Logout</Button>
-               </div>
-             ) : (
-               <>
-                 <NavLink href="/register" label="Register" />
-                 <NavLink href="/login" label="Login" />
-               </>
-             )}
+    <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur-md">
+      <div className="container mx-auto flex h-20 items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-8">
+          <Link href="/" className="flex items-center space-x-2">
+            <span className="text-2xl font-bold tracking-tighter text-primary font-headline italic">
+              Steffen's Showcase
+            </span>
+          </Link>
+
+          <nav className="hidden lg:flex items-center space-x-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`px-4 py-2 text-sm font-medium transition-colors hover:text-primary rounded-md ${
+                  pathname === item.href ? "text-primary bg-primary/5" : "text-muted-foreground"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
           </nav>
-          
-          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+        </div>
+
+        <div className="flex items-center space-x-2">
+          {/* Demo Admin Access Button */}
+          <div className="hidden sm:block">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon" asChild className="text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-full">
+                    <Link href="/admin">
+                      <ShieldCheck className="h-5 w-5" />
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Demo Admin Panel & BI Bot</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+
+          <Button variant="ghost" size="icon" asChild className="relative hover:bg-primary/5 group">
+            <Link href="/cart">
+              <ShoppingCart className="h-5 w-5 group-hover:scale-110 transition-all" />
+              {cartCount > 0 && (
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-[10px] animate-in zoom-in">
+                  {cartCount}
+                </Badge>
+              )}
+            </Link>
+          </Button>
+
+          <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="md:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle Menu</span>
+              <Button variant="ghost" size="icon" className="lg:hidden">
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left">
-              <nav className="grid gap-6 text-lg font-medium mt-10">
-                <Link href="/" className="flex items-center space-x-2 mb-4">
-                  <Sprout className="h-6 w-6 text-primary" />
-                  <span className="font-bold font-headline">Steffen's Showcase</span>
+            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetHeader>
+                <SheetTitle className="text-left font-headline italic text-primary">Navigation</SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col space-y-4 mt-8">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`text-lg font-medium py-2 border-b border-transparent hover:border-primary/20 ${
+                      pathname === item.href ? "text-primary px-2 bg-primary/5 rounded-lg" : "text-muted-foreground"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                <Link
+                  href="/admin"
+                  className="flex items-center gap-2 text-lg font-medium py-2 text-amber-600"
+                >
+                  <ShieldCheck className="h-5 w-5" /> Demo Admin Panel
                 </Link>
-                {navLinks.map((link) => <NavLink key={link.href} {...link} />)}
-                <hr/>
-                <NavLink href="/cart" label="Cart" />
-                 {user ? (
-                   <div className="flex flex-col gap-2">
-                     <span className="text-muted-foreground">Welcome, {user.email?.split('@')[0]}</span>
-                     <Button variant="ghost" className="justify-start px-0" onClick={handleLogout}>Logout</Button>
-                   </div>
-                 ) : (
-                   <>
-                     <NavLink href="/register" label="Register" />
-                     <NavLink href="/login" label="Login" />
-                   </>
-                 )}
               </nav>
             </SheetContent>
           </Sheet>
