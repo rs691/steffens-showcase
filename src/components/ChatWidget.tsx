@@ -164,7 +164,7 @@ export function ChatWidget({ isAdmin = false }: { isAdmin?: boolean }) {
                         key={prompt}
                         type="button"
                         onClick={() => setInput(prompt)}
-                        className="text-xs rounded-full border bg-white px-3 py-1.5 hover:bg-slate-100"
+                        className="text-xs rounded-full border bg-white px-3 py-1.5 text-slate-800 hover:bg-slate-100 dark:bg-slate-200 dark:text-slate-950"
                       >
                         {prompt}
                       </button>
