@@ -14,6 +14,15 @@ interface Message {
   content: string;
 }
 
+function normalizeMessageContent(content: string, role: Message["role"]) {
+  const trimmed = content.trim();
+  if (trimmed.length > 0) {
+    return trimmed;
+  }
+
+  return role === "assistant" ? "Demo response ready." : "Message sent.";
+}
+
 export function ChatWidget({ isAdmin = false }: { isAdmin?: boolean }) {
   const starterPrompts = isAdmin
     ? [
@@ -136,8 +145,15 @@ export function ChatWidget({ isAdmin = false }: { isAdmin?: boolean }) {
                     <div className={cn("h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm", m.role === "assistant" ? (isAdmin ? "bg-slate-800 text-white" : "bg-primary text-white") : "bg-white border text-slate-600")}>
                       {m.role === "assistant" ? <Bot size={16} /> : <User size={16} />}
                     </div>
-                    <div className={cn("rounded-2xl px-4 py-2.5 max-w-[80%] text-sm shadow-sm", m.role === "user" ? "bg-primary text-primary-foreground rounded-tr-none" : "bg-white text-slate-800 rounded-tl-none")}>
-                      {m.content}
+                    <div className={cn(
+                      "rounded-2xl px-4 py-2.5 max-w-[80%] text-sm shadow-sm whitespace-pre-wrap break-words",
+                      m.role === "user"
+                        ? "bg-primary text-primary-foreground rounded-tr-none"
+                        : isAdmin
+                          ? "bg-slate-100 text-slate-950 rounded-tl-none dark:bg-slate-100 dark:text-slate-950"
+                          : "bg-white text-slate-900 rounded-tl-none dark:bg-slate-100 dark:text-slate-950"
+                    )}>
+                      {normalizeMessageContent(m.content, m.role)}
                     </div>
                   </div>
                 ))}
