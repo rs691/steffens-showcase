@@ -10,11 +10,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Label } from "@/components/ui/label";
 
 const LoginForm: React.FC = () => {
+  const DEMO_ACCESS_KEY = 'steffens-demo-access';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+
+  const startReviewerDemo = () => {
+    localStorage.setItem(DEMO_ACCESS_KEY, 'true');
+    router.push('/review');
+  };
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,9 +49,9 @@ const LoginForm: React.FC = () => {
   return (
     <Card className="max-w-md w-full mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-center">Login</CardTitle>
+        <CardTitle className="text-2xl font-bold text-center">Sign In</CardTitle>
         <CardDescription className="text-center">
-          Enter your credentials to access your account.
+          Sign in for the full experience or open the recruiter demo instantly.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -76,6 +82,14 @@ const LoginForm: React.FC = () => {
         </form>
       </CardContent>
       <CardFooter className="flex flex-col gap-4">
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
+          onClick={startReviewerDemo}
+        >
+          Open Recruiter Demo
+        </Button>
         <Button 
           type="submit" 
           form="login-form" 
@@ -85,7 +99,7 @@ const LoginForm: React.FC = () => {
           {loading ? 'Logging in...' : 'Log In'}
         </Button>
         <div className="text-center text-sm text-muted-foreground">
-          Don't have an account? <Link href="/register" className="text-primary hover:underline">Register</Link>
+          Need a standard account flow? <Link href="/register" className="text-primary hover:underline">Register</Link>
         </div>
       </CardFooter>
     </Card>

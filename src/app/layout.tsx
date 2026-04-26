@@ -1,7 +1,7 @@
 import { Footer } from '@/components/Footer';
+import GlobalChatWidget from '@/components/GlobalChatWidget';
 import Header from '@/components/Header';
 import { Toaster } from "@/components/ui/toaster";
-import { ChatWidget } from "@/components/ChatWidget";
 import { cn } from "@/lib/utils";
 import type { Metadata } from 'next';
 import { CartProvider } from '@/context/CartContext';
@@ -33,7 +33,7 @@ export default function RootLayout({
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
-            <ChatWidget />
+            <GlobalChatWidget />
           </div>
         </CartProvider>
         <Toaster />

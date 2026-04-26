@@ -15,6 +15,18 @@ interface Message {
 }
 
 export function ChatWidget({ isAdmin = false }: { isAdmin?: boolean }) {
+  const starterPrompts = isAdmin
+    ? [
+        "Show weekly revenue summary",
+        "Which products are low in stock?",
+        "Any customer trends this month?",
+      ]
+    : [
+        "How long do custom signs take?",
+        "What is your most popular item?",
+        "How do I place a custom order?",
+      ];
+
   const [isOpen, setIsOpen] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const [input, setInput] = useState("");
@@ -22,8 +34,8 @@ export function ChatWidget({ isAdmin = false }: { isAdmin?: boolean }) {
     {
       role: "assistant",
       content: isAdmin 
-        ? "Hello, Admin. I am your Business Intelligence Assistant. I can help you with sales reports, inventory levels, and customer trends." 
-        : "Hi there! I''m Steffen''s Assistant. I can help you with questions about our wood designs, custom orders, or how to contact us."
+        ? "Hello, Admin. I am your Business Intelligence Assistant. I can help with sales reports, inventory levels, and customer trends." 
+        : "Hi there! I'm Steffen's Assistant. I can help with questions about wood designs, custom orders, or how to contact us."
     }
   ]);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,8 +64,8 @@ export function ChatWidget({ isAdmin = false }: { isAdmin?: boolean }) {
 
     setTimeout(() => {
       const botResponse = isAdmin 
-        ? "As an admin assistant, I''ve analyzed our recent sales. Your ''Cedar Picnic Table'' is trending with 15 sales this week, but stock is down to 3 units. Should I create a restock alert?"
-        : "That''s a great question! Our custom wood signs usually take 2-3 weeks for delivery. You can check our Gallery page for inspiration!";
+        ? "As an admin assistant, I've analyzed recent sales. Your Cedar Picnic Table is trending with 15 sales this week, but stock is down to 3 units. Should I create a restock alert?"
+        : "Great question. Most custom wood signs are delivered in 2-3 weeks. You can check the Gallery page for design inspiration.";
       
       setMessages((prev) => [...prev, { role: "assistant", content: botResponse }]);
       setIsLoading(false);
@@ -73,11 +85,11 @@ export function ChatWidget({ isAdmin = false }: { isAdmin?: boolean }) {
             <div className="absolute bottom-full right-0 mb-4 w-60 animate-in fade-in slide-in-from-bottom-2 duration-500">
               <div className="bg-white dark:bg-slate-900 border shadow-2xl rounded-2xl p-3 text-md font-medium relative">
                 <p className="text-slate-700 dark:text-slate-200">
-                  {isAdmin ? "?? Review today''s BI analytics?" : "Need a custom wood design quote?"}
+                  {isAdmin ? "Review today’s BI analytics?" : "Need a custom wood design quote?"}
                 </p>
                 <div className="absolute top-full right-6 w-2 h-2 bg-white dark:bg-slate-900 border-r border-b rotate-45 -mt-1" />
                 <button
-                title="Close tooltip" 
+                  title="Close tooltip"
                   onClick={(e) => { e.stopPropagation(); setShowTooltip(false); }}
                   className="absolute -top-1 -right-1 bg-slate-200 dark:bg-slate-800 rounded-full p-0.5"
                 >
@@ -129,6 +141,20 @@ export function ChatWidget({ isAdmin = false }: { isAdmin?: boolean }) {
                     </div>
                   </div>
                 ))}
+                {messages.length === 1 && (
+                  <div className="ml-11 flex flex-wrap gap-2">
+                    {starterPrompts.map((prompt) => (
+                      <button
+                        key={prompt}
+                        type="button"
+                        onClick={() => setInput(prompt)}
+                        className="text-xs rounded-full border bg-white px-3 py-1.5 hover:bg-slate-100"
+                      >
+                        {prompt}
+                      </button>
+                    ))}
+                  </div>
+                )}
                 {isLoading && (
                   <div className="flex items-center gap-2 text-slate-400 text-xs ml-11">
                     <Loader2 className="h-3 w-3 animate-spin" />
@@ -142,7 +168,7 @@ export function ChatWidget({ isAdmin = false }: { isAdmin?: boolean }) {
           <CardFooter className="p-3 border-t bg-white">
             <div className="flex w-full items-center space-x-2">
               <Input
-                placeholder="Type your message..."
+                placeholder={isAdmin ? "Ask about sales, stock, or trends..." : "Ask about products, orders, or timing..."}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}

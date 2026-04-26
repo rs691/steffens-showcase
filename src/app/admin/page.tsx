@@ -9,23 +9,32 @@ import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { FileText, GalleryHorizontal, LayoutDashboard, LogIn, LogOut, TrendingUp, Package, Users } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-// This is a mock authentication state.
-// In a real app, this would be handled by another authentication provider.
-let mockIsAuthenticated = false;
+const DEMO_ACCESS_KEY = "steffens-demo-access";
 
 export default function AdminPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(mockIsAuthenticated);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isDemoSession, setIsDemoSession] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const demoFromStorage = localStorage.getItem(DEMO_ACCESS_KEY) === "true";
+    const demoFromEnv = process.env.NEXT_PUBLIC_REVIEW_MODE === "true";
+
+    if (demoFromStorage || demoFromEnv) {
+      setIsAuthenticated(true);
+      setIsDemoSession(true);
+    }
+  }, []);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (email === "admin@example.com" && password === "password") {
-      mockIsAuthenticated = true;
       setIsAuthenticated(true);
+      setIsDemoSession(false);
       toast({
         title: "Login Successful",
         description: "Welcome to the admin panel.",
@@ -39,9 +48,20 @@ export default function AdminPage() {
     }
   };
 
+  const handleDemoEntry = () => {
+    localStorage.setItem(DEMO_ACCESS_KEY, "true");
+    setIsAuthenticated(true);
+    setIsDemoSession(true);
+    toast({
+      title: "Demo Admin Enabled",
+      description: "You now have quick reviewer access to the dashboard.",
+    });
+  };
+
   const handleLogout = () => {
-    mockIsAuthenticated = false;
+    localStorage.removeItem(DEMO_ACCESS_KEY);
     setIsAuthenticated(false);
+    setIsDemoSession(false);
     setEmail("");
     setPassword("");
     toast({
@@ -55,10 +75,13 @@ export default function AdminPage() {
       <div className="flex items-center justify-center min-h-[calc(100vh-8rem)] bg-background">
         <Card className="w-full max-w-sm mx-auto shadow-2xl">
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold font-headline">Admin Login</CardTitle>
-            <CardDescription>Enter your credentials to access the dashboard</CardDescription>
+            <CardTitle className="text-2xl font-bold font-headline">Admin Access</CardTitle>
+            <CardDescription>Use demo access for a fast review or sign in with the sample admin account.</CardDescription>
           </CardHeader>
           <CardContent>
+            <Button type="button" variant="outline" className="w-full mb-4" onClick={handleDemoEntry}>
+              Open Demo Admin
+            </Button>
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -86,9 +109,19 @@ export default function AdminPage() {
            <h1 className="text-4xl font-headline font-bold">Admin Dashboard</h1>
         </div>
         <Button onClick={handleLogout} variant="outline">
-          <LogOut className="mr-2 h-4 w-4" /> Logout
+          <LogOut className="mr-2 h-4 w-4" /> Exit Session
         </Button>
       </div>
+
+      {isDemoSession && (
+        <Card className="border-amber-300 bg-amber-50 mb-6">
+          <CardContent className="py-4">
+            <p className="text-amber-900 text-sm">
+              Reviewer Demo Mode is active. This session is optimized for quick portfolio walkthroughs.
+            </p>
+          </CardContent>
+        </Card>
+      )}
 
       <Separator className="my-8" />
       

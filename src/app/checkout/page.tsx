@@ -13,12 +13,12 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-);
+const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
 function CheckoutForm() {
   const { totalPrice } = useCart();
@@ -90,22 +90,33 @@ function CheckoutForm() {
 }
 
 export default function CheckoutPage() {
-  const { cart, totalPrice, totalItems } = useCart();
+  const { cartItems, totalPrice, totalItems } = useCart();
   const router = useRouter();
   const [clientSecret, setClientSecret] = useState("");
+  const [isLoadingIntent, setIsLoadingIntent] = useState(false);
 
   useEffect(() => {
     if (totalItems === 0) {
-      router.replace("/");
-    } else {
+      router.replace("/cart");
+    } else if (stripePromise) {
+      setIsLoadingIntent(true);
       // Create PaymentIntent as soon as the page loads
       fetch("/api/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: totalPrice * 100 }), // amount in cents
+        body: JSON.stringify({
+          amount: totalPrice,
+          email: "reviewer@demo.local",
+          description: "Steffen Showcase demo checkout",
+        }),
       })
         .then((res) => res.json())
-        .then((data) => setClientSecret(data.clientSecret));
+        .then((data) => {
+          if (data?.clientSecret) {
+            setClientSecret(data.clientSecret);
+          }
+        })
+        .finally(() => setIsLoadingIntent(false));
     }
   }, [totalItems, router, totalPrice]);
 
@@ -117,7 +128,34 @@ export default function CheckoutPage() {
   };
 
   if (totalItems === 0) {
-    return null; // Redirects in useEffect
+    return null;
+  }
+
+  if (!stripePromise) {
+    return (
+      <div className="container mx-auto px-4 py-12">
+        <Card className="max-w-2xl mx-auto">
+          <CardHeader>
+            <CardTitle>Checkout Demo Mode</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-muted-foreground">
+              Stripe is not configured in this environment. Use the simulated success path to demonstrate the checkout flow to recruiters.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button asChild>
+                <Link href="/confirmation?payment_intent=pi_demo_12345678&redirect_status=succeeded">
+                  Simulate Successful Checkout
+                </Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link href="/cart">Back to Cart</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
   
   const options: StripeElementsOptions = {
@@ -139,7 +177,7 @@ export default function CheckoutPage() {
             <Card>
               <CardContent className="p-6">
                 <div className="space-y-4">
-                  {cart.map((item) => (
+                  {cartItems.map((item) => (
                     <div
                       key={item.product.id}
                       className="flex justify-between items-start gap-4"
@@ -190,6 +228,9 @@ export default function CheckoutPage() {
           <h1 className="text-3xl font-bold mb-6 font-headline">
             Shipping & Payment
           </h1>
+          {isLoadingIntent && !clientSecret && (
+            <p className="text-sm text-muted-foreground mb-4">Preparing secure checkout...</p>
+          )}
           {clientSecret && (
             <Elements options={options} stripe={stripePromise}>
               <CheckoutForm />

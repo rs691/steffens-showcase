@@ -9,9 +9,23 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function CartPage() {
-  const { cart, clearCart, removeFromCart, totalPrice } = useCart();
+  const { cartItems, addToCart, clearCart, removeFromCart, totalPrice } = useCart();
 
-  if (cart.length === 0) {
+  const loadDemoCartAndCheckout = () => {
+    addToCart(
+      {
+        id: "demo-cedar-sign",
+        name: "Cedar Welcome Sign (Demo)",
+        description: "Demo product used for portfolio checkout walkthroughs.",
+        price: 129,
+        imageUrl: "/table.png",
+        category: "Signs",
+      },
+      1
+    );
+  };
+
+  if (cartItems.length === 0) {
     return (
       <div className="container mx-auto py-20 px-4 text-center">
         <div className="max-w-md mx-auto space-y-6">
@@ -20,9 +34,14 @@ export default function CartPage() {
           </div>
           <h1 className="text-3xl font-headline font-bold">Your cart is empty</h1>
           <p className="text-muted-foreground">Looks like you haven&apos;t added any handcrafted pieces yet.</p>
-          <Button asChild size="lg">
-            <Link href="/products">Browse Collection</Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button asChild size="lg" variant="outline">
+              <Link href="/products">Browse Collection</Link>
+            </Button>
+            <Button asChild size="lg" onClick={loadDemoCartAndCheckout}>
+              <Link href="/checkout">Load Demo Cart &amp; Checkout</Link>
+            </Button>
+          </div>
         </div>
       </div>
     );
@@ -34,13 +53,13 @@ export default function CartPage() {
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2 space-y-6">
-          {cart.map((item, index) => (
+          {cartItems.map((item, index) => (
             <Card key={`${item.product.id}-${index}`} className="overflow-hidden border-none shadow-md hover:shadow-lg transition-shadow">
               <CardContent className="p-0">
                 <div className="flex flex-col sm:flex-row">
                   <div className="w-full sm:w-48 h-48 relative bg-slate-100">
                     <Image 
-                      src={item.product.image || "/placeholder.png"} 
+                      src={item.product.imageUrl || "/placeholder.png"} 
                       alt={item.product.name}
                       fill
                       className="object-cover"
@@ -56,7 +75,7 @@ export default function CartPage() {
                     </div>
                     <div className="flex justify-between items-center mt-4">
                       <div className="text-sm text-slate-500">
-                        Qty: 1
+                        Qty: {item.quantity}
                       </div>
                       <Button 
                         variant="ghost" 
@@ -92,7 +111,7 @@ export default function CartPage() {
             <CardContent className="space-y-4">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span className="font-medium">${totalPrice}</span>
+                <span className="font-medium">${totalPrice.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Shipping</span>
@@ -101,7 +120,7 @@ export default function CartPage() {
               <Separator />
               <div className="flex justify-between text-xl font-bold">
                 <span>Total</span>
-                <span className="text-primary">${totalPrice}</span>
+                <span className="text-primary">${totalPrice.toFixed(2)}</span>
               </div>
             </CardContent>
             <CardFooter>

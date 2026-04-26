@@ -5,8 +5,8 @@ export async function POST(request: NextRequest) {
   try {
     const { amount, email, description, metadata } = await request.json()
 
-    if (!amount || !email) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    if (!amount) {
+      return NextResponse.json({ error: "Missing required amount" }, { status: 400 })
     }
 
     // Create payment intent
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       amount: Math.round(amount * 100), // Convert to cents
       currency: "usd",
       description,
-      receipt_email: email,
+      receipt_email: email || undefined,
       metadata: metadata || {},
     })
 

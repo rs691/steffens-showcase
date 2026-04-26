@@ -23,6 +23,7 @@ import {
 
 const navItems = [
   { name: "Home", href: "/" },
+  { name: "Quick Review", href: "/review" },
   { name: "Products", href: "/products" },
   { name: "Projects", href: "/projects" },
   { name: "Gallery", href: "/gallery" },

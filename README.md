@@ -1,118 +1,84 @@
-Steffens-Showcase: Full-Stack Woodworking Portfolio
-🌟 Project Overview
-Steffens-Showcase is a comprehensive, full-stack demonstration application built using Next.js. It serves as a professional portfolio website for a custom woodworking business, combining a visually compelling showcase of projects with robust backend features like secure user authentication.
+# Steffens-Showcase
 
-This project was initially used as a prototyping environment to test and refine different iterations of the final architecture, resulting in an optimized, production-ready foundation.
+Full-stack woodworking portfolio built with Next.js.
 
-✨ Key Features
-The application is designed to be modern, responsive, and fully functional across both frontend display and backend data handling.
+## Project Overview
 
-Aesthetic Project Showcase: Dedicated pages and components for displaying custom woodworking projects with high-resolution images and detailed descriptions.
+Steffens-Showcase is a portfolio and product showcase for a custom woodworking business. The current iteration is optimized for fast review by recruiters or hiring managers: it includes a guided demo hub, instant admin access for walkthroughs, chatbot showcases, and a checkout path that still demonstrates the flow even when Stripe is not configured.
 
-Fully Responsive UI: Crafted with a mobile-first approach, the aesthetic interface looks seamless on desktop, tablet, and mobile devices.
+## Key Features
 
-Secure User Authentication Flow: Implements a complete and secure flow including separate pages for user Registration and Login, demonstrating full-stack security principles.
+- Public showcase pages for projects, products, gallery, events, contact, and more.
+- Recruiter Quick Review mode at `/review` for instant access to the core demo path.
+- Demo entry points on `/login` and `/admin` that do not require registration or verification.
+- Admin dashboard presentation with a business-intelligence chatbot experience.
+- Cart and checkout walkthroughs, including a simulated success path when Stripe keys are missing.
+- Responsive component-based UI with reusable Tailwind/shadcn-style primitives.
 
-Optimized Performance: Leverages Next.js features like Server-Side Rendering (SSR) and static generation (SSG) for fast initial loads and SEO benefits.
+## Current Iteration Notes
 
-Modern Component Architecture: Uses functional React components and hooks for state management and modularity.
+- Authentication is demo-first and local-session based for the showcase flow.
+- The app includes Supabase client wiring and an MCP server for BI-style demos.
+- Stripe checkout is supported when keys are configured, but the app also offers a no-key demo path so reviewers can still see the full flow.
 
-🛠️ Technology Stack
-This application utilizes a modern and efficient stack for performance and developer experience:
+## Getting Started
 
-Category
+### Prerequisites
 
-Technology
+- Node.js 18+
+- npm or yarn
 
-Purpose
+### Installation
 
-Framework
-
-Next.js
-
-React framework for SSR, routing, and API routes.
-
-Styling
-
-Tailwind CSS
-
-Utility-first CSS framework for rapid and responsive styling.
-
-Frontend
-
-React
-
-Building the user interface components.
-
-Backend
-
-Node.js (via Next.js API Routes)
-
-Handling server-side logic and database integration.
-
-Authentication
-
-[Specify Auth Library, e.g., NextAuth.js or custom] 
-
-Managing user sessions, registration, and login.
-
-Database
-
-[Specify Database, e.g., MongoDB, PostgreSQL] 
-
-Persistent storage for project data and user information.
-
-🚀 Getting Started
-Follow these instructions to set up and run the project locally on your machine.
-
-Prerequisites
-Node.js (v18+)
-
-npm or yarn
-
-Installation
-Clone the repository:
-
+```bash
 git clone [YOUR_REPO_URL] Steffens-Showcase
-
-Navigate to the project directory:
-
 cd Steffens-Showcase
-
-Install dependencies:
-
 npm install
-# or
-yarn install
+```
 
-Configure Environment Variables:
-Create a file named .env.local in the root directory and add the necessary environment variables for your database connection and authentication secrets.
+### Environment Variables
 
-# Example .env.local content (adjust based on your actual setup)
+Create a `.env.local` file in the project root and add the variables your deployment uses.
+
+```bash
 DATABASE_URL="[Your_DB_Connection_String]"
 NEXTAUTH_SECRET="[A_Long_Random_Secret]"
+STRIPE_SECRET_KEY="[Your_Stripe_Secret_Key]"
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY="[Your_Stripe_Publishable_Key]"
+NEXT_PUBLIC_SUPABASE_URL="[Your_Supabase_URL]"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="[Your_Supabase_Anon_Key]"
+```
 
-Run the development server:
+### Run Locally
 
+```bash
 npm run dev
-# or
-yarn dev
+```
 
-The application will now be running at http://localhost:3000.
+The app runs at `http://localhost:3000`.
 
-🌐 Live Demo & Screenshots
-Live Application: [LINK_TO_YOUR_DEPLOYED_APP]
+## Recruiter Quick Review Flow
 
-<!--
-If you add a screenshot or GIF, make sure to link it here!
-Example:
--->
+Use this path to review the app without creating an account:
 
-💡 Future Enhancements
-Potential areas for continued development and iteration:
+1. Open `/review` for a guided hub.
+2. Open `/login` and click `Start Recruiter Demo (No Registration)`.
+3. Open `/admin` and click `Enter Demo Admin (No Registration)` to see the dashboard and BI chatbot.
+4. Open `/cart` and use `Load Demo Cart & Checkout` for a one-click cart/checkout walkthrough.
+5. If Stripe environment variables are missing, `/checkout` shows a simulated successful checkout path.
 
-CMS Integration: Implement an administration panel to allow the client to easily add, edit, or remove woodworking projects without touching the codebase.
+## Deployment Checklist
 
-Improved User Experience: Add features like project filtering by category (e.g., furniture, cabinetry).
+If an older version appears live, check the following:
 
-Optimized Data Fetching: Implement data caching strategies to reduce load times for static project data.
+1. Run `npm run build` locally and confirm it succeeds.
+2. Push the latest `main` branch to GitHub.
+3. Confirm Vercel is linked to this repository and deploying from `main`.
+4. Verify production environment variables are set in Vercel.
+5. Redeploy the latest successful commit if the newest build failed.
+
+## Future Enhancements
+
+- Add a CMS so projects and products can be updated without code changes.
+- Add filtering and browsing improvements for products and projects.
+- Connect the admin demo to real analytics data when a production backend is added.
