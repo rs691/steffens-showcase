@@ -10,6 +10,15 @@
 !.yarn/releases
 !.yarn/versions
 
+# environment and secrets — never commit these
+.env
+.env.*
+!.env.example
+
+# local user stores (passwords, inquiries)
+/data/users.json
+/data/inquiries.json
+
 # testing
 /coverage
 

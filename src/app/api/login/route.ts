@@ -1,55 +1,43 @@
-import fs from 'fs/promises';
-import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
-import path from 'path';
+import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 
-// Define the path to the users file
-const filePath = path.join(process.cwd(), 'data', 'users.json');
+const loginSchema = z.object({
+  email: z.string().trim().email("Enter a valid email address."),
+  password: z.string().min(1, "Password is required."),
+});
 
-// Helper function to read the users file
-async function readUsersFile() {
+export async function POST(request: Request) {
+  let body: unknown;
   try {
-    const fileContents = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(fileContents);
-  } catch (error) {
-    return [];
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
   }
-}
 
-/**
- * Handles user login by authenticating credentials and setting a session cookie.
- * This is a server-side function.
- */
-export async function POST(req: Request) {
-  const { username, password } = await req.json();
-
-  if (!username || !password) {
-    return NextResponse.json({ error: 'Username and password are required.' }, { status: 400 });
+  const parsed = loginSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: parsed.error.issues[0]?.message ?? "Invalid credentials." },
+      { status: 400 },
+    );
   }
-  
-  try {
-    const users = await readUsersFile();
-    const user = users.find((u: any) => u.username === username && u.password === password);
 
-    if (user) {
-      // Set a secure cookie to act as a session
-      // NOTE: The 'cookies()' function is asynchronous and returns a Promise, so 'await' is needed.
-      const cookieStore = await cookies();
-      cookieStore.set('session', user.username, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 60 * 60 * 24, // 1 day
-        path: '',
-      });
+  const supabase = await createServerSupabaseClient();
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: parsed.data.email,
+    password: parsed.data.password,
+  });
 
-      // Return a success response with the username
-      return NextResponse.json({ success: true, username: user.username });
-    } else {
-      return NextResponse.json({ error: 'Invalid username or password.' }, { status: 401 });
-    }
-  } catch (error) {
-    console.error('Login failed:', error);
-    return NextResponse.json({ error: 'An internal error occurred.' }, { status: 500 });
+  if (error || !data.user) {
+    return NextResponse.json(
+      { error: "Invalid email or password." },
+      { status: 401 },
+    );
   }
+
+  return NextResponse.json({
+    success: true,
+    email: data.user.email,
+  });
 }

@@ -1,35 +1,40 @@
-import { Footer } from '@/components/Footer';
-import { Header } from '@/components/Header';
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
-import type { Metadata } from 'next';
-import { CartProvider } from './context/CartContext';
-import './globals.css';
+import { getCurrentUser } from "@/lib/auth";
+import type { Metadata } from "next";
+import { Literata } from "next/font/google";
+import { CartProvider } from "./context/CartContext";
+import "./globals.css";
+
+const literata = Literata({
+  subsets: ["latin"],
+  variable: "--font-literata",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Steffen's Showcase",
-  description: 'A showcase of craftsmanship.',
+  description: "Custom woodworking, furniture, and handcrafted signs.",
   icons: {
-    icon: "sd1.png"
+    icon: "/sd1.png",
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getCurrentUser();
+
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&display=swap" rel="stylesheet" />
-      </head>
-      <body className={cn("min-h-screen bg-background font-body antialiased ")} suppressHydrationWarning={true}>
+    <html lang="en" className={cn("dark", literata.variable)}>
+      <body className={cn("min-h-screen bg-background font-body antialiased", literata.className)}>
         <CartProvider>
           <div className="relative flex min-h-screen w-full flex-col">
-            <Header />
+            <Header username={user?.username ?? user?.email ?? null} />
             <main className="flex-1">{children}</main>
             <Footer />
           </div>

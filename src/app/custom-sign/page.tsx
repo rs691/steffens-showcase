@@ -14,7 +14,9 @@ import { cn } from '@/lib/utils';
 import { Palette, Pencil, Ruler, Upload } from "lucide-react";
 import Image from "next/image";
 import { useState } from 'react';
+import { CUSTOM_SIGN_PRICE_USD } from "@/lib/pricing";
 import { useCart } from "../context/CartContext";
+import { DesignAssistant } from "@/components/DesignAssistant";
 
 const stainColors: { [key: string]: string } = {
     // add an image as a background possibility
@@ -24,15 +26,6 @@ const stainColors: { [key: string]: string } = {
     'zebrano': 'bg-[url("/zebrano.svg")]',
     'redOak': 'bg-[url("/redOak.svg")]',
     'americanCherry': 'bg-[url("/americanCherry.svg")]'
-};
-
-const stainNames: { [key: string]: string } = {
-    'woodBackground': 'Natural Wood Background',
-    'amerBlackWalnut': 'American Black Walnut',
-    'amerWhiteAsh': 'American White Ash',
-    'zebrano': 'Zebrano',
-    'redOak': 'Red Oak',
-    'americanCherry': 'American Cherry'
 };
 
 const sizeClasses: { [key: string]: string } = {
@@ -50,7 +43,6 @@ export default function CustomSignDesignerPage() {
     const [graphic, setGraphic] = useState<string | null>(null);
     const [stain, setStain] = useState('woodBackground');
     const [size, setSize] = useState('medium');
-    const [stainName, setStainName] = useState('Natural Wood Background');
 
     function handleAddToCart(event: React.FormEvent) {
         event.preventDefault();
@@ -60,7 +52,7 @@ export default function CustomSignDesignerPage() {
       graphic,
       stain,
       size,
-      price: 120,
+      price: CUSTOM_SIGN_PRICE_USD,
     });
 
 
@@ -95,7 +87,7 @@ export default function CustomSignDesignerPage() {
                                 <Image 
                                     src={graphic} 
                                     alt="Custom Sign Preview"
-                                    layout="fill"
+                                    fill
                                     className="object-contain"
                                 />
                             ) : (
@@ -191,9 +183,9 @@ export default function CustomSignDesignerPage() {
                                 <SelectValue placeholder="Select a size" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="small">Small (12" x 8")</SelectItem>
-                                <SelectItem value="medium">Medium (18" x 12")</SelectItem>
-                                <SelectItem value="large">Large (24" x 16")</SelectItem>
+                                <SelectItem value="small">Small (12&quot; x 8&quot;)</SelectItem>
+                                <SelectItem value="medium">Medium (18&quot; x 12&quot;)</SelectItem>
+                                <SelectItem value="large">Large (24&quot; x 16&quot;)</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -204,6 +196,16 @@ export default function CustomSignDesignerPage() {
                         Add to Cart
                     </Button>
                 </form>
+                <div className="mt-8">
+                  <DesignAssistant
+                    draft={{ text, stain, size }}
+                    onApply={(next) => {
+                      setText(next.text);
+                      setStain(next.stain);
+                      setSize(next.size);
+                    }}
+                  />
+                </div>
             </div>
         </div>
     </div>

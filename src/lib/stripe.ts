@@ -1,7 +1,14 @@
-import Stripe from "stripe"
+import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2024-12-18",
-})
+let stripe: Stripe | null = null;
 
-export default stripe
+export function getStripe(): Stripe {
+  const key = process.env.STRIPE_SECRET_KEY;
+  if (!key) {
+    throw new Error("STRIPE_SECRET_KEY is not set.");
+  }
+  if (!stripe) {
+    stripe = new Stripe(key);
+  }
+  return stripe;
+}

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Literata', serif;
+  font-family: var(--font-literata), serif;
 }
 
 @layer base {

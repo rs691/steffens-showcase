@@ -1,18 +1,19 @@
-// app/login/page.tsx
+import LoginForm from "@/components/LoginForm";
+import { getCurrentUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
-import LoginForm from '@/components/LoginForm';
-import { Suspense } from 'react';
+export default async function LoginPage() {
+  const user = await getCurrentUser();
+  if (user) {
+    redirect("/");
+  }
 
-
-export default function LoginPage() {
   return (
-    <main className="flex items-center justify-center md:h-screen">
-      <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
-        
-        <Suspense>
-          <LoginForm />
-        </Suspense>
-      </div>
+    <main className="flex items-center justify-center min-h-[calc(100vh-8rem)] px-4">
+      <Suspense>
+        <LoginForm />
+      </Suspense>
     </main>
   );
 }

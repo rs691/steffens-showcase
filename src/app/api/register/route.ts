@@ -1,57 +1,80 @@
-import fs from 'fs/promises';
-import { NextResponse } from 'next/server';
-import path from 'path';
+import { NextResponse } from "next/server";
+import { z } from "zod";
+import { createAdminSupabaseClient } from "@/lib/supabase/admin";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 
-// Define the path to the file where user data will be stored.
-const filePath = path.join(process.cwd(), 'data', 'users.json');
+const registerSchema = z.object({
+  email: z.string().trim().email("Enter a valid email address."),
+  password: z.string().min(8, "Password must be at least 8 characters."),
+  name: z.string().trim().max(80).optional(),
+});
 
-// Helper function to read the users file.
-async function readUsersFile() {
+export async function POST(request: Request) {
+  let body: unknown;
   try {
-    const fileContents = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(fileContents);
-  } catch (error) {
-    // If the file doesn't exist or is empty, return an empty array.
-    return [];
-  }
-}
-
-// Helper function to write the user data to the file.
-async function writeUsersFile(users: any[]) {
-  try {
-    await fs.mkdir(path.dirname(filePath), { recursive: true });
-    await fs.writeFile(filePath, JSON.stringify(users, null, 2), 'utf-8');
-  } catch (error) {
-    console.error('Failed to write to users file:', error);
-    throw new Error('Could not save user data.');
-  }
-}
-
-/**
- * Handles the POST request for user registration.
- * This is a server-side API endpoint.
- */
-export async function POST(req: Request) {
-  const { username, email, password } = await req.json();
-
-  if (!username || !email || !password) {
-    return NextResponse.json({ error: 'All fields are required.' }, { status: 400 });
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Invalid JSON body." }, { status: 400 });
   }
 
+  const parsed = registerSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: parsed.error.issues[0]?.message ?? "Invalid registration data." },
+      { status: 400 },
+    );
+  }
+
+  const email = parsed.data.email.toLowerCase();
+  const displayName =
+    parsed.data.name?.trim() || email.split("@")[0] || "member";
+
   try {
-    const users = await readUsersFile();
-    
-    // Check if a user with the same username or email already exists.
-    if (users.some((user: any) => user.username === username || user.email === email)) {
-      return NextResponse.json({ error: 'Username or email already exists.' }, { status: 409 });
+    const admin = createAdminSupabaseClient();
+    const { error: createError } = await admin.auth.admin.createUser({
+      email,
+      password: parsed.data.password,
+      email_confirm: true,
+      user_metadata: { full_name: displayName, username: email },
+    });
+
+    if (createError) {
+      const conflict = /already|registered|exists/i.test(createError.message);
+      return NextResponse.json(
+        {
+          error: conflict
+            ? "An account with that email already exists."
+            : createError.message,
+        },
+        { status: conflict ? 409 : 400 },
+      );
     }
 
-    // Add the new user and write the updated array back to the file.
-    users.push({ username, email, password });
-    await writeUsersFile(users);
-    
-    return NextResponse.json({ message: 'User registered successfully.' }, { status: 201 });
+    const supabase = await createServerSupabaseClient();
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password: parsed.data.password,
+    });
+
+    if (signInError) {
+      return NextResponse.json(
+        {
+          message: "Account created. Please sign in.",
+          signedIn: false,
+        },
+        { status: 201 },
+      );
+    }
+
+    return NextResponse.json(
+      { message: "Account created.", signedIn: true, email },
+      { status: 201 },
+    );
   } catch (error) {
-    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
+    console.error("Registration failed:", error);
+    return NextResponse.json(
+      { error: "Could not create the account. Check Supabase keys." },
+      { status: 500 },
+    );
   }
 }
