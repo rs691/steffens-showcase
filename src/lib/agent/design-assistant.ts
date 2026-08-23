@@ -1,11 +1,8 @@
 import { woods } from "@/content/catalog";
 import { CUSTOM_SIGN_PRICE_CENTS, getChargeAmountCents } from "@/lib/pricing";
+import type { DesignDraft } from "@/lib/agent/design-tools";
 
-export type DesignDraft = {
-  text: string;
-  stain: string;
-  size: "small" | "medium" | "large";
-};
+export type { DesignDraft } from "@/lib/agent/design-tools";
 
 export type AgentToolCall = {
   tool: "listWoods" | "quoteSign" | "suggestDesign";
@@ -20,7 +17,7 @@ export type AgentResponse = {
   tools: AgentToolCall[];
 };
 
-const stainAliases: Record<string, string> = {
+const stainAliases: Record<string, DesignDraft["stain"]> = {
   walnut: "amerBlackWalnut",
   "black walnut": "amerBlackWalnut",
   ash: "amerWhiteAsh",
@@ -82,12 +79,15 @@ function suggestDesign(message: string, draft: DesignDraft): DesignDraft {
   return next;
 }
 
+/** Deterministic fallback used when AI Gateway is not configured (and in unit tests). */
 export function runDesignAssistant(
   message: string,
   draft: DesignDraft,
 ): AgentResponse {
   const tools: AgentToolCall[] = [];
-  const woodQuery = message.match(/\b(oak|walnut|ash|cherry|maple|pine|sapele|zebrano|zebra)\b/i)?.[1];
+  const woodQuery = message.match(
+    /\b(oak|walnut|ash|cherry|maple|pine|sapele|zebrano|zebra)\b/i,
+  )?.[1];
 
   const woodsResult = listWoods(woodQuery);
   tools.push({

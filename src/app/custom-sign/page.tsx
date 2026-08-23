@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { CUSTOM_SIGN_PRICE_USD } from "@/lib/pricing";
 import { useCart } from "../context/CartContext";
 import { DesignAssistant } from "@/components/DesignAssistant";
+import type { DesignDraft } from "@/lib/agent/design-tools";
 
 const stainColors: { [key: string]: string } = {
     // add an image as a background possibility
@@ -41,8 +42,8 @@ export default function CustomSignDesignerPage() {
     const {addToCart} = useCart();
     const [text, setText] = useState<string>('');
     const [graphic, setGraphic] = useState<string | null>(null);
-    const [stain, setStain] = useState('woodBackground');
-    const [size, setSize] = useState('medium');
+    const [stain, setStain] = useState<DesignDraft["stain"]>('woodBackground');
+    const [size, setSize] = useState<DesignDraft["size"]>('medium');
 
     function handleAddToCart(event: React.FormEvent) {
         event.preventDefault();
@@ -144,7 +145,7 @@ export default function CustomSignDesignerPage() {
     defaultValue="amerBlackWalnut"
     className="grid grid-cols-2 sm:grid-cols-3 gap-4"
     value={stain}
-    onValueChange={setStain}
+    onValueChange={(value) => setStain(value as DesignDraft["stain"])}
 >
     <Label htmlFor="amerBlackWalnut" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="amerBlackWalnut" id="amerBlackWalnut" className="sr-only"/>
@@ -178,7 +179,7 @@ export default function CustomSignDesignerPage() {
                         <Label htmlFor="size-select" className="text-lg font-semibold font-headline flex items-center gap-2">
                             <Ruler className="h-5 w-5" /> Sign Size
                         </Label>
-                        <Select value={size} onValueChange={setSize}>
+                        <Select value={size} onValueChange={(value) => setSize(value as DesignDraft["size"])}>
                             <SelectTrigger id="size-select" className="w-full md:w-[280px]">
                                 <SelectValue placeholder="Select a size" />
                             </SelectTrigger>

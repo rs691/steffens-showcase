@@ -8,9 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/pricing.test.ts src/lib/agent/design-assistant.test.ts"
+    "test": "tsx --test src/lib/pricing.test.ts src/lib/agent/design-assistant.test.ts src/lib/agent/design-tools.test.ts"
   },
   "dependencies": {
+    "@ai-sdk/react": "^4.0.80",
     "@hookform/resolvers": "^4.1.3",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.6",
@@ -37,6 +38,7 @@
     "@stripe/stripe-js": "^7.9.0",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.57.4",
+    "ai": "^7.0.77",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",

@@ -14,6 +14,8 @@ const KEYS = [
   "STRIPE_SECRET_KEY",
   "STRIPE_WEBHOOK_SECRET",
   "AUTH_SECRET",
+  "AI_GATEWAY_API_KEY",
+  "AI_MODEL",
 ];
 
 const OVERRIDES = {

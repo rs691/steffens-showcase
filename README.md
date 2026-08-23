@@ -8,9 +8,9 @@ Live: [steffens-showcase.vercel.app](https://steffens-showcase.vercel.app)
 
 - Product catalog with detail pages backed by Supabase (local fallback for dev)
 - Custom sign designer with cart and server-side Stripe Checkout pricing
+- **Design Copilot** — Vercel AI Gateway + AI SDK tool calling (`searchWoods`, `quoteSign`, `applyDesignDraft`) with streaming UI
 - Supabase Auth (email/password, SSR session cookies)
 - Contact inquiries and order persistence via Stripe webhooks
-- Design assistant agent on the custom sign flow
 - Protected `/admin` and `/checkout` routes via middleware
 
 ## Stack
