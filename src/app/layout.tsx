@@ -4,13 +4,19 @@ import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import { getCurrentUser } from "@/lib/auth";
 import type { Metadata } from "next";
-import { Literata } from "next/font/google";
+import { Literata, Source_Sans_3 } from "next/font/google";
 import { CartProvider } from "./context/CartContext";
 import "./globals.css";
 
 const literata = Literata({
   subsets: ["latin"],
   variable: "--font-literata",
+  display: "swap",
+});
+
+const sourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  variable: "--font-source-sans",
   display: "swap",
 });
 
@@ -30,8 +36,8 @@ export default async function RootLayout({
   const user = await getCurrentUser();
 
   return (
-    <html lang="en" className={cn("dark", literata.variable)}>
-      <body className={cn("min-h-screen bg-background font-body antialiased", literata.className)}>
+    <html lang="en" className={cn("dark", literata.variable, sourceSans.variable)}>
+      <body className={cn("min-h-screen bg-background font-body antialiased", sourceSans.className)}>
         <CartProvider>
           <div className="relative flex min-h-screen w-full flex-col">
             <Header username={user?.username ?? user?.email ?? null} />

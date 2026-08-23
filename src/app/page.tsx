@@ -33,16 +33,15 @@ export default function Home() {
 
       
   <section className="relative h-[55vh] md:h-[65vh] rounded-xl overflow-hidden shadow-2xl">
-  {/* Background image */}
   <Image
-    src="/machineWoodcut.svg"
-    alt="Hero image showcasing handcrafted woodworks"
+    src="/woodMachine.jpg"
+    alt="Craftsman working wood in the workshop"
     fill
     priority
+    sizes="100vw"
     className="object-cover"
   />
 
-  {/* Overlay */}
   <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/70 flex flex-col items-center justify-center text-center px-6">
     <h1 className="font-headline text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-[0_3px_6px_rgba(0,0,0,0.7)]">
       Crafted Woodworks, Uniquely Yours
@@ -75,8 +74,7 @@ export default function Home() {
   {services.map((service) => (
     <div
       key={service.title}
-      className="bg-white rounded-xl p-6 flex flex-col items-center text-center transition-all duration-300
-                 shadow-md hover:shadow-[0_0_25px_rgba(59,130,246,0.4)] hover:-translate-y-1"
+      className="rounded-xl border border-border bg-card p-6 flex flex-col items-center text-center transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 hover:border-primary/40"
     >
       {service.icon}
       <h3 className="mt-4 text-2xl font-headline font-semibold text-primary">{service.title}</h3>

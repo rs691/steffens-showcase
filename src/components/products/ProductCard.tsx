@@ -15,7 +15,7 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
       <CardHeader className="p-0">
-        <div className="aspect-video relative w-full">
+        <Link href={`/products/${product.id}`} className="block aspect-video relative w-full">
           {imageSrc ? (
             <Image
               src={imageSrc}
@@ -25,10 +25,14 @@ export function ProductCard({ product }: ProductCardProps) {
               className="object-cover"
             />
           ) : null}
-        </div>
+        </Link>
       </CardHeader>
       <CardContent className="p-6 flex-grow">
-        <CardTitle className="font-headline text-xl mb-2">{product.name}</CardTitle>
+        <CardTitle className="font-headline text-xl mb-2">
+          <Link href={`/products/${product.id}`} className="hover:text-primary transition-colors">
+            {product.name}
+          </Link>
+        </CardTitle>
         <p className="text-muted-foreground text-sm mb-4 h-20 overflow-hidden">
           {product.description}
         </p>

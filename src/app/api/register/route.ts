@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
   try {
     const admin = createAdminSupabaseClient();
-    const { error: createError } = await admin.auth.admin.createUser({
+    const { data: created, error: createError } = await admin.auth.admin.createUser({
       email,
       password: parsed.data.password,
       email_confirm: true,
@@ -48,6 +48,22 @@ export async function POST(request: Request) {
         },
         { status: conflict ? 409 : 400 },
       );
+    }
+
+    if (created.user) {
+      const { error: profileError } = await admin.from("users").upsert(
+        {
+          id: created.user.id,
+          email,
+          full_name: displayName,
+          username: email.split("@")[0],
+          is_admin: false,
+        },
+        { onConflict: "id" },
+      );
+      if (profileError) {
+        console.error("Profile upsert failed:", profileError);
+      }
     }
 
     const supabase = await createServerSupabaseClient();

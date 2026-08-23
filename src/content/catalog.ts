@@ -22,8 +22,9 @@ export const products: Product[] = [
     description:
       "A large, imposing desk with hidden compartments and brass fittings. Built for a client's home office.",
     price: "Commission",
-    image: "/mahagDesk.svg",
+    image: "/mahoganyDesk.png",
     category: "furniture",
+    woodType: "mahogany",
   },
   {
     id: "cedar-chest",
@@ -31,8 +32,9 @@ export const products: Product[] = [
     description:
       "Aromatic cedar chest with dovetail joinery and a custom-engraved lid. A wedding gift.",
     price: "Commission",
-    image: "/cedarChest.png",
+    image: "/cedarChest3.jpg",
     category: "furniture",
+    woodType: "cedar",
   },
   {
     id: "oak-bookshelf",
@@ -42,6 +44,7 @@ export const products: Product[] = [
     price: "Commission",
     image: "/bookshelf.png",
     category: "furniture",
+    woodType: "oak",
   },
   {
     id: "cherry-table",
@@ -49,8 +52,9 @@ export const products: Product[] = [
     description:
       "A classic design, updated for modern comfort. Hand-sanded to a smooth, warm finish.",
     price: "Commission",
-    image: "/cherrywood.svg",
+    image: "/cherrywoodDineTable.jpg",
     category: "furniture",
+    woodType: "cherry",
   },
   {
     id: "restaurant-bar",
@@ -58,8 +62,9 @@ export const products: Product[] = [
     description:
       "Complete design and build of a commercial bar, including countertops, shelving, and paneling.",
     price: "Commission",
-    image: "/barSet.png",
+    image: "/woodBar.png",
     category: "commercial",
+    woodType: "mixed",
   },
   {
     id: "garden-bench",
@@ -69,6 +74,7 @@ export const products: Product[] = [
     price: "Commission",
     image: "/gb.svg",
     category: "outdoor",
+    woodType: "teak",
   },
 ];
 

@@ -17,8 +17,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['var(--font-literata)', 'serif'],
-        headline: ['var(--font-literata)', 'serif'],
+        body: ['var(--font-source-sans)', 'system-ui', 'sans-serif'],
+        headline: ['var(--font-literata)', 'Georgia', 'serif'],
         code: ['monospace'],
       },
       colors: {

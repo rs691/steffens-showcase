@@ -6,6 +6,7 @@ export interface Product {
   image: string;
   imageUrl?: string;
   category: string;
+  woodType?: string;
   dataAiHint?: string;
 }
 
