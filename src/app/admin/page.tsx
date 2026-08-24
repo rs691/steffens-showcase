@@ -8,6 +8,7 @@ import { createAdminSupabaseClient } from "@/lib/supabase/admin";
 import { getSupabaseServiceRoleKey } from "@/lib/supabase/env";
 import { countRecentAgentSessions } from "@/lib/agent/sessions";
 import { SeedKnowledgeButton } from "@/components/SeedKnowledgeButton";
+import { AdminAssistant } from "@/components/AdminAssistant";
 
 export default async function AdminPage() {
   const user = await getCurrentUser();
@@ -49,6 +50,10 @@ export default async function AdminPage() {
           <h1 className="text-4xl font-headline font-bold">Admin Dashboard</h1>
           <p className="text-muted-foreground">Signed in as {user.username}</p>
         </div>
+      </div>
+
+      <div className="mb-10">
+        <AdminAssistant />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
