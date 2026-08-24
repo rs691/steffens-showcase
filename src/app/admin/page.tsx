@@ -3,9 +3,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { FileText, Images, LayoutDashboard, Mail, Receipt } from "lucide-react";
+import { Bot, FileText, Images, LayoutDashboard, Mail, Receipt } from "lucide-react";
 import { createAdminSupabaseClient } from "@/lib/supabase/admin";
 import { getSupabaseServiceRoleKey } from "@/lib/supabase/env";
+import { countRecentAgentSessions } from "@/lib/agent/sessions";
+import { SeedKnowledgeButton } from "@/components/SeedKnowledgeButton";
 
 export default async function AdminPage() {
   const user = await getCurrentUser();
@@ -18,18 +20,24 @@ export default async function AdminPage() {
 
   let inquiryCount = 0;
   let orderCount = 0;
+  let knowledgeCount = 0;
+  const sessionCount = await countRecentAgentSessions(24);
+
   if (getSupabaseServiceRoleKey()) {
     try {
       const admin = createAdminSupabaseClient();
-      const [inquiries, orders] = await Promise.all([
+      const [inquiries, orders, knowledge] = await Promise.all([
         admin.from("inquiries").select("id", { count: "exact", head: true }),
         admin.from("orders").select("id", { count: "exact", head: true }),
+        admin.from("knowledge_chunks").select("id", { count: "exact", head: true }),
       ]);
       inquiryCount = inquiries.count ?? 0;
       orderCount = orders.count ?? 0;
+      knowledgeCount = knowledge.count ?? 0;
     } catch {
       inquiryCount = 0;
       orderCount = 0;
+      knowledgeCount = 0;
     }
   }
 
@@ -59,6 +67,19 @@ export default async function AdminPage() {
             </CardTitle>
             <CardDescription>{orderCount} Stripe checkouts recorded by webhook.</CardDescription>
           </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-headline">
+              <Bot /> Design Copilot
+            </CardTitle>
+            <CardDescription>
+              {sessionCount} sessions in the last 24h · {knowledgeCount} RAG chunks indexed.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <SeedKnowledgeButton />
+          </CardContent>
         </Card>
         <Card>
           <CardHeader>

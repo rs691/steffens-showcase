@@ -15,6 +15,7 @@ import {
   isAiGatewayConfigured,
   type DesignDraft,
 } from "@/lib/agent/design-tools";
+import { upsertAgentSession } from "@/lib/agent/sessions";
 
 export const maxDuration = 30;
 export const runtime = "nodejs";
@@ -23,6 +24,7 @@ const requestSchema = z.object({
   messages: z.array(z.any()).optional(),
   message: z.string().trim().min(1).max(500).optional(),
   draft: designDraftSchema.partial().optional(),
+  sessionId: z.string().uuid().optional(),
 });
 
 function normalizeDraft(partial?: Partial<DesignDraft>): DesignDraft {
@@ -33,6 +35,21 @@ function normalizeDraft(partial?: Partial<DesignDraft>): DesignDraft {
   });
   if (parsed.success) return parsed.data;
   return { text: "", stain: "woodBackground", size: "medium" };
+}
+
+function extractToolCalls(messages: UIMessage[]) {
+  const calls: Array<{ tool: string; state?: string }> = [];
+  for (const message of messages) {
+    for (const part of message.parts ?? []) {
+      if (typeof part.type === "string" && part.type.startsWith("tool-")) {
+        calls.push({
+          tool: part.type.replace(/^tool-/, ""),
+          state: "state" in part ? String((part as { state?: string }).state) : undefined,
+        });
+      }
+    }
+  }
+  return calls;
 }
 
 function legacyFallback(message: string, draft: DesignDraft) {
@@ -57,6 +74,7 @@ export async function POST(request: Request) {
   }
 
   const draft = normalizeDraft(parsed.data.draft);
+  const sessionId = parsed.data.sessionId;
 
   // Legacy single-shot JSON path (tests / no gateway)
   if (parsed.data.message && !parsed.data.messages?.length) {
@@ -68,7 +86,6 @@ export async function POST(request: Request) {
   const uiMessages = (parsed.data.messages ?? []) as UIMessage[];
 
   if (!uiMessages.length && parsed.data.message) {
-    // Upgrade legacy call into a one-shot UI message stream when gateway is on
     uiMessages.push({
       id: crypto.randomUUID(),
       role: "user",
@@ -94,12 +111,37 @@ export async function POST(request: Request) {
       system: getDesignSystemPrompt(draft),
       messages: await convertToModelMessages(uiMessages),
       tools: createDesignTools(draft),
-      stopWhen: stepCountIs(5),
+      stopWhen: stepCountIs(6),
       temperature: 0.4,
-      maxOutputTokens: 600,
+      maxOutputTokens: 700,
+      onFinish: async ({ steps }) => {
+        if (!sessionId) return;
+        const toolCalls = steps.flatMap((step) =>
+          (step.toolCalls ?? []).map((call) => ({
+            tool: call.toolName,
+            input: "input" in call ? call.input : undefined,
+          })),
+        );
+        await upsertAgentSession({
+          sessionId,
+          messages: uiMessages,
+          draft,
+          toolCalls,
+        });
+      },
     });
 
-    return result.toUIMessageStreamResponse();
+    return result.toUIMessageStreamResponse({
+      onFinish: async ({ messages }) => {
+        if (!sessionId) return;
+        await upsertAgentSession({
+          sessionId,
+          messages,
+          draft,
+          toolCalls: extractToolCalls(messages),
+        });
+      },
+    });
   } catch (error) {
     console.error("Design copilot failed:", error);
     return NextResponse.json(

@@ -37,26 +37,45 @@ function extractDraftFromMessages(messages: UIMessage[]): DesignDraft | null {
 }
 
 function toolLabel(partType: string): string {
+  if (partType.includes("retrieveKnowledge")) return "Retrieved shop knowledge (RAG)";
   if (partType.includes("searchWoods")) return "Searched wood catalog";
   if (partType.includes("quoteSign")) return "Quoted server price";
   if (partType.includes("applyDesignDraft")) return "Updated live design";
   return "Used a tool";
 }
 
+function getOrCreateSessionId(): string {
+  if (typeof window === "undefined") return crypto.randomUUID();
+  const key = "design-copilot-session";
+  const existing = sessionStorage.getItem(key);
+  if (existing) return existing;
+  const id = crypto.randomUUID();
+  sessionStorage.setItem(key, id);
+  return id;
+}
+
 export function DesignAssistant({ draft, onApply }: DesignAssistantProps) {
   const [input, setInput] = useState("");
   const draftRef = useRef(draft);
   const appliedRef = useRef<string>("");
+  const sessionIdRef = useRef<string>("");
 
   useEffect(() => {
     draftRef.current = draft;
   }, [draft]);
 
+  useEffect(() => {
+    sessionIdRef.current = getOrCreateSessionId();
+  }, []);
+
   const transport = useMemo(
     () =>
       new DefaultChatTransport({
         api: "/api/agent/design",
-        body: () => ({ draft: draftRef.current }),
+        body: () => ({
+          draft: draftRef.current,
+          sessionId: sessionIdRef.current || undefined,
+        }),
       }),
     [],
   );
@@ -109,7 +128,7 @@ export function DesignAssistant({ draft, onApply }: DesignAssistantProps) {
             Design Copilot
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Describe the sign you want. The agent uses catalog and pricing tools, then updates
+            Grounded in shop knowledge (RAG), catalog tools, and server pricing — then updates
             the live preview.
           </p>
         </div>
@@ -132,6 +151,7 @@ export function DesignAssistant({ draft, onApply }: DesignAssistantProps) {
         {[
           'Large walnut sign that says "The Millers"',
           "Recommend a wood for outdoor use",
+          "How long does a custom project take?",
           "What does a custom sign cost?",
         ].map((prompt) => (
           <Button

@@ -16,6 +16,7 @@ const KEYS = [
   "AUTH_SECRET",
   "AI_GATEWAY_API_KEY",
   "AI_MODEL",
+  "AI_EMBEDDING_MODEL",
 ];
 
 const OVERRIDES = {
