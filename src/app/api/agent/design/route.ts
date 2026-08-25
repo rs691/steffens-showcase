@@ -16,6 +16,7 @@ import {
   type DesignDraft,
 } from "@/lib/agent/design-tools";
 import { upsertAgentSession } from "@/lib/agent/sessions";
+import { enforceAgentQuota, quotaDeniedHeaders } from "@/lib/agent/limits";
 
 export const maxDuration = 30;
 export const runtime = "nodejs";
@@ -76,6 +77,14 @@ export async function POST(request: Request) {
   const draft = normalizeDraft(parsed.data.draft);
   const sessionId = parsed.data.sessionId;
 
+  const quota = enforceAgentQuota(request, "design-copilot");
+  if (quota.ok === false) {
+    return NextResponse.json(
+      { error: quota.message },
+      { status: 429, headers: quotaDeniedHeaders(quota) },
+    );
+  }
+
   // Legacy single-shot JSON path (tests / no gateway)
   if (parsed.data.message && !parsed.data.messages?.length) {
     if (!isAiGatewayConfigured()) {
@@ -111,9 +120,9 @@ export async function POST(request: Request) {
       system: getDesignSystemPrompt(draft),
       messages: await convertToModelMessages(uiMessages),
       tools: createDesignTools(draft),
-      stopWhen: stepCountIs(6),
+      stopWhen: stepCountIs(quota.limits.maxSteps),
       temperature: 0.4,
-      maxOutputTokens: 700,
+      maxOutputTokens: quota.limits.maxOutputTokens,
       onFinish: async ({ steps }) => {
         if (!sessionId) return;
         const toolCalls = steps.flatMap((step) =>

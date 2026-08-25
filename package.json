@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/pricing.test.ts src/lib/agent/design-assistant.test.ts src/lib/agent/design-tools.test.ts src/lib/agent/rag.test.ts src/lib/agent/admin-tools.test.ts"
+    "test": "tsx --test src/lib/pricing.test.ts src/lib/agent/design-assistant.test.ts src/lib/agent/design-tools.test.ts src/lib/agent/rag.test.ts src/lib/agent/admin-tools.test.ts src/lib/agent/limits.test.ts src/lib/agent/evals.test.ts",
+    "eval": "tsx --env-file=.env.local scripts/eval-design-copilot.ts"
   },
   "dependencies": {
     "@ai-sdk/react": "^4.0.80",

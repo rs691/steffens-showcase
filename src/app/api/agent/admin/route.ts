@@ -16,6 +16,7 @@ import {
 } from "@/lib/agent/design-tools";
 import { upsertAgentSession } from "@/lib/agent/sessions";
 import { getCurrentUser } from "@/lib/auth";
+import { enforceAgentQuota, quotaDeniedHeaders } from "@/lib/agent/limits";
 
 export const maxDuration = 30;
 export const runtime = "nodejs";
@@ -79,15 +80,23 @@ export async function POST(request: Request) {
 
   const sessionId = parsed.data.sessionId;
 
+  const quota = enforceAgentQuota(request, "admin-copilot", user.id);
+  if (quota.ok === false) {
+    return NextResponse.json(
+      { error: quota.message },
+      { status: 429, headers: quotaDeniedHeaders(quota) },
+    );
+  }
+
   try {
     const result = streamText({
       model: getDesignModelId(),
       system: getAdminSystemPrompt(),
       messages: await convertToModelMessages(uiMessages),
       tools: createAdminTools(),
-      stopWhen: stepCountIs(5),
+      stopWhen: stepCountIs(quota.limits.maxSteps),
       temperature: 0.2,
-      maxOutputTokens: 600,
+      maxOutputTokens: quota.limits.maxOutputTokens,
       onFinish: async ({ steps }) => {
         if (!sessionId) return;
         const toolCalls = steps.flatMap((step) =>
