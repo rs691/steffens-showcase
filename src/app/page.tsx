@@ -43,8 +43,8 @@ export default function Home() {
         </div>
       </section>
 
-      <PageContainer className="space-y-16 md:space-y-24">
-        <section className="pt-4">
+      <PageContainer className="space-y-10 py-8 md:space-y-12 md:py-10">
+        <section>
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="font-headline text-3xl font-bold md:text-4xl">Built for homes that last</h2>
             <p className="mt-3 text-lg text-muted-foreground">

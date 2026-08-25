@@ -61,10 +61,10 @@ export default function FeaturedProjects() {
   };
 
   return (
-    <section className="w-full rounded-xl bg-secondary py-12 shadow-lg sm:py-16 md:py-24">
+    <section className="w-full rounded-xl bg-secondary px-0 py-8 shadow-lg sm:py-10 md:py-12">
       <div className="container mx-auto px-4 sm:px-6">
         {/* Header Row */}
-        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:mb-12 md:flex-row md:items-center">
+        <div className="mb-8 flex flex-col items-start justify-between gap-3 sm:mb-10 md:flex-row md:items-center">
           <h2 className="font-headline text-3xl font-bold md:text-4xl">
             Featured Projects
           </h2>
