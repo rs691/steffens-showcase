@@ -42,7 +42,7 @@ export default function CustomSignDesignerPage() {
     const {addToCart} = useCart();
     const [text, setText] = useState<string>('');
     const [graphic, setGraphic] = useState<string | null>(null);
-    const [stain, setStain] = useState<DesignDraft["stain"]>('woodBackground');
+    const [stain, setStain] = useState<DesignDraft["stain"]>('amerBlackWalnut');
     const [size, setSize] = useState<DesignDraft["size"]>('medium');
 
     function handleAddToCart(event: React.FormEvent) {
@@ -142,7 +142,6 @@ export default function CustomSignDesignerPage() {
                             <Palette className="h-5 w-5" /> Choose a color type of wood
                         </Label>
             <RadioGroup
-    defaultValue="amerBlackWalnut"
     className="grid grid-cols-2 sm:grid-cols-3 gap-4"
     value={stain}
     onValueChange={(value) => setStain(value as DesignDraft["stain"])}
@@ -192,7 +191,6 @@ export default function CustomSignDesignerPage() {
                     </div>
 
                     <Separator />
-                 {/* when "add to cart" is clicked , show it in the cart page. Right now the Cart page is empty */}
                     <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-lg font-bold">
                         Add to Cart
                     </Button>

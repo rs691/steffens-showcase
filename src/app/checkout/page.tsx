@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
+import { getStainLabel } from "@/lib/stain-labels";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -66,7 +67,7 @@ export default function CheckoutPage() {
                   <div>
                     <p className="font-medium">{item.text || "Custom Sign"}</p>
                     <p className="text-sm text-muted-foreground">
-                      {item.stain} · {item.size}
+                      {getStainLabel(item.stain)} · {item.size}
                     </p>
                   </div>
                   <p className="font-medium">${item.price.toFixed(2)}</p>

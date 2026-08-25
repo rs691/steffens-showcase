@@ -3,6 +3,7 @@ import { z } from "zod";
 import { woods } from "@/content/catalog";
 import { CUSTOM_SIGN_PRICE_CENTS, getChargeAmountCents } from "@/lib/pricing";
 import { retrieveKnowledge } from "@/lib/agent/rag";
+import { STAIN_LABELS, getStainLabel } from "@/lib/stain-labels";
 
 export const designDraftSchema = z.object({
   text: z.string().max(120).describe("Exact wording for the sign"),
@@ -21,14 +22,7 @@ export const designDraftSchema = z.object({
 
 export type DesignDraft = z.infer<typeof designDraftSchema>;
 
-export const STAIN_LABELS: Record<DesignDraft["stain"], string> = {
-  woodBackground: "Natural wood",
-  amerBlackWalnut: "American Black Walnut",
-  amerWhiteAsh: "American White Ash",
-  zebrano: "Zebrano",
-  redOak: "Red Oak",
-  americanCherry: "American Cherry",
-};
+export { STAIN_LABELS, getStainLabel };
 
 export function createDesignTools(currentDraft: DesignDraft) {
   return {
@@ -134,7 +128,7 @@ export function createDesignTools(currentDraft: DesignDraft) {
 
 export function getDesignSystemPrompt(draft: DesignDraft) {
   return [
-    "You are the Design Copilot for Steffen's Showcase, a custom woodworking shop.",
+    "You are the Design Copilot for Steffens Sign & Design, a custom woodworking shop.",
     "Help customers design a custom wooden sign by using tools — never invent prices or wood IDs.",
     "Allowed stain ids: woodBackground, amerBlackWalnut, amerWhiteAsh, zebrano, redOak, americanCherry.",
     "Allowed sizes: small (12x8), medium (18x12), large (24x16).",

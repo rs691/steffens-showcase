@@ -42,7 +42,7 @@ export const products: Product[] = [
     description:
       "An intricate, handcrafted bookshelf with individually carved pieces. A true test of patience.",
     price: "Commission",
-    image: "/bookshelf.png",
+    image: "/bookshelf.jpg",
     category: "furniture",
     woodType: "oak",
   },
@@ -82,7 +82,7 @@ export const events: EventInfo[] = [
   {
     id: "1",
     name: "Fall Festival",
-    date: "Oct 4 - Oct 5, 2025, 10:00 AM - 12:00 AM",
+    date: "Oct 3 - Oct 4, 2026, 10:00 AM - 6:00 PM",
     location: "Florence, Omaha, NE",
     description:
       "Join us for the annual Fall Festival! Discover unique handmade items from local artisans, including our latest woodworking creations.",
@@ -90,17 +90,17 @@ export const events: EventInfo[] = [
   },
   {
     id: "2",
-    name: "Summer Market Days",
-    date: "Dec 13, 2025, 9:00 AM - 6:00 PM",
+    name: "Holiday Market Days",
+    date: "Dec 12, 2026, 9:00 AM - 6:00 PM",
     location: "Aksarben Village, Omaha, NE",
     description:
-      "Find unique handcrafted goods all weekend long. We'll have a booth showcasing our custom signs, furniture, and home decor.",
+      "Find unique handcrafted goods for the holidays. We'll have a booth showcasing custom signs, furniture, and home decor.",
     imageUrl: "/jingleMingle.jpg",
   },
   {
     id: "3",
-    name: "54th Annual Rockbrook Village Art Fair",
-    date: "September 6-7, 2025, 10:00 AM - 2:00 PM",
+    name: "Rockbrook Village Art Fair",
+    date: "September 12-13, 2026, 10:00 AM - 4:00 PM",
     location: "2800 S 110th Street, Omaha, NE",
     description: "Come see some of the best local artists and crafters at this annual event.",
     imageUrl: "/rockVill.svg",
@@ -108,10 +108,10 @@ export const events: EventInfo[] = [
   {
     id: "4",
     name: "Holiday Craft Show",
-    date: "December 7-8, 2025, 12:00 PM - 4:00 PM",
+    date: "December 5-6, 2026, 12:00 PM - 4:00 PM",
     location: "Community Center Auditorium, Omaha, NE",
     description:
-      "Learn hand carving and techniques for creating beautiful wooden ornaments.",
+      "Hand-carved ornaments, custom signs, and gift-ready pieces for the season.",
     imageUrl: "/woodClassPoster2.png",
   },
 ];
@@ -201,12 +201,12 @@ export const woods: WoodSpecies[] = [
 ];
 
 export const galleryImages: GalleryImage[] = [
-  { src: "/bespokeChair.svg", alt: "Close-up of wood grain on a bespoke chair" },
-  { src: "/signs.svg", alt: "Collection of finished wooden signs" },
-  { src: "/mahagDesk.svg", alt: "Mahogany desk" },
+  { src: "/marketing-shot.jpg", alt: "Custom walnut family name sign on the workbench" },
+  { src: "/custom-table.jpg", alt: "Handcrafted oak dining table" },
+  { src: "/bookshelf.jpg", alt: "Built-in hardwood bookshelf" },
+  { src: "/chair.jpg", alt: "Hardwood Adirondack chair" },
   { src: "/cherrywoodDineTable.jpg", alt: "Cherry wood dining table" },
   { src: "/handCraftedChair.jpg", alt: "Restored antique chair" },
-  { src: "/customTable.jpg", alt: "Custom table leg carving" },
 ];
 
 export const customSignCatalog = {

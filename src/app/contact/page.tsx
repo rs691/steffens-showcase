@@ -21,8 +21,8 @@ export default function ContactPage() {
             <div className="ml-4">
               <h3 className="text-lg font-semibold font-headline">Email</h3>
               <p className="text-muted-foreground">Send your inquiries and ideas to</p>
-              <a href="mailto:steffen@showcase.com" className="text-primary hover:underline">
-               Steffens028@gmail.com
+              <a href="mailto:Steffens028@gmail.com" className="text-primary hover:underline">
+                Steffens028@gmail.com
               </a>
             </div>
           </div>
@@ -33,7 +33,7 @@ export default function ContactPage() {
             <div className="ml-4">
               <h3 className="text-lg font-semibold font-headline">Phone</h3>
               <p className="text-muted-foreground">For direct consultations, call</p>
-              <a href="tel:+4026762352" className="text-primary hover:underline">
+              <a href="tel:+14026762352" className="text-primary hover:underline">
                 (402) 676-2352
               </a>
             </div>
@@ -45,7 +45,7 @@ export default function ContactPage() {
             <div className="ml-4">
               <h3 className="text-lg font-semibold font-headline">Workshop</h3>
               <p className="text-muted-foreground">Visits by appointment only</p>
-              <p className="text-primary">123 Craftsmanship Lane, Woodwork City</p>
+              <p className="text-primary">Greater Omaha, Nebraska</p>
             </div>
           </div>
         </div>

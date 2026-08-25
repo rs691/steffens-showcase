@@ -20,19 +20,19 @@ export default function FeaturedProjects() {
       title: "Handcrafted Oak Table",
       description:
         "A centerpiece for any dining room, built with traditional joinery.",
-      image: "/table.png",
+      image: "/custom-table.jpg",
     },
     {
       title: "Custom Bookshelf",
       description:
         "Floor-to-ceiling bookshelf tailored to fit the client's library.",
-      image: "/bookshelf.png",
+      image: "/bookshelf.jpg",
     },
     {
-      title: "Vintage-Inspired Armchair",
+      title: "Outdoor Adirondack Chair",
       description:
-        "A comfortable and stylish armchair with hand-carved details.",
-      image: "/chair.svg",
+        "A comfortable hardwood Adirondack chair built for porch and patio use.",
+      image: "/chair.jpg",
     },
   ];
 

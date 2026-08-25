@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/app/context/CartContext";
+import { getStainLabel } from "@/lib/stain-labels";
 import Link from "next/link";
 
 export default function CartPage() {
@@ -26,7 +27,7 @@ export default function CartPage() {
           <li key={item.id} className="border rounded-lg p-4 shadow-sm flex justify-between gap-4">
             <div>
               <p className="font-semibold">{item.text || "Custom Sign"}</p>
-              <p>Wood: {item.stain}</p>
+              <p>Wood: {getStainLabel(item.stain)}</p>
               <p>Size: {item.size}</p>
               <p className="font-bold">${item.price.toFixed(2)}</p>
             </div>

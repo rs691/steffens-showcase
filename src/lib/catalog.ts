@@ -20,17 +20,20 @@ type ProductRow = {
 
 /** Known broken or missing paths → real files in /public */
 const IMAGE_ALIASES: Record<string, string> = {
-  "products/table.jpg": "/table.jpg",
+  "products/table.jpg": "/custom-table.jpg",
   "products/maple-hand.jpg": "/customTable.jpg",
-  "products/oak-stool.jpg": "/customChair1.png",
-  "products/cherry-wood-bookshelf-modern-design.jpg": "/bookshelf.png",
+  "products/oak-stool.jpg": "/chair.jpg",
+  "products/cherry-wood-bookshelf-modern-design.jpg": "/bookshelf.jpg",
   "/mahagDesk.svg": "/mahoganyDesk.png",
   "/cherrywood.svg": "/cherrywoodDineTable.jpg",
   "/cedarChest.png": "/cedarChest3.jpg",
   "/barSet.png": "/woodBar.png",
+  "/bookshelf.png": "/bookshelf.jpg",
+  "/table.png": "/custom-table.jpg",
+  "/chair.svg": "/chair.jpg",
 };
 
-function normalizeImagePath(raw: string | null | undefined, fallback = "/bookshelf.png"): string {
+function normalizeImagePath(raw: string | null | undefined, fallback = "/bookshelf.jpg"): string {
   if (!raw?.trim()) return fallback;
   const trimmed = raw.trim();
   if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {

@@ -28,8 +28,11 @@ export function Footer() {
           <div className="flex-1 min-w-[200px]">
             <h4 className="font-headline text-lg font-semibold text-foreground mb-3">Quick Links</h4>
             <ul className="space-y-2 text-sm">
+              <li><Link href="/about" className="hover:text-primary">About</Link></li>
               <li><Link href="/products" className="hover:text-primary">Products</Link></li>
               <li><Link href="/custom-sign" className="hover:text-primary">Custom Design</Link></li>
+              <li><Link href="/faq" className="hover:text-primary">FAQ</Link></li>
+              <li><Link href="/learn" className="hover:text-primary">Wood Guide</Link></li>
               <li><Link href="/events" className="hover:text-primary">Events</Link></li>
               <li><Link href="/contact" className="hover:text-primary">Contact Us</Link></li>
             </ul>

@@ -21,8 +21,8 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "Steffen's Showcase",
-  description: "Custom woodworking, furniture, and handcrafted signs.",
+  title: "Steffens Sign & Design",
+  description: "Custom woodworking, furniture, and handcrafted signs in Omaha, Nebraska.",
   icons: {
     icon: "/sd1.png",
   },

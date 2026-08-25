@@ -29,6 +29,11 @@ export const faqs: FaqEntry[] = [
     answer:
       "Yes, I offer delivery services. For local clients, I can often deliver the piece myself. For long-distance or international orders, I work with trusted shipping partners who specialize in handling fine furniture to ensure your piece arrives safely.",
   },
+  {
+    question: "How does the Design Copilot and custom sign pricing work?",
+    answer:
+      "On the Custom Sign page, the Design Copilot can suggest wood, size, and wording using shop knowledge and catalog tools. Every custom sign is priced at $120 before shipping — that price comes from the server, not from the chat. When you are happy with the design, add it to your cart and check out with Stripe.",
+  },
 ];
 
 /** Extra process docs for RAG (not shown as FAQ accordion items). */

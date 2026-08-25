@@ -19,12 +19,12 @@ const projects = [
   {
     title: "Oak Bookshelf",
     description: "An intricate, handcrafted bookshelf with individually carved pieces. A true test of patience.",
-    image: "/bookshelf.png",
+    image: "/bookshelf.jpg",
   },
   {
     title: "Cherry Wood Dining Table",
     description: "A classic design, updated for modern comfort. Hand-sanded to a smooth, warm finish.",
-    image: "/table.jpg",
+    image: "/custom-table.jpg",
   },
   {
     title: "Restaurant Bar Installation",

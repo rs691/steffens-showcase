@@ -3,7 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { Menu, ShoppingCart, Sprout } from "lucide-react";
+import { Menu, ShoppingCart } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,19 +12,31 @@ import { useCart } from "@/app/context/CartContext";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
   { href: "/products", label: "Products" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
   { href: "/custom-sign", label: "Custom Sign" },
-  { href: "/learn", label: "Everything Wood" },
-  { href: "/events", label: "Events" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/contact", label: "Contact" },
 ];
 
 type HeaderProps = {
   username?: string | null;
 };
+
+function BrandMark({ className }: { className?: string }) {
+  return (
+    <Link href="/" className={cn("mr-6 flex items-center space-x-2", className)}>
+      <Image
+        src="/sd1.png"
+        alt=""
+        width={28}
+        height={28}
+        className="h-7 w-7 rounded-sm object-cover"
+        priority
+      />
+      <span className="font-bold font-headline">Steffens Sign &amp; Design</span>
+    </Link>
+  );
+}
 
 export function Header({ username }: HeaderProps) {
   const pathname = usePathname();
@@ -94,10 +107,7 @@ export function Header({ username }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <Link href="/" className="mr-6 flex items-center space-x-2">
-          <Sprout className="h-6 w-6 text-primary" />
-          <span className="font-bold font-headline">Steffen&apos;s Showcase</span>
-        </Link>
+        <BrandMark />
         <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
@@ -115,10 +125,7 @@ export function Header({ username }: HeaderProps) {
             </SheetTrigger>
             <SheetContent side="left">
               <nav className="grid gap-6 text-lg font-medium mt-10">
-                <Link href="/" className="flex items-center space-x-2 mb-4">
-                  <Sprout className="h-6 w-6 text-primary" />
-                  <span className="font-bold font-headline">Steffen&apos;s Showcase</span>
-                </Link>
+                <BrandMark className="mb-4 mr-0" />
                 {navLinks.map((link) => (
                   <NavLink key={link.href} {...link} />
                 ))}

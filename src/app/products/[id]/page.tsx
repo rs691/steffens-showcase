@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps) {
     return { title: "Product not found" };
   }
   return {
-    title: `${product.name} | Steffens Showcase`,
+    title: `${product.name} | Steffens Sign & Design`,
     description: product.description,
   };
 }

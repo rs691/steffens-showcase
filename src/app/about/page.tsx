@@ -1,36 +1,39 @@
-import { Card } from "@/components/ui/card";
 import Image from "next/image";
-
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto max-w-5xl py-12 px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary">About Me</h1>
-        <p className="mt-4 text-lg text-muted-foreground">A craftsman&apos;s journey, from a single piece of wood to a work of art.</p>
+    <div className="container mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="mb-12 text-center">
+        <h1 className="font-headline text-4xl font-bold text-primary md:text-5xl">About</h1>
+        <p className="mt-4 text-lg text-muted-foreground">
+          Omaha woodworker behind Steffens Sign &amp; Design.
+        </p>
       </div>
 
-      <Card className="overflow-hidden shadow-lg">
+      <div className="overflow-hidden rounded-xl border border-border bg-card shadow-lg">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="p-8 md:p-12 flex flex-col justify-center">
-            <h2 className="text-3xl font-headline font-semibold mb-4">The Artisan</h2>
-            <div className="space-y-4 text-muted-foreground text-base leading-relaxed">
+          <div className="flex flex-col justify-center p-8 md:p-12">
+            <h2 className="mb-4 font-headline text-3xl font-semibold">The workshop</h2>
+            <div className="space-y-4 text-base leading-relaxed text-muted-foreground">
               <p>
-                From a young age, I was fascinated by the transformative power of woodworking and the possibilities that are possible through technology advancements. 
-                By combining traditional craftsmanship with modern techniques, I strive to create pieces that are not only functional but also works of art.
-                What begins as a rough-hewn log can, with patience and skill, become a thing of beauty and function. My workshop is my sanctuary, a place where traditional techniques meet contemporary design.
+                I build custom signs, furniture, and restorations from my shop in the Omaha area —
+                mixing hand tools with CNC when it helps the piece, not when it replaces the craft.
               </p>
               <p>
-                Every piece I create is imbued with a story. It&apos;s a dialogue between me, the wood, and the future owner. I source my materials sustainably, believing that the respect we show our environment is reflected in the quality of our work.
+                Most projects start with a simple conversation: what the piece needs to do, which wood
+                fits the space, and how long it should last. From there I cut, join, finish, and
+                deliver work meant to stay in the home for years.
               </p>
               <p>
-                Whether it&apos;s a custom dining table that will host family gatherings for generations, or the careful restoration of a beloved heirloom, my commitment is to craftsmanship, durability, and timeless elegance.
+                You can design a custom sign on this site, browse finished work in the gallery, or
+                reach out for a commission. I&apos;m also on Instagram, Facebook, and Etsy as Steffens
+                Sign &amp; Design.
               </p>
             </div>
           </div>
-          <div className="relative h-64 md:h-full min-h-[300px]">
+          <div className="relative min-h-[300px] h-64 md:h-full">
             <Image
-              src="/cncWoodcut2.png"
+              src="/cncWoodcut2.jpg"
               alt="Custom desk in progress on a CNC mill"
               fill
               className="object-cover"
@@ -38,7 +41,7 @@ export default function AboutPage() {
             />
           </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }
