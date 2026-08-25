@@ -1,9 +1,12 @@
 # Steffens Sign & Design
 
-Full-stack woodworking portfolio and shop demo built with **Next.js 15**, **Supabase**, **Stripe**, and the **Vercel AI SDK**.
+**Portfolio demo by [Robert Stewart](https://robert-stewart.dev)** — a full-stack woodworking shop experience for recruiters and hiring managers. **Not an official business site** and not affiliated with a live workshop.
+
+Built with **Next.js 15**, **Supabase**, **Stripe**, and the **Vercel AI SDK**.
 
 Live: [steffens-showcase.vercel.app](https://steffens-showcase.vercel.app)  
-Repo: [github.com/rs691/steffens-showcase](https://github.com/rs691/steffens-showcase)
+Repo: [github.com/rs691/steffens-showcase](https://github.com/rs691/steffens-showcase)  
+LinkedIn: [linkedin.com/in/robert-stewart-m](https://linkedin.com/in/robert-stewart-m)
 
 ## Features
 

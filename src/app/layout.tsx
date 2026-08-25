@@ -21,8 +21,9 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
-  title: "Steffens Sign & Design",
-  description: "Custom woodworking, furniture, and handcrafted signs in Omaha, Nebraska.",
+  title: "Steffens Sign & Design | Portfolio by Robert Stewart",
+  description:
+    "Full-stack portfolio demo: Next.js shop with Supabase, Stripe, and AI copilots. Built by Robert Stewart — not an official business site.",
   icons: {
     icon: "/sd1.png",
   },

@@ -1,5 +1,26 @@
 import { ContactForm } from "@/components/ContactForm";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Github, Globe, Linkedin } from "lucide-react";
+
+const hiringLinks = [
+  {
+    href: "https://robert-stewart.dev",
+    label: "Portfolio",
+    detail: "robert-stewart.dev",
+    icon: Globe,
+  },
+  {
+    href: "https://github.com/rs691/steffens-showcase",
+    label: "GitHub",
+    detail: "Source for this demo",
+    icon: Github,
+  },
+  {
+    href: "https://linkedin.com/in/robert-stewart-m",
+    label: "LinkedIn",
+    detail: "Robert Stewart",
+    icon: Linkedin,
+  },
+];
 
 export default function ContactPage() {
   return (
@@ -7,49 +28,38 @@ export default function ContactPage() {
       <div className="mb-10 text-center sm:mb-12">
         <h1 className="font-headline text-4xl font-bold text-primary md:text-5xl">Get in Touch</h1>
         <p className="mt-4 text-base text-muted-foreground sm:text-lg">
-          I&apos;d love to hear about your project ideas. Let&apos;s create something together.
+          Hiring or curious about the stack? Reach Robert Stewart below. The form exercises the demo
+          inquiry pipeline (Supabase).
         </p>
       </div>
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
         <div className="rounded-lg bg-card p-6 shadow-lg sm:p-8">
-          <h2 className="mb-6 font-headline text-2xl font-semibold">Contact Form</h2>
+          <h2 className="mb-2 font-headline text-2xl font-semibold">Demo inquiry form</h2>
+          <p className="mb-6 text-sm text-muted-foreground">
+            Submissions are stored for the admin dashboard walkthrough — not routed to a woodworking
+            shop.
+          </p>
           <ContactForm />
         </div>
         <div className="flex flex-col justify-center space-y-8">
-          <div className="flex items-start">
-            <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-primary/10 text-primary">
-              <Mail className="h-6 w-6" />
+          {hiringLinks.map((link) => (
+            <div key={link.href} className="flex items-start">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <link.icon className="h-6 w-6" />
+              </div>
+              <div className="ml-4">
+                <h3 className="font-headline text-lg font-semibold">{link.label}</h3>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  {link.detail}
+                </a>
+              </div>
             </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold font-headline">Email</h3>
-              <p className="text-muted-foreground">Send your inquiries and ideas to</p>
-              <a href="mailto:Steffens028@gmail.com" className="text-primary hover:underline">
-                Steffens028@gmail.com
-              </a>
-            </div>
-          </div>
-          <div className="flex items-start">
-            <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-primary/10 text-primary">
-              <Phone className="h-6 w-6" />
-            </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold font-headline">Phone</h3>
-              <p className="text-muted-foreground">For direct consultations, call</p>
-              <a href="tel:+14026762352" className="text-primary hover:underline">
-                (402) 676-2352
-              </a>
-            </div>
-          </div>
-          <div className="flex items-start">
-            <div className="flex-shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-primary/10 text-primary">
-              <MapPin className="h-6 w-6" />
-            </div>
-            <div className="ml-4">
-              <h3 className="text-lg font-semibold font-headline">Workshop</h3>
-              <p className="text-muted-foreground">Visits by appointment only</p>
-              <p className="text-primary">Greater Omaha, Nebraska</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
