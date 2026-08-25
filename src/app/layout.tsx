@@ -28,6 +28,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -37,11 +42,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={cn("dark", literata.variable, sourceSans.variable)}>
-      <body className={cn("min-h-screen bg-background font-body antialiased", sourceSans.className)}>
+      <body className={cn("min-h-screen overflow-x-hidden bg-background font-body antialiased", sourceSans.className)}>
         <CartProvider>
-          <div className="relative flex min-h-screen w-full flex-col">
+          <div className="relative flex min-h-screen w-full min-w-0 flex-col">
             <Header username={user?.username ?? user?.email ?? null} />
-            <main className="flex-1">{children}</main>
+            <main className="min-w-0 flex-1">{children}</main>
             <Footer />
           </div>
         </CartProvider>

@@ -1,17 +1,27 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getCurrentUser } from "@/lib/auth";
-import { getChargeAmountCents } from "@/lib/pricing";
+import { getProductById } from "@/lib/catalog";
+import { CUSTOM_SIGN_PRICE_CENTS } from "@/lib/pricing";
 import { getStripe } from "@/lib/stripe";
 
-const itemSchema = z.object({
+const customSignItemSchema = z.object({
+  kind: z.literal("custom-sign"),
   text: z.string().trim().min(1).max(200),
   stain: z.string().trim().min(1).max(80),
   size: z.enum(["small", "medium", "large"]),
 });
 
+const productItemSchema = z.object({
+  kind: z.literal("product"),
+  productId: z.string().trim().min(1).max(80),
+  text: z.string().trim().min(1).max(200),
+});
+
 const bodySchema = z.object({
-  items: z.array(itemSchema).min(1, "Cart is empty."),
+  items: z
+    .array(z.union([productItemSchema, customSignItemSchema]))
+    .min(1, "Cart is empty."),
   email: z.string().trim().email().optional(),
 });
 
@@ -33,29 +43,71 @@ export async function POST(request: Request) {
 
   const user = await getCurrentUser();
   const origin = process.env.NEXT_PUBLIC_SITE_URL ?? new URL(request.url).origin;
-  const amount = getChargeAmountCents(parsed.data.items.length);
 
   try {
+    const lineItems = [];
+    const pricedMeta = [];
+
+    for (const item of parsed.data.items) {
+      if (item.kind === "product") {
+        const product = await getProductById(item.productId);
+        if (!product?.priceCents) {
+          return NextResponse.json(
+            { error: `"${item.text}" is commission-only and cannot be checked out online.` },
+            { status: 400 },
+          );
+        }
+        lineItems.push({
+          quantity: 1,
+          price_data: {
+            currency: "usd",
+            unit_amount: product.priceCents,
+            product_data: {
+              name: product.name,
+              description: product.woodType
+                ? `${product.category} · ${product.woodType}`
+                : product.category,
+            },
+          },
+        });
+        pricedMeta.push({
+          kind: "product",
+          productId: product.id,
+          text: product.name,
+          amountCents: product.priceCents,
+        });
+      } else {
+        lineItems.push({
+          quantity: 1,
+          price_data: {
+            currency: "usd",
+            unit_amount: CUSTOM_SIGN_PRICE_CENTS,
+            product_data: {
+              name: "Custom Wooden Sign",
+              description: `${item.size} · ${item.stain} · ${item.text}`,
+            },
+          },
+        });
+        pricedMeta.push({
+          kind: "custom-sign",
+          text: item.text,
+          stain: item.stain,
+          size: item.size,
+          amountCents: CUSTOM_SIGN_PRICE_CENTS,
+        });
+      }
+    }
+
     const session = await getStripe().checkout.sessions.create({
       mode: "payment",
       customer_email: parsed.data.email ?? user?.email,
       success_url: `${origin}/confirmation?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/checkout`,
-      line_items: parsed.data.items.map((item) => ({
-        quantity: 1,
-        price_data: {
-          currency: "usd",
-          unit_amount: amount / parsed.data.items.length,
-          product_data: {
-            name: "Custom Wooden Sign",
-            description: `${item.size} · ${item.stain} · ${item.text}`,
-          },
-        },
-      })),
+      line_items: lineItems,
       metadata: {
         userId: user?.id ?? "",
         itemCount: String(parsed.data.items.length),
-        items: JSON.stringify(parsed.data.items),
+        items: JSON.stringify(pricedMeta),
       },
     });
 

@@ -22,18 +22,30 @@ type HeaderProps = {
   username?: string | null;
 };
 
-function BrandMark({ className }: { className?: string }) {
+function BrandMark({ className, compact }: { className?: string; compact?: boolean }) {
   return (
-    <Link href="/" className={cn("mr-6 flex items-center space-x-2", className)}>
+    <Link
+      href="/"
+      className={cn("flex min-w-0 items-center gap-2.5", className)}
+    >
       <Image
         src="/sd1.png"
         alt=""
-        width={28}
-        height={28}
-        className="h-7 w-7 rounded-sm object-cover"
+        width={32}
+        height={32}
+        className="h-8 w-8 shrink-0 rounded-sm object-cover"
         priority
       />
-      <span className="font-bold font-headline">Steffens Sign &amp; Design</span>
+      <span className="font-headline text-base font-semibold leading-tight tracking-tight sm:text-lg">
+        {compact ? (
+          <>
+            <span className="sm:hidden">Steffens</span>
+            <span className="hidden sm:inline">Steffens Sign &amp; Design</span>
+          </>
+        ) : (
+          "Steffens Sign & Design"
+        )}
+      </span>
     </Link>
   );
 }
@@ -44,21 +56,21 @@ export function Header({ username }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { totalItems } = useCart();
 
-  const NavLink = ({ href, label }: { href: string; label: string }) => {
-    const isActive = pathname === href;
-    return (
-      <Link
-        href={href}
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-primary",
-          isActive ? "text-primary" : "text-muted-foreground",
-        )}
-        onClick={() => isMobileMenuOpen && setIsMobileMenuOpen(false)}
-      >
-        {label}
-      </Link>
+  const linkClass = (href: string) =>
+    cn(
+      "inline-flex h-10 items-center text-base font-medium leading-none transition-colors hover:text-primary",
+      pathname === href ? "text-primary" : "text-muted-foreground",
     );
-  };
+
+  const NavLink = ({ href, label }: { href: string; label: string }) => (
+    <Link
+      href={href}
+      className={linkClass(href)}
+      onClick={() => isMobileMenuOpen && setIsMobileMenuOpen(false)}
+    >
+      {label}
+    </Link>
+  );
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
@@ -71,26 +83,26 @@ export function Header({ username }: HeaderProps) {
     <>
       <Link
         href="/cart"
-        className="relative text-sm font-medium text-muted-foreground hover:text-primary"
+        className="inline-flex h-10 items-center gap-2 text-base font-medium leading-none text-muted-foreground transition-colors hover:text-primary"
         onClick={() => setIsMobileMenuOpen(false)}
       >
-        <span className="inline-flex items-center gap-1">
-          <ShoppingCart className="h-4 w-4" />
-          Cart
-          {totalItems > 0 ? (
-            <span className="ml-1 rounded-full bg-primary px-2 py-0.5 text-xs text-primary-foreground">
-              {totalItems}
-            </span>
-          ) : null}
-        </span>
+        <ShoppingCart className="h-5 w-5 shrink-0" aria-hidden />
+        <span>Cart</span>
+        {totalItems > 0 ? (
+          <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs font-semibold leading-none text-primary-foreground">
+            {totalItems}
+          </span>
+        ) : null}
       </Link>
       {username ? (
         <>
-          <span className="text-sm text-muted-foreground">{username}</span>
+          <span className="inline-flex h-10 max-w-[10rem] items-center truncate text-base leading-none text-muted-foreground">
+            {username}
+          </span>
           <button
             type="button"
             onClick={handleLogout}
-            className="text-sm font-medium text-muted-foreground hover:text-primary"
+            className="inline-flex h-10 items-center text-base font-medium leading-none text-muted-foreground transition-colors hover:text-primary"
           >
             Log out
           </button>
@@ -106,31 +118,31 @@ export function Header({ username }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center">
-        <BrandMark />
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+      <div className="container flex h-[4.25rem] items-center gap-3 overflow-hidden">
+        <BrandMark compact className="min-w-0 shrink" />
+        <nav className="hidden items-center gap-6 md:flex lg:gap-7">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
         </nav>
-        <div className="flex flex-1 items-center justify-end space-x-4">
-          <nav className="hidden md:flex items-center space-x-6">{accountLinks}</nav>
+        <div className="ml-auto flex shrink-0 items-center justify-end gap-2">
+          <nav className="hidden items-center gap-5 md:flex lg:gap-6">{accountLinks}</nav>
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" className="md:hidden">
-                <Menu className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="shrink-0 md:hidden">
+                <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle Menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left">
-              <nav className="grid gap-6 text-lg font-medium mt-10">
-                <BrandMark className="mb-4 mr-0" />
+            <SheetContent side="left" className="w-[min(100vw-2rem,20rem)] overflow-y-auto">
+              <nav className="mt-10 grid gap-1 text-lg font-medium">
+                <BrandMark className="mb-6" />
                 {navLinks.map((link) => (
                   <NavLink key={link.href} {...link} />
                 ))}
-                <hr />
-                {accountLinks}
+                <hr className="my-4" />
+                <div className="grid gap-1">{accountLinks}</div>
               </nav>
             </SheetContent>
           </Sheet>

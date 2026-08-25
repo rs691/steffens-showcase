@@ -61,11 +61,11 @@ export default function FeaturedProjects() {
   };
 
   return (
-    <section className="w-full bg-secondary py-16 md:py-24 rounded-xl shadow-lg">
-      <div className="container mx-auto px-6">
+    <section className="w-full rounded-xl bg-secondary py-12 shadow-lg sm:py-16 md:py-24">
+      <div className="container mx-auto px-4 sm:px-6">
         {/* Header Row */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-4">
-          <h2 className="text-3xl md:text-4xl font-headline font-bold text-center md:text-left">
+        <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:mb-12 md:flex-row md:items-center">
+          <h2 className="font-headline text-3xl font-bold md:text-4xl">
             Featured Projects
           </h2>
           <Button
@@ -111,7 +111,7 @@ export default function FeaturedProjects() {
 
         {/* Modal */}
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogContent className="sm:max-w-xl">
+          <DialogContent className="max-h-[90vh] w-[calc(100vw-1.5rem)] overflow-y-auto sm:max-w-xl">
             {selectedProject && (
               <>
                 <DialogHeader>

@@ -3,6 +3,8 @@ export interface Product {
   name: string;
   description: string;
   price: string;
+  /** Null when the piece is commission-only (not Stripe checkout). */
+  priceCents: number | null;
   image: string;
   imageUrl?: string;
   category: string;
@@ -23,9 +25,11 @@ export interface EventInfo {
 
 export type CartItem = {
   id: string;
+  kind: "custom-sign" | "product";
   text: string;
   graphic?: string | null;
   stain: string;
   size: string;
   price: number;
+  productId?: string;
 };

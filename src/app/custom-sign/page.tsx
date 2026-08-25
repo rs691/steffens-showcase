@@ -30,10 +30,9 @@ const stainColors: { [key: string]: string } = {
 };
 
 const sizeClasses: { [key: string]: string } = {
-    small: 'text-2xl',
-    medium: 'text-4xl',
-    large: 'text-6xl',
-   
+    small: "text-xl sm:text-2xl",
+    medium: "text-2xl sm:text-4xl",
+    large: "text-3xl sm:text-5xl md:text-6xl",
 };
 
 
@@ -49,6 +48,7 @@ export default function CustomSignDesignerPage() {
         event.preventDefault();
 
  addToCart({
+      kind: "custom-sign",
       text,
       graphic,
       stain,
@@ -78,12 +78,12 @@ export default function CustomSignDesignerPage() {
 
   return (
     
-    <div className="container mx-auto max-w-6xl py-12 px-4">
-        <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 items-start">
-            <div className="sticky top-24">
+    <div className="container mx-auto max-w-6xl px-4 py-8 sm:py-12">
+        <div className="grid items-start gap-x-12 gap-y-8 md:grid-cols-2">
+            <div className="md:sticky md:top-24">
                 <Card className="overflow-hidden shadow-lg">
-                    <CardContent className="p-4 bg-muted/30">
-                        <div className={cn("aspect-square rounded-lg flex items-center justify-center p-8 relative overflow-hidden", stainColors[stain])}>
+                    <CardContent className="bg-muted/30 p-3 sm:p-4">
+                        <div className={cn("relative flex aspect-square items-center justify-center overflow-hidden rounded-lg p-4 sm:p-8", stainColors[stain])}>
                             {graphic ? (
                                 <Image 
                                     src={graphic} 
@@ -94,21 +94,21 @@ export default function CustomSignDesignerPage() {
                             ) : (
                                 <div className="absolute inset-0 bg-black/10"></div>
                             )}
-                            <div className={cn("relative text-center text-white font-headline whitespace-pre-wrap", sizeClasses[size])} style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>
+                            <div className={cn("relative max-w-full break-words px-2 text-center font-headline text-white whitespace-pre-wrap", sizeClasses[size])} style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>
                                 {text}
                             </div>
                         </div>
                     </CardContent>
                 </Card>
-                <div className="mt-4 text-sm text-muted-foreground text-center">
+                <div className="mt-4 text-center text-sm text-muted-foreground sm:text-base">
                     <p>See how your choice of background looks with text.</p>
                 </div>
             </div>
 
-            <div>
-                <h1 className="text-3xl lg:text-4xl font-bold font-headline text-primary">Custom Wooden Sign</h1>
-                <p className="text-2xl font-semibold mt-2 text-foreground/90">$120.00</p>
-                <p className="text-muted-foreground mt-4 text-base">
+            <div className="min-w-0">
+                <h1 className="font-headline text-3xl font-bold text-primary lg:text-4xl">Custom Wooden Sign</h1>
+                <p className="mt-2 text-xl font-semibold text-foreground/90 sm:text-2xl">$120.00</p>
+                <p className="mt-4 text-base text-muted-foreground">
                     Create a one-of-a-kind wooden sign, personalized by you. Perfect for homes, businesses, or as a thoughtful gift. Select your options below to get started.
                 </p>
 

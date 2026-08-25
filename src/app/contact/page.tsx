@@ -3,14 +3,16 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 export default function ContactPage() {
   return (
-    <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary">Get in Touch</h1>
-        <p className="mt-4 text-lg text-muted-foreground">I&apos;d love to hear about your project ideas. Let&apos;s create something together.</p>
+    <div className="container mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+      <div className="mb-10 text-center sm:mb-12">
+        <h1 className="font-headline text-4xl font-bold text-primary md:text-5xl">Get in Touch</h1>
+        <p className="mt-4 text-base text-muted-foreground sm:text-lg">
+          I&apos;d love to hear about your project ideas. Let&apos;s create something together.
+        </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="bg-card p-8 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-headline font-semibold mb-6">Contact Form</h2>
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-12">
+        <div className="rounded-lg bg-card p-6 shadow-lg sm:p-8">
+          <h2 className="mb-6 font-headline text-2xl font-semibold">Contact Form</h2>
           <ContactForm />
         </div>
         <div className="flex flex-col justify-center space-y-8">

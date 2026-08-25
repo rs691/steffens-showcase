@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { AddProductToCartButton } from "@/components/products/AddProductToCartButton";
 import { getProductById, getProducts } from "@/lib/catalog";
 import { ArrowLeft, Mail } from "lucide-react";
 import Image from "next/image";
@@ -76,9 +77,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {product.description}
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg">
-              <Link href="/contact" className="flex items-center gap-2">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            {product.priceCents ? (
+              <AddProductToCartButton product={product} size="lg" />
+            ) : null}
+            <Button asChild size="lg" variant={product.priceCents ? "outline" : "default"}>
+              <Link
+                href={`/contact?subject=${encodeURIComponent(`Inquiry: ${product.name}`)}`}
+                className="flex items-center gap-2"
+              >
                 <Mail className="h-4 w-4" />
                 Inquire about this piece
               </Link>

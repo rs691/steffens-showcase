@@ -17,25 +17,25 @@ export default function Home() {
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/25" />
-        <div className="relative z-10 mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-end px-6 pb-16 pt-28 sm:pb-20 md:justify-center md:pt-24">
-          <p className="font-headline text-sm font-semibold tracking-[0.2em] text-primary uppercase">
+        <div className="relative z-10 mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-end px-4 pb-14 pt-24 sm:px-6 sm:pb-20 md:justify-center md:pt-24">
+          <p className="font-headline text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm">
             Steffens Sign &amp; Design
           </p>
-          <h1 className="mt-3 max-w-2xl font-headline text-4xl font-bold text-white sm:text-5xl md:text-6xl">
+          <h1 className="mt-3 max-w-2xl font-headline text-3xl font-bold text-white sm:text-5xl md:text-6xl">
             Handcrafted wood signs &amp; furniture
           </h1>
           <p className="mt-4 max-w-xl text-base text-white/85 sm:text-lg">
             Custom pieces built in Omaha — design a sign online, or commission furniture made to last.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button size="lg" asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
+          <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
+            <Button size="lg" asChild className="w-full bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
               <Link href="/custom-sign">Design a custom sign</Link>
             </Button>
             <Button
               size="lg"
               variant="outline"
               asChild
-              className="border-white/40 bg-black/30 text-white hover:bg-black/50 hover:text-white"
+              className="w-full border-white/40 bg-black/30 text-white hover:bg-black/50 hover:text-white sm:w-auto"
             >
               <Link href="/products">Browse the shop</Link>
             </Button>

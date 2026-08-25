@@ -58,19 +58,29 @@ function normalizeImagePath(raw: string | null | undefined, fallback = "/bookshe
   return withSlash;
 }
 
+function priceToCents(price: number | string | null | undefined): number | null {
+  if (price === null || price === undefined) return null;
+  const numeric = Number(price);
+  if (!Number.isFinite(numeric) || numeric <= 0) return null;
+  return Math.round(numeric * 100);
+}
+
 function formatPrice(price: number | string | null | undefined): string {
-  if (price === null || price === undefined || Number(price) === 0) {
+  const cents = priceToCents(price);
+  if (cents === null) {
     return "Commission";
   }
-  return `$${Number(price).toFixed(0)}`;
+  return `$${(cents / 100).toFixed(0)}`;
 }
 
 function mapProductRow(row: ProductRow): Product {
+  const priceCents = priceToCents(row.price);
   return {
     id: String(row.id),
     name: row.name,
     description: row.description ?? "",
     price: formatPrice(row.price),
+    priceCents,
     image: normalizeImagePath(row.image_url),
     imageUrl: normalizeImagePath(row.image_url),
     category: row.category ?? "furniture",
@@ -100,6 +110,7 @@ export async function getProducts(): Promise<Product[]> {
   if (!rows?.length) {
     return localProducts.map((product) => ({
       ...product,
+      priceCents: product.priceCents ?? null,
       image: normalizeImagePath(product.image),
       imageUrl: normalizeImagePath(product.imageUrl ?? product.image),
     }));
@@ -132,6 +143,7 @@ export async function getProductById(id: string): Promise<Product | null> {
 
   return {
     ...local,
+    priceCents: local.priceCents ?? null,
     image: normalizeImagePath(local.image),
     imageUrl: normalizeImagePath(local.imageUrl ?? local.image),
   };

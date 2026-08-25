@@ -23,7 +23,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        setCart(JSON.parse(stored) as CartItem[]);
+        const parsed = JSON.parse(stored) as Array<Partial<CartItem> & Omit<CartItem, "kind">>;
+        setCart(
+          parsed.map((item) => ({
+            ...item,
+            kind: item.kind === "product" ? "product" : "custom-sign",
+            id: item.id ?? crypto.randomUUID(),
+            text: item.text ?? "Custom Sign",
+            stain: item.stain ?? "woodBackground",
+            size: item.size ?? "medium",
+            price: Number(item.price) || 0,
+            productId: item.productId,
+            graphic: item.graphic,
+          })),
+        );
       }
     } catch {
       setCart([]);

@@ -10,32 +10,46 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="p-6 text-center space-y-4">
+      <div className="space-y-4 p-6 text-center">
         <p className="text-lg">Your cart is empty.</p>
-        <Button asChild>
-          <Link href="/custom-sign">Design a custom sign</Link>
-        </Button>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button asChild>
+            <Link href="/custom-sign">Design a custom sign</Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/products">Browse products</Link>
+          </Button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto space-y-6">
-      <h1 className="text-3xl font-bold">Your Cart</h1>
+    <div className="mx-auto max-w-4xl space-y-6 px-4 py-8 sm:p-8">
+      <h1 className="font-headline text-3xl font-bold">Your Cart</h1>
       <ul className="space-y-3">
-        {cart.map((item) => (
-          <li key={item.id} className="border rounded-lg p-4 shadow-sm flex justify-between gap-4">
-            <div>
-              <p className="font-semibold">{item.text || "Custom Sign"}</p>
-              <p>Wood: {getStainLabel(item.stain)}</p>
-              <p>Size: {item.size}</p>
-              <p className="font-bold">${item.price.toFixed(2)}</p>
-            </div>
-            <Button variant="outline" onClick={() => removeFromCart(item.id)}>
-              Remove
-            </Button>
-          </li>
-        ))}
+        {cart.map((item) => {
+          const isProduct = item.kind === "product";
+          return (
+            <li
+              key={item.id}
+              className="flex justify-between gap-4 rounded-lg border p-4 shadow-sm"
+            >
+              <div>
+                <p className="text-base font-semibold">{item.text || "Custom Sign"}</p>
+                <p className="text-sm text-muted-foreground">
+                  {isProduct
+                    ? `Catalog piece · ${item.stain}`
+                    : `Wood: ${getStainLabel(item.stain)} · Size: ${item.size}`}
+                </p>
+                <p className="mt-1 text-base font-bold">${item.price.toFixed(2)}</p>
+              </div>
+              <Button variant="outline" onClick={() => removeFromCart(item.id)}>
+                Remove
+              </Button>
+            </li>
+          );
+        })}
       </ul>
       <p className="text-xl font-semibold">Total: ${totalPrice.toFixed(2)}</p>
       <div className="flex flex-wrap gap-3">

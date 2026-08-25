@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { getStainLabel } from "@/lib/stain-labels";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CheckoutPage() {
   const { cart, totalPrice, totalItems } = useCart();
@@ -19,8 +19,13 @@ export default function CheckoutPage() {
   const [email, setEmail] = useState("");
   const [pending, setPending] = useState(false);
 
+  useEffect(() => {
+    if (totalItems === 0) {
+      router.replace("/cart");
+    }
+  }, [totalItems, router]);
+
   if (totalItems === 0) {
-    router.replace("/cart");
     return null;
   }
 
@@ -32,11 +37,20 @@ export default function CheckoutPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email || undefined,
-          items: cart.map((item) => ({
-            text: item.text || "Custom Sign",
-            stain: item.stain,
-            size: item.size,
-          })),
+          items: cart.map((item) =>
+            item.kind === "product"
+              ? {
+                  kind: "product" as const,
+                  productId: item.productId ?? "",
+                  text: item.text || "Catalog piece",
+                }
+              : {
+                  kind: "custom-sign" as const,
+                  text: item.text || "Custom Sign",
+                  stain: item.stain,
+                  size: item.size as "small" | "medium" | "large",
+                },
+          ),
         }),
       });
       const data = (await response.json()) as { url?: string; error?: string };
@@ -56,25 +70,27 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <div className="container mx-auto px-4 py-8 sm:py-12">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-12">
         <div className="lg:order-2">
-          <h2 className="text-2xl font-bold mb-6 font-headline">Order Summary</h2>
+          <h2 className="mb-6 font-headline text-2xl font-bold">Order Summary</h2>
           <Card>
-            <CardContent className="p-6 space-y-4">
+            <CardContent className="space-y-4 p-6">
               {cart.map((item) => (
                 <div key={item.id} className="flex justify-between gap-4">
                   <div>
-                    <p className="font-medium">{item.text || "Custom Sign"}</p>
+                    <p className="text-base font-medium">{item.text || "Custom Sign"}</p>
                     <p className="text-sm text-muted-foreground">
-                      {getStainLabel(item.stain)} · {item.size}
+                      {item.kind === "product"
+                        ? `Catalog · ${item.stain}`
+                        : `${getStainLabel(item.stain)} · ${item.size}`}
                     </p>
                   </div>
-                  <p className="font-medium">${item.price.toFixed(2)}</p>
+                  <p className="text-base font-medium">${item.price.toFixed(2)}</p>
                 </div>
               ))}
               <Separator />
-              <div className="flex justify-between font-bold text-lg">
+              <div className="flex justify-between text-lg font-bold">
                 <p>Total</p>
                 <p>${totalPrice.toFixed(2)}</p>
               </div>
@@ -84,24 +100,27 @@ export default function CheckoutPage() {
             </CardContent>
           </Card>
         </div>
-        <div className="lg:order-1 space-y-6">
-          <h1 className="text-3xl font-bold font-headline">Checkout</h1>
-          <p className="text-muted-foreground">
-            You will finish payment on Stripe Checkout. The charged amount is
-            calculated on the server at $120 per sign.
+        <div className="space-y-6 lg:order-1">
+          <h1 className="font-headline text-3xl font-bold">Checkout</h1>
+          <p className="text-base text-muted-foreground">
+            You will finish payment on Stripe Checkout. Custom signs are $120 each;
+            catalog pieces use their listed server-side price.
           </p>
           <div className="space-y-2">
-            <Label htmlFor="email">Receipt email</Label>
+            <Label htmlFor="email" className="text-base">
+              Receipt email
+            </Label>
             <Input
               id="email"
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="you@example.com"
+              className="text-base"
             />
           </div>
           <Button
-            className="w-full text-lg"
+            className="w-full text-base"
             size="lg"
             onClick={handleCheckout}
             disabled={pending}

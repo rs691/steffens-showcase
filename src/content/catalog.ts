@@ -22,6 +22,7 @@ export const products: Product[] = [
     description:
       "A large, imposing desk with hidden compartments and brass fittings. Built for a client's home office.",
     price: "Commission",
+    priceCents: null,
     image: "/mahoganyDesk.png",
     category: "furniture",
     woodType: "mahogany",
@@ -32,6 +33,7 @@ export const products: Product[] = [
     description:
       "Aromatic cedar chest with dovetail joinery and a custom-engraved lid. A wedding gift.",
     price: "Commission",
+    priceCents: null,
     image: "/cedarChest3.jpg",
     category: "furniture",
     woodType: "cedar",
@@ -42,6 +44,7 @@ export const products: Product[] = [
     description:
       "An intricate, handcrafted bookshelf with individually carved pieces. A true test of patience.",
     price: "Commission",
+    priceCents: null,
     image: "/bookshelf.jpg",
     category: "furniture",
     woodType: "oak",
@@ -52,6 +55,7 @@ export const products: Product[] = [
     description:
       "A classic design, updated for modern comfort. Hand-sanded to a smooth, warm finish.",
     price: "Commission",
+    priceCents: null,
     image: "/cherrywoodDineTable.jpg",
     category: "furniture",
     woodType: "cherry",
@@ -62,6 +66,7 @@ export const products: Product[] = [
     description:
       "Complete design and build of a commercial bar, including countertops, shelving, and paneling.",
     price: "Commission",
+    priceCents: null,
     image: "/woodBar.png",
     category: "commercial",
     woodType: "mixed",
@@ -72,6 +77,7 @@ export const products: Product[] = [
     description:
       "A minimalist outdoor bench made from weather-resistant teak, featuring elegant, simple lines.",
     price: "Commission",
+    priceCents: null,
     image: "/gb.svg",
     category: "outdoor",
     woodType: "teak",
