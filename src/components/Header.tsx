@@ -118,15 +118,15 @@ export function Header({ username }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-[4.25rem] items-center gap-3 overflow-hidden">
+      <div className="container flex h-[4.25rem] items-center overflow-hidden">
         <BrandMark compact className="min-w-0 shrink" />
-        <nav className="hidden items-center gap-6 md:flex lg:gap-7">
+        <nav className="ml-8 hidden items-center gap-8 md:flex lg:ml-10 lg:gap-8">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
         </nav>
         <div className="ml-auto flex shrink-0 items-center justify-end gap-2">
-          <nav className="hidden items-center gap-5 md:flex lg:gap-6">{accountLinks}</nav>
+          <nav className="hidden items-center gap-8 md:flex">{accountLinks}</nav>
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>

@@ -28,7 +28,11 @@ export function Footer() {
             Steffens Sign &amp; Design
           </h3>
           <p className="mt-3 max-w-xl text-base leading-relaxed sm:text-lg">
-            Portfolio demo by{" "}
+            A full-stack shop experience — production app replica for recruiters. Not the official
+            business site.
+          </p>
+          <p className="mt-2 text-sm sm:text-base">
+            Created by{" "}
             <a
               href="https://robert-stewart.dev"
               target="_blank"
@@ -37,7 +41,6 @@ export function Footer() {
             >
               Robert Stewart
             </a>
-            . A full-stack shop experience for recruiters — not an official business site.
           </p>
 
           <nav
@@ -64,15 +67,12 @@ export function Footer() {
             href="/contact"
             className="mt-6 text-base font-medium text-foreground underline-offset-4 hover:text-primary hover:underline sm:text-lg"
           >
-            Contact / demo inquiry
+            Contact
           </Link>
         </div>
 
         <div className="mt-8 border-t border-border pt-6 text-center text-base">
-          <p>
-            &copy; {new Date().getFullYear()} Robert Stewart. Portfolio demo — not affiliated with a
-            live woodworking business.
-          </p>
+          <p>&copy; {new Date().getFullYear()} Robert Stewart</p>
         </div>
       </div>
     </footer>
