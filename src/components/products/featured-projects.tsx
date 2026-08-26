@@ -71,10 +71,11 @@ export default function FeaturedProjects() {
           <Button
             variant="link"
             asChild
-            className="text-primary hover:underline transition-colors"
+            className="h-auto px-0 text-lg font-semibold text-primary"
           >
             <Link href="/gallery">
-              View All <ArrowRight className="ml-2 h-4 w-4" />
+              View all
+              <ArrowRight className="h-5 w-5" />
             </Link>
           </Button>
         </div>
@@ -98,10 +99,10 @@ export default function FeaturedProjects() {
                 </div>
               </CardHeader>
               <CardContent className="p-6 flex flex-col flex-1">
-                <CardTitle className="text-xl font-headline font-semibold">
+                <CardTitle className="font-headline text-xl font-semibold">
                   {project.title}
                 </CardTitle>
-                <p className="mt-2 text-muted-foreground flex-1">
+                <p className="mt-2 flex-1 text-base text-muted-foreground">
                   {project.description}
                 </p>
               </CardContent>

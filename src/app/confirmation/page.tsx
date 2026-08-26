@@ -22,16 +22,16 @@ export default async function ConfirmationPage({
   }
 
   return (
-    <div className="container mx-auto max-w-xl py-20 px-4 text-center space-y-4">
-      <h1 className="text-3xl font-headline font-bold">
+    <div className="container mx-auto max-w-xl space-y-4 px-4 py-20 text-center">
+      <h1 className="font-headline text-4xl font-bold text-primary md:text-5xl">
         {paid ? "Payment received" : "Thanks — checking your order"}
       </h1>
-      <p className="text-muted-foreground">
+      <p className="text-lg text-muted-foreground">
         {paid
           ? `Stripe confirmed this checkout${email ? ` for ${email}` : ""}. I will follow up about your custom piece.`
           : "If you just paid, give Stripe a moment and refresh. A webhook records the order when STRIPE_WEBHOOK_SECRET is set."}
       </p>
-      <Button asChild>
+      <Button asChild size="lg">
         <Link href="/">Back to home</Link>
       </Button>
     </div>

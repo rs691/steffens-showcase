@@ -33,7 +33,7 @@ export default async function WoodsPage() {
     <PageContainer>
       <div className="py-12 md:py-20">
         <header className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold font-headline mb-4">
+          <h1 className="mb-4 font-headline text-4xl font-bold text-primary md:text-5xl">
             A Guide to Our Woods
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -49,22 +49,22 @@ export default async function WoodsPage() {
                 <CardTitle className="text-2xl font-semibold text-primary">{wood.name}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <div className="flex items-center space-x-2 text-base text-muted-foreground">
                   <span className="font-medium">Origin:</span>
                   <span>{wood.origin}</span>
                 </div>
                 <Separator />
                 <div>
-                  <h3 className="font-semibold text-lg mb-1">Characteristics</h3>
-                  <p className="text-sm text-muted-foreground">{wood.characteristics}</p>
+                  <h3 className="mb-1 text-lg font-semibold">Characteristics</h3>
+                  <p className="text-base text-muted-foreground">{wood.characteristics}</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-1">Pricing</h3>
-                  <p className="text-sm text-muted-foreground">{wood.pricing}</p>
+                  <h3 className="mb-1 text-lg font-semibold">Pricing</h3>
+                  <p className="text-base text-muted-foreground">{wood.pricing}</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg mb-1">Interesting Fact</h3>
-                  <p className="text-sm text-muted-foreground">{wood.facts}</p>
+                  <h3 className="mb-1 text-lg font-semibold">Interesting Fact</h3>
+                  <p className="text-base text-muted-foreground">{wood.facts}</p>
                 </div>
               </CardContent>
             </Card>
@@ -79,13 +79,13 @@ export default async function WoodsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {externalLinks.map((link) => (
               <Card key={link.url} className="flex flex-col items-center p-6 text-center">
-                <h3 className="text-xl font-semibold mb-2">{link.name}</h3>
-                <p className="text-sm text-muted-foreground mb-4">{link.description}</p>
+                <h3 className="mb-2 text-xl font-semibold">{link.name}</h3>
+                <p className="mb-4 text-base text-muted-foreground">{link.description}</p>
                 <Link
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center space-x-1 text-primary hover:underline"
+                  className="flex items-center space-x-1 text-base text-primary hover:underline"
                 >
                   <span>Visit Website</span>
                   <ExternalLink className="h-4 w-4" />

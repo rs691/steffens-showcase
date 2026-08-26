@@ -80,7 +80,7 @@ export default function CheckoutPage() {
                 <div key={item.id} className="flex justify-between gap-4">
                   <div>
                     <p className="text-base font-medium">{item.text || "Custom Sign"}</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-base text-muted-foreground">
                       {item.kind === "product"
                         ? `Catalog · ${item.stain}`
                         : `${getStainLabel(item.stain)} · ${item.size}`}
@@ -101,8 +101,8 @@ export default function CheckoutPage() {
           </Card>
         </div>
         <div className="space-y-6 lg:order-1">
-          <h1 className="font-headline text-3xl font-bold">Checkout</h1>
-          <p className="text-base text-muted-foreground">
+          <h1 className="font-headline text-3xl font-bold text-primary md:text-4xl">Checkout</h1>
+          <p className="text-lg text-muted-foreground">
             You will finish payment on Stripe Checkout. Custom signs are $120 each;
             catalog pieces use their listed server-side price.
           </p>

@@ -16,8 +16,14 @@ export default function CalendarPage() {
           />
         </CardContent>
       </Card>
-      <div className="mt-8 text-center text-muted-foreground">
-        <p>Please <a href="/contact" className="text-primary underline hover:no-underline">contact me</a> to discuss project timelines and book a slot.</p>
+      <div className="mt-8 text-center text-lg text-muted-foreground">
+        <p>
+          Please{" "}
+          <a href="/contact" className="text-primary underline hover:no-underline">
+            contact me
+          </a>{" "}
+          to discuss project timelines and book a slot.
+        </p>
       </div>
     </div>
   );

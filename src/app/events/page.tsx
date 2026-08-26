@@ -7,17 +7,22 @@ export default async function EventsPage() {
 
   return (
     <PageContainer>
-      <h1 className="font-headline text-4xl md:text-5xl font-semibold text-center mb-12">
-        Upcoming Shows & Events
-      </h1>
+      <div className="mb-12 text-center">
+        <h1 className="font-headline text-4xl font-bold text-primary md:text-5xl">
+          Upcoming Shows &amp; Events
+        </h1>
+        <p className="mt-4 text-lg text-muted-foreground">
+          Markets and demos where this portfolio shop theme would appear.
+        </p>
+      </div>
       {events.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {events.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
         </div>
       ) : (
-        <p className="text-center text-muted-foreground text-lg">
+        <p className="text-center text-lg text-muted-foreground">
           No upcoming events scheduled at this time. Check back soon!
         </p>
       )}

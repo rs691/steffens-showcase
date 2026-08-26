@@ -68,7 +68,7 @@ export default function Home() {
             ].map((item) => (
               <div key={item.title} className="border-t border-border pt-5">
                 <h3 className="font-headline text-xl font-semibold text-primary">{item.title}</h3>
-                <p className="mt-2 text-muted-foreground">{item.description}</p>
+                <p className="mt-2 text-base text-muted-foreground">{item.description}</p>
               </div>
             ))}
           </div>

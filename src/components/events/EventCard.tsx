@@ -26,17 +26,17 @@ export function EventCard({ event }: EventCardProps) {
         </CardHeader>
       ) : null}
       <CardContent className="p-6">
-        <CardTitle className="font-headline text-xl mb-2">{event.name}</CardTitle>
-        <div className="flex items-center text-sm text-muted-foreground mb-1">
-          <CalendarDays className="w-4 h-4 mr-2 text-primary" />
+        <CardTitle className="mb-2 font-headline text-xl">{event.name}</CardTitle>
+        <div className="mb-1 flex items-center text-base text-muted-foreground">
+          <CalendarDays className="mr-2 h-4 w-4 text-primary" />
           <span>{event.date}</span>
         </div>
-        <div className="flex items-center text-sm text-muted-foreground mb-3">
-          <MapPin className="w-4 h-4 mr-2 text-primary" />
+        <div className="mb-3 flex items-center text-base text-muted-foreground">
+          <MapPin className="mr-2 h-4 w-4 text-primary" />
           <span>{event.location}</span>
         </div>
         {event.description ? (
-          <CardDescription className="text-sm">{event.description}</CardDescription>
+          <CardDescription className="text-base">{event.description}</CardDescription>
         ) : null}
       </CardContent>
     </Card>

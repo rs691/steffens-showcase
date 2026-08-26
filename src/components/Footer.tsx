@@ -4,7 +4,7 @@ import Link from "next/link";
 const profileLinks = [
   {
     href: "https://github.com/rs691/steffens-showcase",
-    label: "GitHub repository",
+    label: "GitHub",
     icon: Github,
   },
   {
@@ -14,7 +14,7 @@ const profileLinks = [
   },
   {
     href: "https://robert-stewart.dev",
-    label: "Portfolio site",
+    label: "Portfolio",
     icon: Globe,
   },
 ];
@@ -23,47 +23,52 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-muted text-muted-foreground">
       <div className="container mx-auto px-4 py-10 sm:py-12">
-        <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
-          <div className="max-w-lg space-y-3">
-            <h3 className="font-headline text-xl font-semibold text-foreground">
-              Steffens Sign &amp; Design
-            </h3>
-            <p className="text-base leading-relaxed">
-              Portfolio demo by{" "}
-              <a
-                href="https://robert-stewart.dev"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground underline-offset-2 hover:text-primary hover:underline"
-              >
-                Robert Stewart
-              </a>
-              . A full-stack shop experience for recruiters — not an official business site.
-            </p>
-            <p>
-              <Link href="/contact" className="text-base hover:text-primary">
-                Contact / demo inquiry form
-              </Link>
-            </p>
-          </div>
+        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+          <h3 className="font-headline text-xl font-semibold text-foreground sm:text-2xl">
+            Steffens Sign &amp; Design
+          </h3>
+          <p className="mt-3 max-w-xl text-base leading-relaxed sm:text-lg">
+            Portfolio demo by{" "}
+            <a
+              href="https://robert-stewart.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline-offset-2 hover:text-primary hover:underline"
+            >
+              Robert Stewart
+            </a>
+            . A full-stack shop experience for recruiters — not an official business site.
+          </p>
 
-          <div className="flex items-center gap-3">
+          <nav
+            aria-label="Profile links"
+            className="mt-8 grid w-full max-w-md grid-cols-3 gap-4"
+          >
             {profileLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={link.label}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background/40 text-foreground transition-colors hover:border-primary hover:text-primary"
+                className="flex flex-col items-center gap-2 rounded-md px-2 py-2 text-foreground transition-colors hover:text-primary"
               >
-                <link.icon className="h-5 w-5" />
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-border bg-background/50">
+                  <link.icon className="h-5 w-5" aria-hidden />
+                </span>
+                <span className="text-sm font-medium sm:text-base">{link.label}</span>
               </a>
             ))}
-          </div>
+          </nav>
+
+          <Link
+            href="/contact"
+            className="mt-6 text-base font-medium text-foreground underline-offset-4 hover:text-primary hover:underline sm:text-lg"
+          >
+            Contact / demo inquiry
+          </Link>
         </div>
 
-        <div className="mt-8 border-t border-border pt-6 text-center text-sm sm:text-left sm:text-base">
+        <div className="mt-8 border-t border-border pt-6 text-center text-base">
           <p>
             &copy; {new Date().getFullYear()} Robert Stewart. Portfolio demo — not affiliated with a
             live woodworking business.

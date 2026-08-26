@@ -64,9 +64,9 @@ export default function ProjectsPage() {
                                           />
                                       </div>
                                   </CardHeader>
-                                  <CardContent className="p-6 flex-grow flex flex-col justify-between">
-                                      <CardTitle className="font-headline">{project.title}</CardTitle>
-                                      <CardDescription className="mt-2">{project.description}</CardDescription>
+                                  <CardContent className="flex flex-grow flex-col justify-between p-6">
+                                      <CardTitle className="font-headline text-xl">{project.title}</CardTitle>
+                                      <CardDescription className="mt-2 text-base">{project.description}</CardDescription>
                                   </CardContent>
                               </Card>
         ))}

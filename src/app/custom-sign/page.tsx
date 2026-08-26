@@ -100,15 +100,15 @@ export default function CustomSignDesignerPage() {
                         </div>
                     </CardContent>
                 </Card>
-                <div className="mt-4 text-center text-sm text-muted-foreground sm:text-base">
+                <div className="mt-4 text-center text-base text-muted-foreground">
                     <p>See how your choice of background looks with text.</p>
                 </div>
             </div>
 
             <div className="min-w-0">
-                <h1 className="font-headline text-3xl font-bold text-primary lg:text-4xl">Custom Wooden Sign</h1>
+                <h1 className="font-headline text-4xl font-bold text-primary md:text-5xl">Custom Wooden Sign</h1>
                 <p className="mt-2 text-xl font-semibold text-foreground/90 sm:text-2xl">$120.00</p>
-                <p className="mt-4 text-base text-muted-foreground">
+                <p className="mt-4 text-lg text-muted-foreground">
                     Create a one-of-a-kind wooden sign, personalized by you. Perfect for homes, businesses, or as a thoughtful gift. Select your options below to get started.
                 </p>
 
@@ -124,7 +124,7 @@ export default function CustomSignDesignerPage() {
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                         />
-                        <p className="text-sm text-muted-foreground">Enter the text exactly as you want it to appear on the sign.</p>
+                        <p className="text-base text-muted-foreground">Enter the text exactly as you want it to appear on the sign.</p>
                     </div>
 
                     <div className="space-y-4">
@@ -132,7 +132,7 @@ export default function CustomSignDesignerPage() {
                            <Upload className="h-5 w-5" /> Upload Your Graphic
                         </Label>
                         <Input id="logo-upload" type="file" className="file:text-primary file:font-semibold" onChange={handleGraphicChange} accept="image/png, image/jpeg, image/svg+xml"/>
-                        <p className="text-sm text-muted-foreground">Optional. We accept PNG, JPG, and SVG files.</p>
+                        <p className="text-base text-muted-foreground">Optional. We accept PNG, JPG, and SVG files.</p>
                     </div>
                     
                     <Separator/>

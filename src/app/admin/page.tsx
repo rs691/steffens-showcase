@@ -63,8 +63,8 @@ export default async function AdminPage() {
       <div className="flex items-center gap-4 mb-8">
         <LayoutDashboard className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-4xl font-headline font-bold">Admin Dashboard</h1>
-          <p className="text-muted-foreground">Signed in as {user.username}</p>
+          <h1 className="font-headline text-4xl font-bold text-primary md:text-5xl">Admin Dashboard</h1>
+          <p className="text-lg text-muted-foreground">Signed in as {user.username}</p>
         </div>
       </div>
 
@@ -84,13 +84,13 @@ export default async function AdminPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             {recentInquiries.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 No inquiries yet. Submit one from /contact to populate this list.
               </p>
             ) : (
               <ul className="space-y-3">
                 {recentInquiries.map((inquiry) => (
-                  <li key={inquiry.id} className="rounded-md border bg-muted/20 p-3 text-sm">
+                  <li key={inquiry.id} className="rounded-md border bg-muted/20 p-3 text-base">
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <p className="font-medium text-foreground">
                         {inquiry.name}{" "}
@@ -98,11 +98,11 @@ export default async function AdminPage() {
                           &lt;{inquiry.email}&gt;
                         </span>
                       </p>
-                      <time className="text-xs text-muted-foreground">
+                      <time className="text-sm text-muted-foreground">
                         {new Date(inquiry.created_at).toLocaleDateString()}
                       </time>
                     </div>
-                    <p className="mt-1 text-muted-foreground line-clamp-2">{inquiry.message}</p>
+                    <p className="mt-1 line-clamp-2 text-muted-foreground">{inquiry.message}</p>
                   </li>
                 ))}
               </ul>

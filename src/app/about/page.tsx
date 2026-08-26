@@ -15,7 +15,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="flex flex-col justify-center p-8 md:p-12">
             <h2 className="mb-4 font-headline text-3xl font-semibold">Why this project</h2>
-            <div className="space-y-4 text-base leading-relaxed text-muted-foreground">
+            <div className="space-y-4 text-lg leading-relaxed text-muted-foreground">
               <p>
                 Steffens Sign &amp; Design is a fictional shop theme used to showcase production-style
                 web engineering: catalog, auth, Stripe checkout, admin tools, and AI copilots with

@@ -73,7 +73,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             {product.name}
           </h1>
           <p className="mt-4 text-2xl font-semibold text-foreground">{product.price}</p>
-          <p className="mt-6 text-base leading-relaxed text-muted-foreground md:text-lg">
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             {product.description}
           </p>
 
