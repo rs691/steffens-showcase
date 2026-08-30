@@ -28,8 +28,8 @@ export default async function ConfirmationPage({
       </h1>
       <p className="text-lg text-muted-foreground">
         {paid
-          ? `Stripe confirmed this checkout${email ? ` for ${email}` : ""}. I will follow up about your custom piece.`
-          : "If you just paid, give Stripe a moment and refresh. A webhook records the order when STRIPE_WEBHOOK_SECRET is set."}
+          ? `Stripe confirmed this demo checkout${email ? ` for ${email}` : ""}. The order is recorded via webhook to Supabase.`
+          : "If you just paid, give Stripe a moment and refresh. Paid orders are persisted when the Stripe webhook is configured."}
       </p>
       <Button asChild size="lg">
         <Link href="/">Back to home</Link>

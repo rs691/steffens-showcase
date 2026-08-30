@@ -30,9 +30,9 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Steffens Sign & Design | Portfolio by Robert Stewart",
+  title: "Steffens Sign & Design | AI Shop Replica by Robert Stewart",
   description:
-    "Full-stack portfolio demo: Next.js shop with Supabase, Stripe, and AI copilots. Built by Robert Stewart — not an official business site.",
+    "Production-style e-commerce replica with Design and Admin copilots, RAG, Stripe, and Supabase. Built by Robert Stewart for recruiters — not an official business site.",
   icons: {
     icon: "/favicon-mark.svg",
   },

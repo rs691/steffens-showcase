@@ -9,7 +9,8 @@ export default async function ProductsPage() {
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-headline font-bold text-primary">Products</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          A selection of popular pieces that show what I can build for you.
+          Catalog pieces in the demo shop — priced items checkout via Stripe; commission pieces use
+          Inquire.
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

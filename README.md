@@ -1,10 +1,11 @@
 # Steffens Sign & Design
 
-**Portfolio demo by [Robert Stewart](https://robert-stewart.dev)** — a full-stack woodworking shop experience for recruiters and hiring managers. **Not an official business site** and not affiliated with a live workshop.
+**Production-style e-commerce replica by [Robert Stewart](https://robert-stewart.dev)** — built to showcase full-stack engineering and **AI copilots** for recruiters, hiring managers, and Handshake reviewers. **Not an official business site.**
 
-Built with **Next.js 15**, **Supabase**, **Stripe**, and the **Vercel AI SDK**.
+Stack: **Next.js 15**, **Supabase** (pgvector RAG), **Stripe**, **Vercel AI SDK**.
 
 Live: [steffens-showcase.vercel.app](https://steffens-showcase.vercel.app)  
+**Start here:** [custom-sign](https://steffens-showcase.vercel.app/custom-sign) (Design Copilot)  
 Repo: [github.com/rs691/steffens-showcase](https://github.com/rs691/steffens-showcase)  
 LinkedIn: [linkedin.com/in/robert-stewart-m](https://linkedin.com/in/robert-stewart-m)
 
@@ -105,7 +106,8 @@ node scripts/sync-vercel-env.mjs
 
 | Route | Notes |
 |-------|-------|
-| `/` | Hero + featured projects |
+| `/` | Hero + AI showcase + featured projects |
+| `/about` | Recruiter demo path + admin setup |
 | `/products`, `/products/[id]` | Catalog; Add to cart when priced |
 | `/custom-sign` | Designer + Design Copilot |
 | `/cart`, `/checkout` | Cart → Stripe (login required for checkout) |
@@ -133,14 +135,15 @@ https://steffens-showcase.vercel.app/api/webhooks/stripe
 
 Use **Your account** (not Connected Accounts). Event: `checkout.session.completed`.
 
-## Demo walkthrough (suggested)
+## Demo walkthrough (Handshake / recruiters)
 
-1. Home → **Design a custom sign** → Design Copilot (walnut / outdoor / price)
-2. Add sign to cart → login → Stripe test checkout → confirmation
-3. `/admin` → Admin Copilot (“summarize orders”) + recent inquiries
-4. `/products` → priced item **Add to cart** vs commission **Inquire**
+1. Home → **Try the Design Copilot** → ask about walnut, outdoor use, or pricing
+2. Watch tool calls (RAG, quote, apply draft) and live preview update
+3. Add to cart → login → Stripe test checkout → confirmation
+4. `/about` → full recruiter demo path; `/admin` → Admin Copilot after `is_admin` promotion
+5. `/products` → priced **Add to cart** vs commission **Inquire**
 
-## Deployment
+## Demo walkthrough (technical)
 
 Vercel project: `steffens-showcase`.
 

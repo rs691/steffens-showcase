@@ -1,5 +1,34 @@
+import { Button } from "@/components/ui/button";
+import { Bot, CreditCard, Sparkles } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+
+const demoSteps = [
+  {
+    icon: Sparkles,
+    title: "Design Copilot",
+    description:
+      'Open Custom Sign and ask: "Large walnut outdoor sign for The Millers — what\'s the price?" Watch RAG, quoting, and live preview updates.',
+    href: "/custom-sign",
+    cta: "Open Custom Sign",
+  },
+  {
+    icon: CreditCard,
+    title: "Checkout flow",
+    description:
+      "Add a sign to cart, register or log in, and run Stripe test checkout. Orders persist via webhook to Supabase.",
+    href: "/cart",
+    cta: "View cart",
+  },
+  {
+    icon: Bot,
+    title: "Admin Copilot",
+    description:
+      "Register, then promote your user with is_admin in Supabase. Visit /admin and ask the Admin Copilot to summarize orders or inquiries.",
+    href: "/admin",
+    cta: "Go to admin",
+  },
+];
 
 export default function AboutPage() {
   return (
@@ -7,7 +36,8 @@ export default function AboutPage() {
       <div className="mb-12 text-center">
         <h1 className="font-headline text-4xl font-bold text-primary md:text-5xl">About</h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          A full-stack portfolio demo by Robert Stewart.
+          Production-style e-commerce replica by Robert Stewart — built to showcase full-stack and
+          AI engineering.
         </p>
       </div>
 
@@ -22,9 +52,9 @@ export default function AboutPage() {
                 RAG — not an official storefront for a live business.
               </p>
               <p>
-                The product experience is intentionally realistic so you can walk through a custom
-                sign designer, cart and checkout, contact inquiries, and role-gated admin features
-                the way a hiring manager would evaluate a shipped app.
+                The experience is intentionally realistic so recruiters can evaluate a shipped app:
+                custom sign designer, persistent cart, Stripe checkout, contact inquiries, and
+                role-gated admin features with two streaming copilots.
               </p>
               <p>
                 Built by{" "}
@@ -45,15 +75,11 @@ export default function AboutPage() {
                 >
                   GitHub
                 </a>
-                . Prefer email or LinkedIn? Start from the{" "}
-                <Link href="/contact" className="text-primary hover:underline">
-                  contact page
-                </Link>
                 .
               </p>
             </div>
           </div>
-          <div className="relative min-h-[300px] h-64 md:h-full">
+          <div className="relative h-64 min-h-[300px] md:h-full">
             <Image
               src="/cncWoodcut2.jpg"
               alt="Custom desk in progress on a CNC mill"
@@ -64,6 +90,35 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+
+      <section className="mt-12">
+        <h2 className="text-center font-headline text-3xl font-bold">How to try the AI features</h2>
+        <p className="mx-auto mt-3 max-w-2xl text-center text-lg text-muted-foreground">
+          A 60-second path for hiring managers and Handshake reviewers.
+        </p>
+        <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+          {demoSteps.map((step) => (
+            <div
+              key={step.title}
+              className="flex flex-col rounded-xl border border-border bg-card p-6 shadow-md"
+            >
+              <step.icon className="h-7 w-7 text-primary" aria-hidden />
+              <h3 className="mt-4 font-headline text-xl font-semibold">{step.title}</h3>
+              <p className="mt-2 flex-1 text-base text-muted-foreground">{step.description}</p>
+              <Button asChild className="mt-6 w-full">
+                <Link href={step.href}>{step.cta}</Link>
+              </Button>
+            </div>
+          ))}
+        </div>
+        <p className="mx-auto mt-8 max-w-2xl text-center text-base text-muted-foreground">
+          Admin access: after registering, run{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-sm">
+            UPDATE public.users SET is_admin = true WHERE email = &apos;you@example.com&apos;;
+          </code>{" "}
+          in Supabase.
+        </p>
+      </section>
     </div>
   );
 }

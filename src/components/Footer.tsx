@@ -27,9 +27,13 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-muted text-muted-foreground">
       <div className="container mx-auto flex flex-col items-center gap-3 px-4 py-6 text-center sm:py-8">
-        <p className="text-sm sm:text-base">
+        <p className="max-w-xl text-sm leading-relaxed sm:text-base">
           <span className="font-headline font-semibold text-foreground">Steffens Sign &amp; Design</span>{" "}
-          — portfolio demo by{" "}
+          — full-stack shop experience, production app replica for recruiters. Not the official
+          business site.
+        </p>
+        <p className="text-sm">
+          Created by{" "}
           <a
             href="https://robert-stewart.dev"
             target="_blank"

@@ -14,7 +14,7 @@ export default function FAQPage() {
           Frequently Asked Questions
         </h1>
         <p className="mt-4 text-lg text-muted-foreground">
-          Answers to common inquiries about my work and process.
+          Shop-themed answers that power the demo catalog and Design Copilot knowledge base.
         </p>
       </div>
       <Accordion type="single" collapsible className="w-full">

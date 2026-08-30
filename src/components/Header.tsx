@@ -16,6 +16,7 @@ const navLinks = [
   { href: "/products", label: "Products" },
   { href: "/custom-sign", label: "Custom Sign" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -40,8 +41,8 @@ function BrandMark({ className, compact }: { className?: string; compact?: boole
       <span className="whitespace-nowrap font-headline text-base font-semibold leading-tight tracking-tight sm:text-lg">
         {compact ? (
           <>
-            <span className="xl:hidden">Steffens</span>
-            <span className="hidden xl:inline">Steffens Sign &amp; Design</span>
+            <span className="lg:hidden">Steffens</span>
+            <span className="hidden lg:inline">Steffens Sign &amp; Design</span>
           </>
         ) : (
           "Steffens Sign & Design"
@@ -121,18 +122,18 @@ export function Header({ username }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-[4.25rem] items-center overflow-hidden">
         <BrandMark compact className="min-w-0 shrink" />
-        <nav className="ml-8 hidden items-center gap-8 xl:flex xl:ml-10 xl:gap-8">
+        <nav className="ml-6 hidden items-center gap-6 lg:ml-8 lg:flex lg:gap-8">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
         </nav>
         <div className="ml-auto flex shrink-0 items-center justify-end gap-4 sm:gap-6">
           <ThemeToggle />
-          <nav className="hidden items-center gap-8 xl:flex">{accountLinks}</nav>
+          <nav className="hidden items-center gap-6 lg:flex lg:gap-8">{accountLinks}</nav>
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="shrink-0 xl:hidden">
+              <Button variant="ghost" size="icon" className="shrink-0 lg:hidden">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle Menu</span>
               </Button>
