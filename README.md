@@ -14,17 +14,18 @@ LinkedIn: [linkedin.com/in/robert-stewart-m](https://linkedin.com/in/robert-stew
 ### Shop & content
 - Product catalog with detail pages (Supabase + local fallback)
 - Priced catalog items can be added to cart; commission pieces use **Inquire**
-- Custom sign designer (text, wood stain, size) at `$120` server-owned pricing
-- Gallery, FAQ, wood guide (`/learn`), events, about, and contact form
+- Custom sign designer (text, wood stain, size, shape, text color) at `$120` server-owned pricing
+- `localStorage`-backed cart for custom signs and catalog products
+- Gallery, FAQ, wood guide (`/learn`), events, projects, about, and contact form
 - Contact inquiries stored in Supabase (`inquiries`)
 
 ### Auth & payments
 - Supabase Auth (email/password, SSR cookies)
-- Middleware protects `/admin` and `/checkout`
+- Middleware protects `/admin` and `/checkout` (login required)
 - Stripe Checkout Sessions for custom signs **and** priced catalog products
 - Webhook persists paid orders to Supabase (`orders`)
 
-### AI copilots (interview differentiator)
+### AI copilots
 - **Design Copilot** (`/custom-sign`) — streaming chat via Vercel AI Gateway
   - Tools: `retrieveKnowledge` (RAG), `searchWoods`, `quoteSign`, `applyDesignDraft`
   - Session logging to `agent_sessions`
@@ -42,11 +43,12 @@ LinkedIn: [linkedin.com/in/robert-stewart-m](https://linkedin.com/in/robert-stew
 
 | Layer | Tech |
 |-------|------|
-| Framework | Next.js 15 App Router, TypeScript |
+| Framework | Next.js 15 App Router, TypeScript, Turbopack (dev) |
 | Auth & DB | Supabase (Postgres, RLS, SSR, pgvector) |
 | Payments | Stripe Checkout + webhooks |
 | AI | Vercel AI SDK v7, AI Gateway, embeddings |
-| UI | Tailwind CSS, shadcn/ui, Radix |
+| UI | Tailwind CSS, shadcn/ui, Radix, light/dark theme toggle |
+| Typography | Barlow Condensed (headlines), Work Sans (body) |
 | CI | GitHub Actions (typecheck, lint, test, build) |
 
 ## Getting started
@@ -71,7 +73,7 @@ See [`.env.example`](.env.example).
 | `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Client + SSR Supabase |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server writes (orders, inquiries, RAG, sessions) |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` / `STRIPE_SECRET_KEY` / `STRIPE_WEBHOOK_SECRET` | Checkout + webhook |
-| `NEXT_PUBLIC_SITE_URL` | Absolute URLs for Stripe redirects |
+| `NEXT_PUBLIC_SITE_URL` | Absolute URLs for Stripe redirects and sitemap |
 | `AI_GATEWAY_API_KEY` | Design/Admin Copilot + embeddings (or Vercel OIDC on deploy) |
 | `AI_MODEL` | Optional chat model (`openai/gpt-5-mini` default) |
 | `AI_EMBEDDING_MODEL` | Optional embed model (`openai/text-embedding-3-small` default) |
@@ -84,6 +86,7 @@ See [`.env.example`](.env.example).
 ```bash
 npm run dev        # local dev (Turbopack)
 npm run build      # production build
+npm run start      # production server
 npm run typecheck  # TypeScript
 npm run lint       # ESLint
 npm run test       # unit tests (pricing, tools, RAG lexical, limits, evals)
@@ -110,12 +113,15 @@ node scripts/sync-vercel-env.mjs
 | `/about` | Recruiter demo path + admin setup |
 | `/products`, `/products/[id]` | Catalog; Add to cart when priced |
 | `/custom-sign` | Designer + Design Copilot |
-| `/cart`, `/checkout` | Cart → Stripe (login required for checkout) |
-| `/contact` | Inquiry form → Supabase |
-| `/admin` | Admin Copilot, inquiries, seed RAG |
+| `/cart`, `/checkout` | Cart (open) → Stripe checkout (login required) |
+| `/contact` | Demo inquiry form → Supabase |
+| `/gallery`, `/faq`, `/learn`, `/events`, `/projects` | Secondary shop content pages |
+| `/admin` | Admin Copilot, inquiries, seed RAG (`is_admin`) |
 | `/api/agent/design` | Design Copilot stream |
 | `/api/agent/admin` | Admin Copilot stream (admin only) |
 | `/api/webhooks/stripe` | Order persistence |
+
+Main nav: Home, Products, Custom Sign, Gallery, About, Contact.
 
 ## Admin access
 
@@ -139,11 +145,17 @@ Use **Your account** (not Connected Accounts). Event: `checkout.session.complete
 
 1. Home → **Try the Design Copilot** → ask about walnut, outdoor use, or pricing
 2. Watch tool calls (RAG, quote, apply draft) and live preview update
-3. Add to cart → login → Stripe test checkout → confirmation
+3. Add to cart → register/login → Stripe test checkout → confirmation
 4. `/about` → full recruiter demo path; `/admin` → Admin Copilot after `is_admin` promotion
 5. `/products` → priced **Add to cart** vs commission **Inquire**
 
-## Demo walkthrough (technical)
+## Assets & credits
+
+- Hero image: `public/updated-hero.jpg` (Leonardo AI, photoreal workshop scene)
+- Logo mark: `public/logo-mark.svg`, `public/favicon-mark.svg`
+- Product and gallery photos are demo assets for the fictional shop theme
+
+## Deployment
 
 Vercel project: `steffens-showcase`.
 

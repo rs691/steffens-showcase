@@ -10,14 +10,14 @@ export default function Home() {
     <>
       <section className="relative isolate min-h-[70vh] w-full overflow-hidden">
         <Image
-          src="/woodMachine.jpg"
+          src="/updated-hero.jpg"
           alt="Craftsman working wood in the workshop"
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-[70%_center]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/25" />
         <div className="relative z-10 mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-end px-4 pb-14 pt-24 sm:px-6 sm:pb-20 md:justify-center md:pt-24">
           <p className="font-headline text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm">
             Production-style shop replica
