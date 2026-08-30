@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
-import { Loader2, Sparkles, Wrench } from "lucide-react";
+import { Sparkles, Wrench } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { DesignDraft } from "@/lib/agent/design-tools";
 
@@ -191,7 +191,8 @@ export function DesignAssistant({ draft, onApply }: DesignAssistantProps) {
                   return (
                     <p
                       key={`${message.id}-tool-${index}`}
-                      className="inline-flex items-center gap-1 rounded bg-background px-2 py-1 text-xs text-muted-foreground"
+                      className="inline-flex origin-left animate-stamp-in items-center gap-1 rounded border border-stamp/40 bg-stamp/10 px-2 py-1 font-headline text-[10px] font-semibold uppercase tracking-wide text-stamp"
+                      style={{ transform: "rotate(-2deg)" }}
                     >
                       <Wrench className="h-3 w-3" />
                       {toolLabel(part.type)}
@@ -205,8 +206,12 @@ export function DesignAssistant({ draft, onApply }: DesignAssistantProps) {
         )}
         {busy ? (
           <p className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-            <Loader2 className="h-3 w-3 animate-spin" />
-            Thinking…
+            <span className="flex items-center gap-0.5" aria-hidden="true">
+              <span className="h-1 w-1 animate-bounce rounded-full bg-primary [animation-delay:-0.3s]" />
+              <span className="h-1 w-1 animate-bounce rounded-full bg-primary [animation-delay:-0.15s]" />
+              <span className="h-1 w-1 animate-bounce rounded-full bg-primary" />
+            </span>
+            Sketching a response…
           </p>
         ) : null}
       </div>

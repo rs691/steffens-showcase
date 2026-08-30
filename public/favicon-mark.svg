@@ -1,0 +1,10 @@
+<svg width="72" height="72" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Steffens Sign &amp; Design">
+  <circle cx="36" cy="36" r="33" fill="#EDE7D8" stroke="#211D17" stroke-width="2.5"/>
+  <g stroke="#211D17" stroke-width="1.5">
+    <line x1="36" y1="5" x2="36" y2="11"/>
+    <line x1="36" y1="61" x2="36" y2="67"/>
+    <line x1="5" y1="36" x2="11" y2="36"/>
+    <line x1="61" y1="36" x2="67" y2="36"/>
+  </g>
+  <text x="36" y="46" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="27" fill="#3B6E8F">S&amp;D</text>
+</svg>

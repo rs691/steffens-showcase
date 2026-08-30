@@ -11,9 +11,9 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from '@/lib/utils';
-import { Palette, Pencil, Ruler, Upload } from "lucide-react";
+import { Palette, Pencil, Ruler, Type, Square, Upload } from "lucide-react";
 import Image from "next/image";
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CUSTOM_SIGN_PRICE_USD } from "@/lib/pricing";
 import { useCart } from "../context/CartContext";
 import { DesignAssistant } from "@/components/DesignAssistant";
@@ -35,6 +35,29 @@ const sizeClasses: { [key: string]: string } = {
     large: "text-3xl sm:text-5xl md:text-6xl",
 };
 
+type SignShape = "rectangle" | "oval" | "arch" | "house";
+
+const shapeStyles: Record<SignShape, React.CSSProperties> = {
+    rectangle: {},
+    oval: { clipPath: "ellipse(50% 42% at 50% 50%)" },
+    arch: { borderRadius: "50% 50% 8px 8px / 60% 60% 8px 8px" },
+    house: { clipPath: "polygon(50% 0%, 100% 28%, 100% 100%, 0% 100%, 0% 28%)" },
+};
+
+const shapeLabels: Record<SignShape, string> = {
+    rectangle: "Rectangle",
+    oval: "Oval",
+    arch: "Arch",
+    house: "House",
+};
+
+const textColorSwatches: { value: string; label: string }[] = [
+    { value: "#F7F3E8", label: "Paper" },
+    { value: "#1C1A16", label: "Charcoal" },
+    { value: "#D9A441", label: "Gold leaf" },
+    { value: "#5B8CA6", label: "Chalk blue" },
+];
+
 
 export default function CustomSignDesignerPage() {
     const { toast } = useToast();
@@ -43,6 +66,14 @@ export default function CustomSignDesignerPage() {
     const [graphic, setGraphic] = useState<string | null>(null);
     const [stain, setStain] = useState<DesignDraft["stain"]>('amerBlackWalnut');
     const [size, setSize] = useState<DesignDraft["size"]>('medium');
+    const [textColor, setTextColor] = useState<string>(textColorSwatches[0].value);
+    const [shape, setShape] = useState<SignShape>('rectangle');
+
+    // Bumped on any change that should re-trigger the engraving reveal animation.
+    const revealKey = useMemo(
+        () => [text, graphic, stain, size, textColor, shape].join('|'),
+        [text, graphic, stain, size, textColor, shape],
+    );
 
     function handleAddToCart(event: React.FormEvent) {
         event.preventDefault();
@@ -54,6 +85,8 @@ export default function CustomSignDesignerPage() {
       stain,
       size,
       price: CUSTOM_SIGN_PRICE_USD,
+      textColor,
+      shape,
     });
 
 
@@ -83,7 +116,14 @@ export default function CustomSignDesignerPage() {
             <div className="md:sticky md:top-24">
                 <Card className="overflow-hidden shadow-lg">
                     <CardContent className="bg-muted/30 p-3 sm:p-4">
-                        <div className={cn("relative flex aspect-square items-center justify-center overflow-hidden rounded-lg p-4 sm:p-8", stainColors[stain])}>
+                        <div
+                            key={revealKey}
+                            className={cn(
+                                "relative flex aspect-square items-center justify-center overflow-hidden rounded-lg p-4 sm:p-8 animate-engrave",
+                                stainColors[stain],
+                            )}
+                            style={shapeStyles[shape]}
+                        >
                             {graphic ? (
                                 <Image 
                                     src={graphic} 
@@ -94,7 +134,10 @@ export default function CustomSignDesignerPage() {
                             ) : (
                                 <div className="absolute inset-0 bg-black/10"></div>
                             )}
-                            <div className={cn("relative max-w-full break-words px-2 text-center font-headline text-white whitespace-pre-wrap", sizeClasses[size])} style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>
+                            <div
+                                className={cn("relative max-w-full break-words px-2 text-center font-headline whitespace-pre-wrap", sizeClasses[size])}
+                                style={{ color: textColor, textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}
+                            >
                                 {text}
                             </div>
                         </div>
@@ -148,32 +191,92 @@ export default function CustomSignDesignerPage() {
 >
     <Label htmlFor="amerBlackWalnut" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="amerBlackWalnut" id="amerBlackWalnut" className="sr-only"/>
-        <div className="w-16 h-16 rounded-full bg-[url('/amerBlackWalnut.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <div className="w-16 h-16 rounded-full bg-[url('/amerBlackWalnut.svg')] border-2 border-muted/50 shadow-inner transition-transform duration-150 hover:-translate-y-0.5 hover:-rotate-2"></div>
         <span className="text-sm font-medium text-center">American Black Walnut</span>
     </Label>
     <Label htmlFor="amerWhiteAsh" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="amerWhiteAsh" id="amerWhiteAsh" className="sr-only" />
-        <div className="w-16 h-16 rounded-full bg-[url('/amerWhiteAsh.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <div className="w-16 h-16 rounded-full bg-[url('/amerWhiteAsh.svg')] border-2 border-muted/50 shadow-inner transition-transform duration-150 hover:-translate-y-0.5 hover:-rotate-2"></div>
         <span className="text-sm font-medium text-center">American White Ash</span>
     </Label>
     <Label htmlFor="zebrano" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="zebrano" id="zebrano" className="sr-only"/>
-        <div className="w-16 h-16 rounded-full bg-[url('/zebrano.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <div className="w-16 h-16 rounded-full bg-[url('/zebrano.svg')] border-2 border-muted/50 shadow-inner transition-transform duration-150 hover:-translate-y-0.5 hover:-rotate-2"></div>
         <span className="text-sm font-medium text-center">Zebrano</span>
     </Label>
     <Label htmlFor="redOak" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="redOak" id="redOak" className="sr-only"/>
-        <div className="w-16 h-16 rounded-full bg-[url('/redOak.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <div className="w-16 h-16 rounded-full bg-[url('/redOak.svg')] border-2 border-muted/50 shadow-inner transition-transform duration-150 hover:-translate-y-0.5 hover:-rotate-2"></div>
         <span className="text-sm font-medium text-center">Red Oak</span>
     </Label>
     <Label htmlFor="americanCherry" className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all">
         <RadioGroupItem value="americanCherry" id="americanCherry" className="sr-only"/>
-        <div className="w-16 h-16 rounded-full bg-[url('/americanCherry.svg')] border-2 border-muted/50 shadow-inner"></div>
+        <div className="w-16 h-16 rounded-full bg-[url('/americanCherry.svg')] border-2 border-muted/50 shadow-inner transition-transform duration-150 hover:-translate-y-0.5 hover:-rotate-2"></div>
         <span className="text-sm font-medium text-center">American Cherry</span>
     </Label>
 </RadioGroup>
 
                     </div>
+
+                    <div className="space-y-4">
+                        <Label className="text-lg font-semibold font-headline flex items-center gap-2">
+                            <Type className="h-5 w-5" /> Text Color
+                        </Label>
+                        <div className="flex flex-wrap gap-3">
+                            {textColorSwatches.map((swatch) => (
+                                <button
+                                    key={swatch.value}
+                                    type="button"
+                                    onClick={() => setTextColor(swatch.value)}
+                                    title={swatch.label}
+                                    aria-label={swatch.label}
+                                    aria-pressed={textColor === swatch.value}
+                                    className={cn(
+                                        "h-9 w-9 rounded-full border-2 shadow-inner transition-transform duration-150 hover:-translate-y-0.5",
+                                        textColor === swatch.value ? "border-primary" : "border-muted/50",
+                                    )}
+                                    style={{ backgroundColor: swatch.value }}
+                                />
+                            ))}
+                            <label className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-dashed border-muted/60 text-xs text-muted-foreground cursor-pointer">
+                                <input
+                                    type="color"
+                                    value={textColor}
+                                    onChange={(e) => setTextColor(e.target.value)}
+                                    className="sr-only"
+                                    aria-label="Custom text color"
+                                />
+                                +
+                            </label>
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        <Label className="text-lg font-semibold font-headline flex items-center gap-2">
+                            <Square className="h-5 w-5" /> Sign Shape
+                        </Label>
+                        <RadioGroup
+                            className="grid grid-cols-4 gap-3"
+                            value={shape}
+                            onValueChange={(value) => setShape(value as SignShape)}
+                        >
+                            {(Object.keys(shapeLabels) as SignShape[]).map((key) => (
+                                <Label
+                                    key={key}
+                                    htmlFor={`shape-${key}`}
+                                    className="flex flex-col items-center gap-2 cursor-pointer p-2 border-2 border-transparent rounded-md hover:bg-muted has-[:checked]:border-primary transition-all"
+                                >
+                                    <RadioGroupItem value={key} id={`shape-${key}`} className="sr-only" />
+                                    <div
+                                        className="h-10 w-10 bg-muted-foreground/40 transition-transform duration-150 hover:-translate-y-0.5"
+                                        style={shapeStyles[key]}
+                                    />
+                                    <span className="text-xs font-medium text-center">{shapeLabels[key]}</span>
+                                </Label>
+                            ))}
+                        </RadioGroup>
+                    </div>
+
                     <div className="space-y-4">
                         <Label htmlFor="size-select" className="text-lg font-semibold font-headline flex items-center gap-2">
                             <Ruler className="h-5 w-5" /> Sign Size

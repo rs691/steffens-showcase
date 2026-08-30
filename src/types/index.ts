@@ -32,4 +32,7 @@ export type CartItem = {
   size: string;
   price: number;
   productId?: string;
+  /** Display-only customization — doesn't affect server pricing. */
+  textColor?: string;
+  shape?: "rectangle" | "oval" | "arch" | "house";
 };

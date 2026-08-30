@@ -17,9 +17,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        body: ['var(--font-source-sans)', 'system-ui', 'sans-serif'],
-        headline: ['var(--font-literata)', 'Georgia', 'serif'],
-        code: ['monospace'],
+        body: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        headline: ['var(--font-headline)', 'system-ui', 'sans-serif'],
+        code: ['var(--font-mono)', 'monospace'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -51,6 +51,10 @@ export default {
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
+        },
+        stamp: {
+          DEFAULT: 'hsl(var(--stamp))',
+          foreground: 'hsl(var(--stamp-foreground))',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -85,10 +89,21 @@ export default {
             height: '0',
           },
         },
+        engrave: {
+          from: { opacity: '0.4', transform: 'scale(0.98)' },
+          to: { opacity: '1', transform: 'scale(1)' },
+        },
+        'stamp-in': {
+          '0%': { opacity: '0', transform: 'scale(0.85) rotate(-8deg)' },
+          '60%': { opacity: '1', transform: 'scale(1.05) rotate(-2deg)' },
+          '100%': { opacity: '1', transform: 'scale(1) rotate(-2deg)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        engrave: 'engrave 220ms ease-out',
+        'stamp-in': 'stamp-in 260ms ease-out',
       },
     },
   },

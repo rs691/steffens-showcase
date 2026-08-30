@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 import { Menu, ShoppingCart } from "lucide-react";
 import Image from "next/image";
@@ -29,18 +30,18 @@ function BrandMark({ className, compact }: { className?: string; compact?: boole
       className={cn("flex min-w-0 items-center gap-2.5", className)}
     >
       <Image
-        src="/sd1.png"
+        src="/logo-mark.svg"
         alt=""
         width={32}
         height={32}
-        className="h-8 w-8 shrink-0 rounded-sm object-cover"
+        className="h-8 w-8 shrink-0"
         priority
       />
-      <span className="font-headline text-base font-semibold leading-tight tracking-tight sm:text-lg">
+      <span className="whitespace-nowrap font-headline text-base font-semibold leading-tight tracking-tight sm:text-lg">
         {compact ? (
           <>
-            <span className="sm:hidden">Steffens</span>
-            <span className="hidden sm:inline">Steffens Sign &amp; Design</span>
+            <span className="xl:hidden">Steffens</span>
+            <span className="hidden xl:inline">Steffens Sign &amp; Design</span>
           </>
         ) : (
           "Steffens Sign & Design"
@@ -58,7 +59,7 @@ export function Header({ username }: HeaderProps) {
 
   const linkClass = (href: string) =>
     cn(
-      "inline-flex h-10 items-center text-base font-medium leading-none transition-colors hover:text-primary",
+      "inline-flex h-10 items-center whitespace-nowrap text-base font-medium leading-none transition-colors hover:text-primary",
       pathname === href ? "text-primary" : "text-muted-foreground",
     );
 
@@ -83,7 +84,7 @@ export function Header({ username }: HeaderProps) {
     <>
       <Link
         href="/cart"
-        className="inline-flex h-10 items-center gap-2 text-base font-medium leading-none text-muted-foreground transition-colors hover:text-primary"
+        className="inline-flex h-10 items-center gap-2 whitespace-nowrap text-base font-medium leading-none text-muted-foreground transition-colors hover:text-primary"
         onClick={() => setIsMobileMenuOpen(false)}
       >
         <ShoppingCart className="h-5 w-5 shrink-0" aria-hidden />
@@ -96,13 +97,13 @@ export function Header({ username }: HeaderProps) {
       </Link>
       {username ? (
         <>
-          <span className="inline-flex h-10 max-w-[10rem] items-center truncate text-base leading-none text-muted-foreground">
+          <span className="inline-flex h-10 max-w-[10rem] items-center truncate whitespace-nowrap text-base leading-none text-muted-foreground">
             {username}
           </span>
           <button
             type="button"
             onClick={handleLogout}
-            className="inline-flex h-10 items-center text-base font-medium leading-none text-muted-foreground transition-colors hover:text-primary"
+            className="inline-flex h-10 items-center whitespace-nowrap text-base font-medium leading-none text-muted-foreground transition-colors hover:text-primary"
           >
             Log out
           </button>
@@ -120,17 +121,18 @@ export function Header({ username }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-[4.25rem] items-center overflow-hidden">
         <BrandMark compact className="min-w-0 shrink" />
-        <nav className="ml-8 hidden items-center gap-8 md:flex lg:ml-10 lg:gap-8">
+        <nav className="ml-8 hidden items-center gap-8 xl:flex xl:ml-10 xl:gap-8">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
         </nav>
-        <div className="ml-auto flex shrink-0 items-center justify-end gap-2">
-          <nav className="hidden items-center gap-8 md:flex">{accountLinks}</nav>
+        <div className="ml-auto flex shrink-0 items-center justify-end gap-4 sm:gap-6">
+          <ThemeToggle />
+          <nav className="hidden items-center gap-8 xl:flex">{accountLinks}</nav>
 
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="shrink-0 md:hidden">
+              <Button variant="ghost" size="icon" className="shrink-0 xl:hidden">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Toggle Menu</span>
               </Button>
