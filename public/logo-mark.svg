@@ -2,5 +2,5 @@
   <line x1="18" y1="20" x2="18" y2="60" stroke="#3B6E8F" stroke-width="4" stroke-linecap="round"/>
   <line x1="54" y1="20" x2="54" y2="60" stroke="#3B6E8F" stroke-width="4" stroke-linecap="round"/>
   <rect x="9" y="17" width="54" height="31" rx="3" fill="#211D17"/>
-  <text x="36" y="39.5" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="21" fill="#EDE7D8">S&amp;D</text>
+  <text x="36" y="40" text-anchor="middle" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="24" fill="#EDE7D8">S&amp;D</text>
 </svg>

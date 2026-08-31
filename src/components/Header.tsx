@@ -28,17 +28,17 @@ function BrandMark({ className, compact }: { className?: string; compact?: boole
   return (
     <Link
       href="/"
-      className={cn("flex min-w-0 items-center gap-2.5", className)}
+      className={cn("flex min-w-0 items-center gap-2", className)}
     >
       <Image
         src="/logo-mark.svg"
         alt=""
-        width={32}
-        height={32}
-        className="h-8 w-8 shrink-0"
+        width={40}
+        height={40}
+        className="h-9 w-9 shrink-0 lg:h-10 lg:w-10"
         priority
       />
-      <span className="whitespace-nowrap font-headline text-base font-semibold leading-tight tracking-tight sm:text-lg">
+      <span className="whitespace-nowrap font-headline text-lg font-semibold leading-none tracking-tight lg:text-xl">
         {compact ? (
           <>
             <span className="lg:hidden">Steffens</span>
