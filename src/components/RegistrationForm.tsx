@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { createBrowserSupabaseClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
@@ -27,26 +28,25 @@ export default function RegistrationForm() {
 
     setPending(true);
     try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-          name: name.trim() || undefined,
-        }),
+      const supabase = createBrowserSupabaseClient();
+      const displayName = name.trim() || email.trim().split("@")[0] || "member";
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email: email.trim().toLowerCase(),
+        password,
+        options: {
+          data: {
+            full_name: displayName,
+            username: email.trim().toLowerCase(),
+          },
+        },
       });
-      const data = (await response.json()) as {
-        error?: string;
-        signedIn?: boolean;
-      };
 
-      if (!response.ok) {
-        setError(data.error || "Registration failed");
+      if (signUpError) {
+        setError(signUpError.message);
         return;
       }
 
-      if (data.signedIn === false) {
+      if (!data.session) {
         router.push("/login");
         router.refresh();
         return;
